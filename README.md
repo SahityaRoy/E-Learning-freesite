@@ -26,17 +26,7 @@ watch the results in the right.</p>
 <li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - we are mainly use HTML!</li>
 <li class="has-line-data" data-line-start="28" data-line-end="29">[css] - for editing perpous</li>
 </ul>
-<h2 class="code-line" data-line-start=31 data-line-end=32 ><a id="Installation_31"></a>Installation</h2>
-<p class="has-line-data" data-line-start="33" data-line-end="34">Dillinger requires <a href="https://nodejs.org/">Node.js</a> v10+ to run.</p>
-<p class="has-line-data" data-line-start="35" data-line-end="36">Install the dependencies and devDependencies and start the server.</p>
-<pre><code class="has-line-data" data-line-start="38" data-line-end="42" class="language-sh"><span class="hljs-built_in">cd</span> dillinger
-npm i
-node app
-</code></pre>
-<p class="has-line-data" data-line-start="43" data-line-end="44">For production environments…</p>
-<pre><code class="has-line-data" data-line-start="46" data-line-end="49" class="language-sh">npm install --production
-NODE_ENV=production node app
-</code></pre>
+
 <h2 class="code-line" data-line-start=50 data-line-end=51 ><a id="Plugins_50"></a>Plugins</h2>
 <p class="has-line-data" data-line-start="52" data-line-end="54">Dillinger is currently extended with the following plugins.<br>
 Instructions on how to use them in your own application are linked below.</p>
