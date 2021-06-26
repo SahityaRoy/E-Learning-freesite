@@ -42,11 +42,7 @@ Instructions on how to use them in your own application are linked below.</p>
 </tr>
 </thead>
 <tbody></tbody>
-</table>
-<p class="has-line-data" data-line-start="58" data-line-end="62">| GitHub | <a href="https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md">https://github.com/SahityaRoy</a> |<br>
-| Details Video | <a href="https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md">https://drive.google.com/file/d/1XJgIJuBPlTwYw6SI73W29cn6mwL6QQ6P/view?usp=sharing</a> |<br>
-| Youtube | <a href="https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md">https://www.youtube.com/channel/UCqXTIC8hmyigUtYGVykQsug</a> |<br>
-| Page | <a href="https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md">https://www.linkedin.com/company/the-spammer/</a> |</p>
+
 <h2 class="code-line" data-line-start=63 data-line-end=64 ><a id="Development_63"></a>Development</h2>
 <p class="has-line-data" data-line-start="65" data-line-end="66">Want to contribute? Great!</p>
 <ul>
