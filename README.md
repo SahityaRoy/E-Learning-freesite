@@ -6,7 +6,7 @@
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
 <p align="left"> <a href="https://www.linkedin.com/in/sahitya-roy/" target="blank">
 
-<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.molecularecologist.com%2Fwp-content%2Fuploads%2F2013%2F11%2Fgithub-logo.jpg&f=1&nofb=1" alt="sahitya-roy" /></a> </p>	
+<img src="https://pbs.twimg.com/media/E46kAOpXMAQRgIY?format=jpg&name=small" alt="sahitya-roy" /></a> </p>	
 <p align="center">
    <img src="https://readme-typing-svg.herokuapp.com?color=45ffaa&size=40&width=900&height=80&lines=Welcome-to-Free-Learning-website-by-sahitya"/>
 </p>
