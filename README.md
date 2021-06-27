@@ -4,16 +4,14 @@
 
 <p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
-<p align="left"> <a href="https://www.linkedin.com/in/sahitya-roy/" target="blank"><img src="https://document-export.canva.com/Yn5V8/DAEgnQYn5V8/49/thumbnail/0001-3262440791.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20210625%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210625T072300Z&X-Amz-Expires=12413&X-Amz-Signature=37a2c09500a264fe0b6bf316e633b3fd26824cfbdcd1ec19f721250dfa1a7050&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2025%20Jun%202021%2010%3A49%3A53%20GMT" alt="sahitya-roy" /></a> </p>
+<p align="left"> <a href="https://www.linkedin.com/in/sahitya-roy/" target="blank">
 
- <p align="center">
-    <a href="https://github.com/Ayush7614"><img src="https://github.com/Ayush7614/Daily-Coding-DS-ALGO-Practice/blob/main/images/manufacturetocat.png" width=400px, height=400px 
- </a> 
-</p>
-	
+<img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.molecularecologist.com%2Fwp-content%2Fuploads%2F2013%2F11%2Fgithub-logo.jpg&f=1&nofb=1" alt="sahitya-roy" /></a> </p>	
 <p align="center">
    <img src="https://readme-typing-svg.herokuapp.com?color=45ffaa&size=40&width=900&height=80&lines=Welcome-to-Free-Learning-website-by-sahitya"/>
 </p>
+
+
 <ul>
 <li class="has-line-data" data-line-start="4" data-line-end="5">Type some Markdown on the left</li>
 <li class="has-line-data" data-line-start="5" data-line-end="6">See HTML in the right</li>
@@ -85,3 +83,19 @@ Make a change in your file and instantaneously see your updates!</li>
 <h2 class="code-line" data-line-start=116 data-line-end=117 ><a id="License_116"></a>License</h2>
 <p class="has-line-data" data-line-start="118" data-line-end="119">@Copyright SahityaRoy 2021-2024</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121"><strong>Free Software, Hell Yeah!</strong></p>
+	
+	
+	<h1 align=center> Project Admin ❤️ </h1>
+<p align="center">
+  <a href="https://github.com/SahityaRoy"><img src="https://media-exp1.licdn.com/dms/image/C5603AQFK5UqgVb7CqQ/profile-displayphoto-shrink_400_400/0/1621068294371?e=1630540800&v=beta&t=rgRANljo1FJ_yhpHW5qvbuB5SbD5xqPGglnL-CWUte4" width=150px height=150px /></a> 
+    
+<p align="center">
+  <a target="_blank"href="https://www.linkedin.com/in/sahitya-roy/"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a target="_blank"href="https://twitter.com/SahityaRoy07"><img src="https://img.shields.io/badge/twitter-%231DA1F2.svg?&style=for-the-badge&logo=twitter&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="mailto:sahitya.roy@uem.edu.in?subject=Hello%20Harsh,%20From%20Github"><img src="https://img.shields.io/badge/gmail-%23D14836.svg?&style=for-the-badge&logo=gmail&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://SahityaRoy.hashnode.dev/"><img src="https://img.shields.io/badge/hashnode-%27D1203.svg?&style=for-the-badge&logo=hashnode&logoColor=blue" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+
+
+<h1 align=center>Happy Coding 👨‍💻 </h1>
+
