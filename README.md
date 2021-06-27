@@ -5,6 +5,15 @@
 <p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
 <p align="left"> <a href="https://www.linkedin.com/in/sahitya-roy/" target="blank"><img src="https://document-export.canva.com/Yn5V8/DAEgnQYn5V8/49/thumbnail/0001-3262440791.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20210625%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210625T072300Z&X-Amz-Expires=12413&X-Amz-Signature=37a2c09500a264fe0b6bf316e633b3fd26824cfbdcd1ec19f721250dfa1a7050&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2025%20Jun%202021%2010%3A49%3A53%20GMT" alt="sahitya-roy" /></a> </p>
+
+ <p align="center">
+    <a href="https://github.com/Ayush7614"><img src="https://github.com/Ayush7614/Daily-Coding-DS-ALGO-Practice/blob/main/images/manufacturetocat.png" width=400px, height=400px 
+ </a> 
+</p>
+	
+<p align="center">
+   <img src="https://readme-typing-svg.herokuapp.com?color=45ffaa&size=40&width=900&height=80&lines=Welcome-to-Free-Learning-website-by-sahitya"/>
+</p>
 <ul>
 <li class="has-line-data" data-line-start="4" data-line-end="5">Type some Markdown on the left</li>
 <li class="has-line-data" data-line-start="5" data-line-end="6">See HTML in the right</li>
