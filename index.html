@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">   
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"> 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> 
 </head>
 <body>
 
@@ -234,36 +239,39 @@
         Testimonial 
     ==============
     -->  
-    <section class="testimonial-section sec-padding">      
-        <div class="container">
-            <h2 class="text-center title-text">Owner Talk</h2>  
-            <div class="row">
-                <div class="col-md-9 mx-auto">
-                    <div class="testimonial-inner d-lg-flex justify-content-between">
-                        <img src="icons8-person-male-skin-type-4-80.png" height="100"/>
-                        <p>"Any adept programmer, not only needs to be good at programming but also has to stay abreast of the upcoming happenings in programming. Just learning to code won't give you a big edge over the others."
-                        <br>-Sahitya Roy
-                        </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-center m-auto">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel -->
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="img-box"><img src="icons8-person-male-skin-type-4-80.png" alt=""></div>
+                            <p class="testimonial">"Any adept programmer, not only needs to be good at programming but also has to stay abreast of the upcoming happenings in programming. Just learning to code won't give you a big edge over the others."</p>
+                            <p class="overview"><b>-Sahitya Roy</b>, Site owner</p>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="img-box"><img src="businesswoman.png" alt=""></div>
+                            <p class="testimonial">"Most good programmers do programming not because they expect to get paid or get adulation by the public, but it is fun to program." </p>
+                            <p class="overview"><b>-Priya Chandak</b>, Site owner</p>
+                        </div>
+                        <!-- <div class="item carousel-item">
+                            <div class="img-box"><img src="https://i.ibb.co/Trv7hDv/img3.jpg" alt=""></div>
+                            <p class="testimonial">Phasellus vitae suscipit justo. Mauris pharetra feugiat ante id lacinia. Etiam faucibus mauris id tempor egestas. Duis luctus turpis at accumsan tincidunt. Phasellus risus risus, volutpat vel tellus ac, tincidunt fringilla massa. Etiam hendrerit dolor eget rutrum.</p>
+                            <p class="overview"><b>Hellen Wright</b>, Athelete</p>
+                        </div> -->
                     </div>
+                    <!-- Carousel Controls -->
+                    <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
-    </section> 
-    <section class="testimonial-section sec-padding">      
-        <div class="container">
-           <!-- <h2 class="text-center title-text">Owner Talk</h2>  -->
-            <div class="row">
-                <div class="col-md-9 mx-auto">
-                    <div class="testimonial-inner d-lg-flex justify-content-between">
-                        <img src="businesswoman.png" height="100"/>
-                        <p>"Most good programmers do programming not because they expect to get paid or get adulation by the public, but it is fun to program." 
-                            <br>-Priya Chandak
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> 
+    </div>
     <!--
     ==============
         Subscribe 
