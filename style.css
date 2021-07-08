@@ -25,6 +25,9 @@ body {
   border: none;
   border-radius: 33px;
 }
+.nav-btn:hover{
+  background-color: #1d9660;
+}
 
 /* Header section */
 .header-section {
@@ -66,6 +69,9 @@ body {
   background-color: #1d9660;
 }
 
+.gotopbtn:hover{
+  background-color: #1d9660;
+}
 /* Cards section */
 .cards-section {
   margin-top: 40px;
@@ -113,6 +119,9 @@ body {
   background: #ffffff;
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
   border-radius: 18px;
+}
+.card:hover{
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 .card-img-top {
   padding: 20px;
