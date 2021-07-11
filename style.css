@@ -28,6 +28,19 @@ body {
 .nav-btn:hover{
   background-color: #1d9660;
 }
+.nav-btn{
+  background-position: center;
+  transition: background 0.8s;
+}
+.nav-btn:hover {
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+}
+.nav-btn:active {
+  background-color: white;
+  background-size: 100%;
+  transition: background 0s;
+}
+
 
 /* Header section */
 .header-section {
@@ -68,6 +81,20 @@ body {
 .get-btn:hover {
   background-color: #1d9660;
 }
+.get-btn{
+  background-position: center;
+  transition: background 0.8s;
+}
+.get-btn:hover {
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+}
+.get-btn:active {
+  background-color: white;
+  background-size: 100%;
+  transition: background 0s;
+  border: 0px;
+}
+
 
 .gotopbtn:hover{
   background-color: #1d9660;
@@ -150,6 +177,18 @@ body {
 }
 .buy-btn:hover {
   background-color: #1d9660;
+}
+.buy-btn{
+  background-position: center;
+  transition: background 0.8s;
+}
+.buy-btn:hover {
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+}
+.buy-btn:active {
+  background-color: white;
+  background-size: 100%;
+  transition: background 0s;
 }
 .card-footer {
   background: #ffffff;
@@ -482,6 +521,18 @@ body {
   color: white;
   font-size: 22px;
   border-radius: 50%;
+}
+.gotopbtn{
+  background-position: center;
+  transition: background 0.8s;
+}
+.gotopbtn:hover {
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+}
+.gotopbtn:active {
+  background-color: white;
+  background-size: 100%;
+  transition: background 0s;
 }
 
 .fas {
