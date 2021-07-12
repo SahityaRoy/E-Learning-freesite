@@ -21,7 +21,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body class="no-scroll-preload">
+    <div class="loader-container">
+        <div class="atom">
+            <div class="electron"></div>
+            <div class="electron-alpha"></div>
+            <div class="electron-omega"></div>
+        </div>
+    </div>
 
     <!-- Back to top button -->
     <a class="gotopbtn" href="#"> <i class="fas fa-arrow-up"></i> </a>
@@ -407,6 +414,22 @@
             $(this).toggleClass("fill-back").siblings();
         });
     </script>
+    <script>
+        let loader = document.querySelector(".loader-container");
+    
+    window.addEventListener("load", vanish);
+    
+    function vanish() {
+      loader.classList.add("disappear");
+    }
+    $(function () {
+      $("a.nav-link").each(function () {
+        if ($(this).prop("href") == window.location.href) {
+          $(this).addClass("current-link");
+        }
+      });
+    });
+        </script>
 </body>
 
 </html>
