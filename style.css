@@ -288,6 +288,8 @@ body {
   border-radius: 50%;
   margin: 10px;
   margin-bottom: 50px;
+  background-color: white;
+  padding: 3px;
 }
 .footer-p p {
   font-weight: normal;
