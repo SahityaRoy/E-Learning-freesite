@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,700&display=swap"
         rel="stylesheet">
+        <link rel="icon" href='favicon.png' type="image/png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -37,30 +38,31 @@
                 <a class="navbar-brand" href="#">
                     <img src="images/logo.svg" alt="">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!--------HAMBURGER MENU -------->
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                  </a>
+
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link"
-                                href="https://github.com/EbookFoundation/free-programming-books">Books</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/EbookFoundation/free-programming-books" target="_blank">Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://www.learnvern.com/auth/register">Course</a>
+                            <a class="nav-link" href="https://sahityaroy.hashnode.dev/" target="_blank">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#others">Others</a>
+                            <a class="nav-link" href="#course">Courses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://sahityaroy.hashnode.dev/">Blog</a>
+                            <a class="nav-link" href="#start-learning">Start Learning</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-btn get-btn" href="https://forms.gle/XRqaRiaLdNxh7Ykk6">Register</a>
+                            <a class="nav-link nav-btn get-btn" href="https://forms.gle/XRqaRiaLdNxh7Ykk6" target="_blank">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-btn get-btn" href="https://www.buymeacoffee.com/sahityaroy">Support</a>
+                            <a class="nav-link nav-btn get-btn" href="https://www.buymeacoffee.com/sahityaroy" target="_blank">Support</a>
                         </li>
                     </ul>
                 </div>
@@ -83,7 +85,7 @@
                         <p>Now-a-days programming is one of the booming career in industry. It is profitable for one to
                             learn programming as there is an
                             enormous demand for good programmers in the industry.</p>
-                        <button class="get-btn" href="buymeacoffee.com/sahityaroy">Donate</button>
+                        <button class="get-btn" ><a href="https://www.buymeacoffee.com/sahityaroy" target="_blank" class="link">DONATE</a></button>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 ml-auto">
@@ -100,6 +102,7 @@
     ==============
     -->
     <section class="cards-section sec-padding">
+        <br>
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-lg-3 col-sm-6">
@@ -222,7 +225,7 @@
         Video 
     ==============
     -->
-    <section class="video-section sec-padding" id="others">
+    <section class="video-section sec-padding" id="start-learning">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 d-flex align-items-center">
@@ -407,6 +410,18 @@
             $(this).toggleClass("fill-back").siblings();
         });
     </script>
+    
+    <script>
+        function myFunction() {
+          var x = document.getElementById("navbarNav");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "block";
+          }
+        }
+        </script>
 </body>
+
 
 </html>

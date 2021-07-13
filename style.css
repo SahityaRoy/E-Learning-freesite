@@ -4,14 +4,17 @@ html {
 body {
   font-family: "Poppins", sans-serif;
 }
-.nav-item a {
-  font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-}
+
 .sec-padding {
   padding-bottom: 80px;
 }
+
+.img-fluid:hover{
+  transform: scale(1.06);
+  transition: 0.5s all ease-in-out;
+  cursor: pointer;
+}
+
 .fixed-top {
   background: #f0fff0;
 }
@@ -25,9 +28,7 @@ body {
   border: none;
   border-radius: 33px;
 }
-.nav-btn:hover{
-  background-color: #1d9660;
-}
+
 .nav-btn{
   background-position: center;
   transition: background 0.8s;
@@ -35,10 +36,11 @@ body {
 .nav-btn:hover {
   background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
 }
-.nav-btn:active {
-  background-color: white;
-  background-size: 100%;
-  transition: background 0s;
+.nav-link:hover{
+  transform: scale(1.05);
+  transition: 0.5s all ease-in-out;
+font-size: 17.5px;
+
 }
 
 
@@ -72,21 +74,23 @@ body {
 }
 .get-btn {
   padding: 12px 35px;
-  background-color: #21b573;
+  background-color: #22c27a ;
   color: #ffffff;
   border: none;
   border-radius: 33px;
   transition: all 0.3s;
 }
 .get-btn:hover {
-  background-color: #1d9660;
+  background-color: #2b9b6a;
+  transform: scale(1.05);
+  transition: 0.5s all ease-in-out;
 }
 .get-btn{
   background-position: center;
-  transition: background 0.8s;
+  transition:smooth background 0.6s;
 }
 .get-btn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+  background: #2b9b6a radial-gradient(circle, transparent 1%, #2b9b6a 1%) center/15000%;
 }
 .get-btn:active {
   background-color: white;
@@ -95,9 +99,23 @@ body {
   border: 0px;
 }
 
+/* DONATE BUTTONS */
+.link{
+  color: white;
+  text-decoration: none;
+}
+
+.link:hover
+{
+  color:#f5f5f5;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 
 .gotopbtn:hover{
-  background-color: #1d9660;
+  background-color: #5bb18a;
 }
 /* Cards section */
 .cards-section {
@@ -401,13 +419,25 @@ body {
   line-height: 20px;
   color: black;
 }
+.icon{
+  color: #8fbc8f;
+font-size:28px;
+}
 
+.icon:hover{
+  color:#2e8b57;
+}
 /* Responsive Css */
+
+@media only screen and (min-width: 1080px) {
+  .icon{
+    visibility:hidden;
+  }
+}
 @media only screen and (max-width: 1024px) {
   .header-section {
     padding-top: 80px;
   }
-
 }
 @media only screen and (max-width: 991px) {
   .header-section {
@@ -430,10 +460,7 @@ body {
   .testimonial-inner p {
     margin-left: 0;
   }
-  .nav-btn {
-    max-width: 20%;
-    text-align: center;
-  }
+
   .footer-section .container .row .col-lg-5 {
     padding-top: 5px;
     padding-left: 15px;
@@ -443,6 +470,12 @@ body {
   }
   .footer-list-item ul {
     margin-bottom: 20px;
+  }
+  .nav-btn {
+    width:24%;
+    height:15%;
+    margin-bottom: 7px;
+    text-align: center;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -462,6 +495,7 @@ body {
   .footer-list-item ul {
     margin-bottom: 20px;
   }
+  
 }
 @media only screen and (max-width: 575px) {
   .header-details h1 {
@@ -473,6 +507,7 @@ body {
     font-size: 14px;
     line-height: 26px;
   }
+  
 }
 
 @media only screen and (max-width: 454px) {
@@ -491,7 +526,15 @@ body {
     line-height: 30px;
     font-size: 22px;
   }
-}
+  .nav-btn {
+    width:32%;
+    height:15%;
+    margin-bottom: 7px;
+    text-align: left;
+  }
+  }
+
+
 @media only screen and (max-width: 364px) {
   .social-icons li {
     height: 40px;
@@ -508,6 +551,28 @@ body {
     line-height: 25px;
     font-size: 20px;
   }
+  .nav-btn {
+    padding: 10px 28px !important;
+    background-color: #21b573;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 33px;
+  }
+  
+  .nav-btn{
+    background-position: center;
+    transition: background 0.8s;
+  }
+  .nav-btn:hover {
+    background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+  }
+  .nav-link:hover{
+    transform: scale(1.05);
+    transition: 0.5s all ease-in-out;
+  font-size: 17.5px;
+  
+  }
+  
 }
 
 /*Back to top button */
