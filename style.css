@@ -194,6 +194,9 @@ body {
   background: #ffffff;
   border-top: 0px;
   border-radius: 18px !important;
+  margin-bottom: 15px;
+  width: 91%;
+  margin-left: inherit;
 }
 .date img {
   width: 24px;
