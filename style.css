@@ -4,12 +4,34 @@ html {
 body {
   font-family: "Poppins", sans-serif;
 }
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff; /* change if the mask should have another color then white */
+  z-index: 99999; /* makes sure it stays on top */
+}
+#status {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%; /* centers the loading animation horizontally one the screen */
+  top: 50%; /* centers the loading animation vertically one the screen */
+  background-image: url("book.gif");
+  z-index: 9999; /* path to your loading animation */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: -50px 0 0 -50px; /* is width and height divided by two */
+}
 
 .sec-padding {
   padding-bottom: 80px;
 }
 
-.img-fluid:hover{
+.img-fluid:hover {
   transform: scale(1.06);
   transition: 0.5s all ease-in-out;
   cursor: pointer;
@@ -29,20 +51,19 @@ body {
   border-radius: 33px;
 }
 
-.nav-btn{
+.nav-btn {
   background-position: center;
   transition: background 0.8s;
 }
 .nav-btn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
+    center/15000%;
 }
-.nav-link:hover{
+.nav-link:hover {
   transform: scale(1.05);
   transition: 0.5s all ease-in-out;
-font-size: 17.5px;
-
+  font-size: 17.5px;
 }
-
 
 /* Header section */
 .header-section {
@@ -74,7 +95,7 @@ font-size: 17.5px;
 }
 .get-btn {
   padding: 12px 35px;
-  background-color: #22c27a ;
+  background-color: #22c27a;
   color: #ffffff;
   border: none;
   border-radius: 33px;
@@ -85,12 +106,13 @@ font-size: 17.5px;
   transform: scale(1.05);
   transition: 0.5s all ease-in-out;
 }
-.get-btn{
+.get-btn {
   background-position: center;
-  transition:smooth background 0.6s;
+  transition: smooth background 0.6s;
 }
 .get-btn:hover {
-  background: #2b9b6a radial-gradient(circle, transparent 1%, #2b9b6a 1%) center/15000%;
+  background: #2b9b6a radial-gradient(circle, transparent 1%, #2b9b6a 1%)
+    center/15000%;
 }
 .get-btn:active {
   background-color: white;
@@ -100,21 +122,19 @@ font-size: 17.5px;
 }
 
 /* DONATE BUTTONS */
-.link{
+.link {
   color: white;
   text-decoration: none;
 }
 
-.link:hover
-{
-  color:#f5f5f5;
+.link:hover {
+  color: #f5f5f5;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
 }
 
-
-.gotopbtn:hover{
+.gotopbtn:hover {
   background-color: #5bb18a;
 }
 /* Cards section */
@@ -165,7 +185,7 @@ font-size: 17.5px;
   box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.1);
   border-radius: 18px;
 }
-.card:hover{
+.card:hover {
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 .card-img-top {
@@ -196,12 +216,13 @@ font-size: 17.5px;
 .buy-btn:hover {
   background-color: #1d9660;
 }
-.buy-btn{
+.buy-btn {
   background-position: center;
   transition: background 0.8s;
 }
 .buy-btn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
+    center/15000%;
 }
 .buy-btn:active {
   background-color: white;
@@ -421,19 +442,19 @@ font-size: 17.5px;
   line-height: 20px;
   color: black;
 }
-.icon{
+.icon {
   color: #8fbc8f;
-font-size:28px;
+  font-size: 28px;
 }
 
-.icon:hover{
-  color:#2e8b57;
+.icon:hover {
+  color: #2e8b57;
 }
 /* Responsive Css */
 
 @media only screen and (min-width: 1080px) {
-  .icon{
-    visibility:hidden;
+  .icon {
+    visibility: hidden;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -474,8 +495,8 @@ font-size:28px;
     margin-bottom: 20px;
   }
   .nav-btn {
-    width:24%;
-    height:15%;
+    width: 24%;
+    height: 15%;
     margin-bottom: 7px;
     text-align: center;
   }
@@ -497,7 +518,6 @@ font-size:28px;
   .footer-list-item ul {
     margin-bottom: 20px;
   }
-  
 }
 @media only screen and (max-width: 575px) {
   .header-details h1 {
@@ -509,7 +529,6 @@ font-size:28px;
     font-size: 14px;
     line-height: 26px;
   }
-  
 }
 
 @media only screen and (max-width: 454px) {
@@ -529,13 +548,12 @@ font-size:28px;
     font-size: 22px;
   }
   .nav-btn {
-    width:32%;
-    height:15%;
+    width: 32%;
+    height: 15%;
     margin-bottom: 7px;
     text-align: left;
   }
-  }
-
+}
 
 @media only screen and (max-width: 364px) {
   .social-icons li {
@@ -560,21 +578,20 @@ font-size:28px;
     border: none;
     border-radius: 33px;
   }
-  
-  .nav-btn{
+
+  .nav-btn {
     background-position: center;
     transition: background 0.8s;
   }
   .nav-btn:hover {
-    background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+    background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
+      center/15000%;
   }
-  .nav-link:hover{
+  .nav-link:hover {
     transform: scale(1.05);
     transition: 0.5s all ease-in-out;
-  font-size: 17.5px;
-  
+    font-size: 17.5px;
   }
-  
 }
 
 /*Back to top button */
@@ -592,12 +609,13 @@ font-size:28px;
   font-size: 22px;
   border-radius: 50%;
 }
-.gotopbtn{
+.gotopbtn {
   background-position: center;
   transition: background 0.8s;
 }
 .gotopbtn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
+    center/15000%;
 }
 .gotopbtn:active {
   background-color: white;
