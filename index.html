@@ -23,6 +23,11 @@
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div id="preloader"> 
+        <div id="status">
+        </div> 
+      </div>
 
     <!-- Back to top button -->
     <a class="gotopbtn" href="#"> <i class="fas fa-arrow-up"></i> </a>
@@ -698,6 +703,14 @@
             x.style.display = "block";
           }
         }
+        </script>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <script    type="text/javascript">
+        $(window).load(function() { // makes sure the whole site is loaded
+        $('#status').fadeOut(); // will first fade out the loading animation
+        $('#preloader').delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
+        $('body').delay(50).css({'overflow':'visible'});
+        })
         </script>
 </body>
 
