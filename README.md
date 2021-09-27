@@ -10,7 +10,6 @@
    <img src="https://user-images.githubusercontent.com/72821604/134854638-bf82a21b-06ae-4308-9e44-a4727b52c7d6.jpg"/>
 </p>
 
-
 <ul>
 <li class="has-line-data" data-line-start="4" data-line-end="5">Type some Markdown on the left</li>
 <li class="has-line-data" data-line-start="5" data-line-end="6">See HTML in the right</li>
@@ -102,9 +101,6 @@ Make a change in your file and instantaneously see your updates!</li>
 	
 <a href="https://github.com/SahityaRoy/E-Learning-freesite/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=SahityaRoy/E-Learning-freesite" />
-</a>	
-
-	
+</a>
 
 <h1 align=center>Happy Coding 👨‍💻 </h1>
-
