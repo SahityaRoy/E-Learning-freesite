@@ -1,5 +1,10 @@
+![](https://hacktoberfest.digitalocean.com/_nuxt/img/logo-hacktoberfest-full.f42e3b1.svg)
+[**Hacktoberfest**](https://hacktoberfest.digitalocean.com/) is a month long event where people are awarded for contributing to open source projects 🙌, and we're joining the party. Hosted by [**DigitalOcean**](https://www.digitalocean.com/) for the 8th year in a row, Hacktoberfest encourages participation in giving back to the open source community by completing pull requests, participating in events, and donating to open source projects.
+
+<b>This repo will be <u> partcipating </u> in the Hacktoberfest event, so raise issues and stay tuned with us for more .</b>
+
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Welcome_to_Free_Learning_site_0"></a>Welcome to Free Learning site</h1>
-<h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>I am sahitya roy owner of this project if you want to contribute please feel free to connect with m</em></h2>
+<h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>I am sahitya roy owner of this project if you want to contribute please feel free to connect with me this project under Hackclub </em></h2>
 <p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place students can access all the recourse through this side and i will put this site on my github publicly so that students can contribute and add more and more features…</p>
 
 <p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
