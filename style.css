@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 #preloader {
@@ -26,7 +26,7 @@ body {
   /* centers the loading animation horizontally one the screen */
   top: 50%;
   /* centers the loading animation vertically one the screen */
-  background-image: url("book.gif");
+  background-image: url('book.gif');
   z-index: 9999;
   /* path to your loading animation */
   background-repeat: no-repeat;
@@ -817,4 +817,18 @@ body {
 
 .darkmode-toggle {
   z-index: 1031;
+}
+
+/* Fixing Darkmode Text Contrast */
+
+body.darkmode--activated .header-details h1,
+body.darkmode--activated .video-details h2 {
+  color: whitesmoke;
+}
+
+body.darkmode--activated .header-details p,
+body.darkmode--activated .video-details p,
+body.darkmode--activated .testimonial,
+body.darkmode--activated .overview {
+  color: rgb(209, 209, 209);
 }
