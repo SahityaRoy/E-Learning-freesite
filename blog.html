@@ -1,148 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>E-school blog</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon/favicon.ico" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-       <link rel="stylesheet" href="blog.css">
-       <link 
-       href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
-       rel="stylesheet"  type='text/css'>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="blog.css" />
+    <link
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
- 
-</head>
-<body style="background-color: #f0fff0;">
-    <div id="preloader"> 
-        <div id="status">
-        </div> 
-      </div>
+  </head>
+  <body style="background-color: #f0fff0">
+    <div id="preloader">
+      <div id="status"></div>
+    </div>
 
     <header class="nav-scroll mh-xss-mobile-nav">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand mt-1" href="./index.html">
-                    <img src="images/logo.svg" alt="">
-                </a>
-                <!--------HAMBURGER MENU -------->
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                    <i class="fa fa-bars"></i>
-                  </a>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand mt-1" href="./index.html">
+            <img src="images/logo.svg" alt="" />
+          </a>
+          <!--------HAMBURGER MENU -------->
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
 
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link mt-1" href="https://github.com/EbookFoundation/free-programming-books" target="_blank">Books</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mt-1" href="https://sahityaroy.hashnode.dev/" target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-success mr-2 mt-1" href="https://forms.gle/XRqaRiaLdNxh7Ykk6" target="_blank">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class=" btn btn-success mr-2 mt-1" href="https://www.buymeacoffee.com/sahityaroy" target="_blank">Support</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a
+                  class="nav-link mt-1"
+                  href="https://github.com/EbookFoundation/free-programming-books"
+                  target="_blank"
+                  >Books</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link mt-1"
+                  href="https://sahityaroy.hashnode.dev/"
+                  target="_blank"
+                  >Blog</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="btn btn-success mr-2 mt-1"
+                  href="https://forms.gle/XRqaRiaLdNxh7Ykk6"
+                  target="_blank"
+                  >Register</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="btn btn-success mr-2 mt-1"
+                  href="https://www.buymeacoffee.com/sahityaroy"
+                  target="_blank"
+                  >Support</a
+                >
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </header>
-    <section >
-            <div class="container">
-                <div class="text-center mt-8">
-                  <h1>BLOG</h1>
+    <section>
+      <div class="container">
+        <div class="text-center mt-8">
+          <h1>BLOG</h1>
+        </div>
+        <div class="container">
+          <div class="card-columns">
+            <div class="card">
+              <a href="./blogs/blog1.html">
+                <img
+                  class="card-img-top"
+                  src="./images/blogimages/austin-distel-wD1LRb9OeEo-unsplash.jpg "
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Do you know how the web developer teams are organised.
+                  </h5>
+                  <p class="card-text">
+                    A web developer may work with technology, but working with
+                    people is also an important feature for this professional
+                    profiles. Did you know that “teamwork” is in the TOP 5 of
+                    the most valued soft skills? And that in 2020 it will be
+                    even more relevant than it is today? The Future Work
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      ><i class="fa fa-eye"></i>123<i class="fa fa-user"></i
+                      >admin<i class="fa fa-calendar-alt"></i>Jan 20,
+                      2018</small
+                    >
+                  </p>
                 </div>
-                <div class="container">
-                  <div class="card-columns">
-                    <div class="card">
-                      <a href="./blogs/blog1.html">
-                      <img class="card-img-top" src="./images/blogimages/austin-distel-wD1LRb9OeEo-unsplash.jpg " alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Do you know how the web developer teams are organised.</h5>
-                        <p class="card-text">
-                            A web developer may work with technology, but working with people is also an important feature for this professional profiles. Did you know that “teamwork” is in the TOP 5 of the most valued soft skills? And that in 2020 it will be even more relevant than it is today? The Future Work   </p>
-                        <p class="card-text"><small class="text-muted"><i class="fa fa-eye"></i>123<i class="fa fa-user"></i>admin<i class="fa fa-calendar-alt"></i>Jan 20, 2018</small></p>
-                    </div>
-                      </a>
-                    </div>
-                    <div class="card">
-                      <a href="/blogs/blog5.html">
-                      <img class="card-img-top" src="./images/blogimages/fotis-fotopoulos-DuHKoV44prg-unsplash.jpg" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Modern client-side routing: the App History API</h5>
-                        <p class="card-text">Single-page applications, or SPAs, are defined by a core feature: dynamically rewriting their content as the user interacts with the site, instead of the default method of loading entirely new pages from the server.</p>
-                        <p class="card-text"><small class="text-muted"><i class="fa fa-eye"></i>12430<i class="fa fa-user"></i>admin<i class="fa fa-calendar-alt"></i>Jan 20, 2018</small></p>
-                      </div>
-                      </a>
-                    </div>
-                    <div class="card">
-                      <a href="/blogs/blog2.html">
-                      <img class="card-img-top" src="./images/blogimages/nathan-da-silva-k-rKfqSm4L4-unsplash.jpg" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Using CSS Module Scripts to import stylesheets.</h5>
-                        <p class="card-text">With the new CSS module scripts feature, you can load CSS style sheets with import statements, just like JavaScript modules. The style sheets </p>
-                        <p class="card-text"><small class="text-muted"><i class="fa fa-eye"></i>153<i class="fa fa-user"></i>admin<i class="fa fa-calendar-alt"></i>Jan 20, 2018</small></p>
-                      </div>
-                      </a>
-                    </div>
-                    <div class="card">
-                      <a href="/blogs/blog6.html">
-                      <img class="card-img-top" src="./images/blogimages/h-heyerlein-ndja2LJ4IcM-unsplash.jpg" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">A performance-focused workflow based on Google tools</h5>
-                        <p class="card-text">With the Core Web Vitals (CWV) metrics now incorporated into Page experience signals, user experience optimization has increasingly become top of mind for website owners.</p>
-                        <p class="card-text"><small class="text-muted"><i class="fa fa-eye"></i>43<i class="fa fa-user"></i>admin<i class="fa fa-calendar-alt"></i>Jan 20, 2018</small></p>
-                      </div>
-                      </a>
-                    </div>
-                    <div class="card">
-                      <a href="/blogs/blog3.html">
-                      <img class="card-img-top" src="./images/blogimages/markus-spiske-iar-afB0QQw-unsplash.jpg" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">Building a breadcrumbs component</h5>
-                        <p class="card-text">A foundational overview of how to build a responsive and accessible breadcrumbs component for users to navigate your site.</p>
-                        <p class="card-text"><small class="text-muted"><i class="fa fa-eye"></i>100<i class="fa fa-user"></i>admin<i class="fa fa-calendar-alt"></i>Jan 20, 2018</small></p>
-                      </div>
-                      </a>
-                    </div>
-                    <div class="card">
-                      <a href="/blogs/blog4.html">
-                      <img class="card-img-top" src="./images/blogimages/ray-rui-SyzQ5aByJnE-unsplash.jpg" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">JavaScript: What is the meaning of this?</h5>
-                        <p class="card-text">JavaScript's this is the butt of many jokes, and that's because, well, it's pretty complicated. However, I've seen developers do much-more-</p>
-                        <p class="card-text"><small class="text-muted"><i class="fa fa-eye"></i>600<i class="fa fa-user"></i>admin<i class="fa fa-calendar"></i>Jan 20, 2018</small></p>
-                      </div>
-                      </a>
-                    </div>
-                  </div>
-             </div>
-         </div>
+              </a>
+            </div>
+            <div class="card">
+              <a href="/blogs/blog5.html">
+                <img
+                  class="card-img-top"
+                  src="./images/blogimages/fotis-fotopoulos-DuHKoV44prg-unsplash.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Modern client-side routing: the App History API
+                  </h5>
+                  <p class="card-text">
+                    Single-page applications, or SPAs, are defined by a core
+                    feature: dynamically rewriting their content as the user
+                    interacts with the site, instead of the default method of
+                    loading entirely new pages from the server.
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      ><i class="fa fa-eye"></i>12430<i class="fa fa-user"></i
+                      >admin<i class="fa fa-calendar-alt"></i>Jan 20,
+                      2018</small
+                    >
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="card">
+              <a href="/blogs/blog2.html">
+                <img
+                  class="card-img-top"
+                  src="./images/blogimages/nathan-da-silva-k-rKfqSm4L4-unsplash.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    Using CSS Module Scripts to import stylesheets.
+                  </h5>
+                  <p class="card-text">
+                    With the new CSS module scripts feature, you can load CSS
+                    style sheets with import statements, just like JavaScript
+                    modules. The style sheets
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      ><i class="fa fa-eye"></i>153<i class="fa fa-user"></i
+                      >admin<i class="fa fa-calendar-alt"></i>Jan 20,
+                      2018</small
+                    >
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="card">
+              <a href="/blogs/blog6.html">
+                <img
+                  class="card-img-top"
+                  src="./images/blogimages/h-heyerlein-ndja2LJ4IcM-unsplash.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    A performance-focused workflow based on Google tools
+                  </h5>
+                  <p class="card-text">
+                    With the Core Web Vitals (CWV) metrics now incorporated into
+                    Page experience signals, user experience optimization has
+                    increasingly become top of mind for website owners.
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      ><i class="fa fa-eye"></i>43<i class="fa fa-user"></i
+                      >admin<i class="fa fa-calendar-alt"></i>Jan 20,
+                      2018</small
+                    >
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="card">
+              <a href="/blogs/blog3.html">
+                <img
+                  class="card-img-top"
+                  src="./images/blogimages/markus-spiske-iar-afB0QQw-unsplash.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Building a breadcrumbs component</h5>
+                  <p class="card-text">
+                    A foundational overview of how to build a responsive and
+                    accessible breadcrumbs component for users to navigate your
+                    site.
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      ><i class="fa fa-eye"></i>100<i class="fa fa-user"></i
+                      >admin<i class="fa fa-calendar-alt"></i>Jan 20,
+                      2018</small
+                    >
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="card">
+              <a href="/blogs/blog4.html">
+                <img
+                  class="card-img-top"
+                  src="./images/blogimages/ray-rui-SyzQ5aByJnE-unsplash.jpg"
+                  alt="Card image cap"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">
+                    JavaScript: What is the meaning of this?
+                  </h5>
+                  <p class="card-text">
+                    JavaScript's this is the butt of many jokes, and that's
+                    because, well, it's pretty complicated. However, I've seen
+                    developers do much-more-
+                  </p>
+                  <p class="card-text">
+                    <small class="text-muted"
+                      ><i class="fa fa-eye"></i>600<i class="fa fa-user"></i
+                      >admin<i class="fa fa-calendar"></i>Jan 20, 2018</small
+                    >
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-    
-</body>
+  </body>
 </html>
 <script>
-    function myFunction() {
-      var x = document.getElementById("navbarNav");
-      if (x.style.display === "block") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
+  function myFunction() {
+    var x = document.getElementById("navbarNav");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
     }
-    </script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script    type="text/javascript">
-    $(window).load(function() { // makes sure the whole site is loaded
-    $('#status').fadeOut(); // will first fade out the loading animation
-    $('#preloader').delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
-    $('body').delay(50).css({'overflow':'visible'});
-    })
-    </script>
-
+  }
+</script>
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  type="text/javascript"
+></script>
+<script type="text/javascript">
+  $(window).load(function () {
+    // makes sure the whole site is loaded
+    $("#status").fadeOut(); // will first fade out the loading animation
+    $("#preloader").delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
+    $("body").delay(50).css({ overflow: "visible" });
+  });
+</script>
