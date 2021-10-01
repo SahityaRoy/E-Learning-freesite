@@ -10,6 +10,29 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ #preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff; /* change if the mask should have another color then white */
+    z-index: 99999; /* makes sure it stays on top */
+  }
+  #status {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50%; /* centers the loading animation horizontally one the screen */
+    top: 50%; /* centers the loading animation vertically one the screen */
+    background-image: url("/book.gif");
+    z-index: 9999; /* path to your loading animation */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    margin: -50px 0 0 -50px; /* is width and height divided by two */
+  }
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
