@@ -1,11 +1,11 @@
 ![](https://hacktoberfest.digitalocean.com/_nuxt/img/logo-hacktoberfest-full.f42e3b1.svg)
 [**Hacktoberfest**](https://hacktoberfest.digitalocean.com/) is a month long event where people are awarded for contributing to open source projects 🙌, and we're joining the party. Hosted by [**DigitalOcean**](https://www.digitalocean.com/) for the 8th year in a row, Hacktoberfest encourages participation in giving back to the open source community by completing pull requests, participating in events, and donating to open source projects.
 
-<b>This repo will be <u> partcipating </u> in the Hacktoberfest event, so raise issues and stay tuned with us for more .</b>
+<b>This repo will be <u> participating </u> in the Hacktoberfest event, so raise issues and stay tuned with us for more.</b>
 
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Welcome_to_Free_Learning_site_0"></a>Welcome to Free Learning site</h1>
 <h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>I am sahitya roy owner of this project if you want to contribute please feel free to connect with me this project under Hackclub </em></h2>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place students can access all the recourse through this side and i will put this site on my github publicly so that students can contribute and add more and more features…</p>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place students can access all the recourse through this side and I will put this site on my GitHub publicly so that students can contribute and add more and more features…</p>
 
 <p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
@@ -23,12 +23,12 @@
 </ul>
 <h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Features_8"></a>Features</h2>
 <ul>
-<li class="has-line-data" data-line-start="10" data-line-end="11">I add all the top level free resources avilable on internet</li>
-<li class="has-line-data" data-line-start="11" data-line-end="12">Also i added some paid courses in free of cost.</li>
-<li class="has-line-data" data-line-start="12" data-line-end="13">Add a contributor Avtar part for your work.</li>
+<li class="has-line-data" data-line-start="10" data-line-end="11">I add all the top level free resources available on internet.</li>
+<li class="has-line-data" data-line-start="11" data-line-end="12">Also I added some paid courses in free of cost.</li>
+<li class="has-line-data" data-line-start="12" data-line-end="13">Add a contributor Avatar part for your work.</li>
 </ul>
 <blockquote>
-<p class="has-line-data" data-line-start="15" data-line-end="18">so lets contribute and be a open source contributor🐱‍💻<br>
+<p class="has-line-data" data-line-start="15" data-line-end="18">so let’s contribute and be an open source contributor🐱‍💻<br>
 welcome to all beginner 👩‍💻<br>
 So let’s get started</p>
 </blockquote>
@@ -39,7 +39,7 @@ watch the results in the right.</p>
 <p class="has-line-data" data-line-start="25" data-line-end="26">Dillinger uses a number of open source projects to work properly:</p>
 <ul>
 <li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - we are mainly use HTML!</li>
-<li class="has-line-data" data-line-start="28" data-line-end="29">[css] - for editing perpous</li>
+<li class="has-line-data" data-line-start="28" data-line-end="29">[css] - for editing purpose</li>
 </ul>
 
 <h2 class="code-line" data-line-start=50 data-line-end=51 ><a id="Plugins_50"></a>Plugins</h2>
@@ -57,7 +57,7 @@ Instructions on how to use them in your own application are linked below.</p>
 <h2 class="code-line" data-line-start=63 data-line-end=64 ><a id="Development_63"></a>Development</h2>
 <p class="has-line-data" data-line-start="65" data-line-end="66">Want to contribute? Great!</p>
 <ul>
-<li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Impliment = Success<br>
+<li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implement = Success<br>
 Make a change in your file and instantaneously see your updates!</li>
 </ul>
 <p class="has-line-data" data-line-start="69" data-line-end="70">Open your favorite Terminal and run these commands.</p>
@@ -74,7 +74,7 @@ Make a change in your file and instantaneously see your updates!</li>
 <p class="has-line-data" data-line-start="91" data-line-end="92">Adding all file :</p>
 <pre><code class="has-line-data" data-line-start="94" data-line-end="96" class="language-sh">git add .
 </code></pre>
-<p class="has-line-data" data-line-start="97" data-line-end="98">now its time to take this project into stagging area:</p>
+<p class="has-line-data" data-line-start="97" data-line-end="98">now it's time to take this project into staging area:</p>
 <pre><code class="has-line-data" data-line-start="100" data-line-end="102" class="language-sh">git commit -m<span class="hljs-string">" comment "</span><span class="hljs-string">"
 </span></code></pre>
 <h2 class="code-line" data-line-start=103 data-line-end=104 ><a id="now_push_this_files_103"></a>now push this files</h2>
