@@ -75,7 +75,7 @@ Make a change in your file and instantaneously see your updates!</li>
 <pre><code class="has-line-data" data-line-start="94" data-line-end="96" class="language-sh">git add .
 </code></pre>
 <p class="has-line-data" data-line-start="97" data-line-end="98">now it's time to take this project into staging area:</p>
-<pre><code class="has-line-data" data-line-start="100" data-line-end="102" class="language-sh">git commit -m<span class="hljs-string">" comment "</span><span class="hljs-string">"
+<pre><code class="has-line-data" data-line-start="100" data-line-end="102" class="language-sh">git commit -m <span class="hljs-string">" comment "</span><span class="hljs-string">
 </span></code></pre>
 <h2 class="code-line" data-line-start=103 data-line-end=104 ><a id="now_push_this_files_103"></a>now push this files</h2>
 <p class="has-line-data" data-line-start="104" data-line-end="105">build the image.</p>
