@@ -40,9 +40,12 @@ body {
   padding-bottom: 80px;
 }
 
+.img-fluid {
+  transition: 0.5s all ease-in-out;
+}
+
 .img-fluid:hover {
   transform: scale(1.06);
-  transition: 0.5s all ease-in-out;
   cursor: pointer;
 }
 
