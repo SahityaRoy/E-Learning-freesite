@@ -1,1 +1,15 @@
+various resources for learning different languages are:
+Youtube coding channels:
+https://www.youtube.com/results?search_query=code+with+harry
+https://www.youtube.com/results?search_query=apna+college
+https://www.youtube.com/results?search_query=take+u+forward
+https://www.youtube.com/results?search_query=tech+with+tim
+https://www.youtube.com/results?search_query=luv+coding
 
+Websites:
+https://www.w3schools.in/
+https://www.programiz.com/
+https://www.hackerrank.com/
+https://leetcode.com/
+https://www.geeksforgeeks.org/
+https://coderbyte.com/
