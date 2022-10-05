@@ -68,8 +68,7 @@ body {
 }
 
 .nav-btn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
-    center/15000%;
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
 }
 
 .nav-link:hover {
@@ -133,8 +132,7 @@ body {
 }
 
 .get-btn:hover {
-  background: #2b9b6a radial-gradient(circle, transparent 1%, #2b9b6a 1%)
-    center/15000%;
+  background: #2b9b6a radial-gradient(circle, transparent 1%, #2b9b6a 1%) center/15000%;
 }
 
 .get-btn:active {
@@ -262,8 +260,7 @@ body {
 }
 
 .buy-btn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
-    center/15000%;
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
 }
 
 .buy-btn:active {
@@ -461,8 +458,7 @@ body {
   border-radius: 50%;
   background: #dde1e7;
   font-size: 27px;
-  box-shadow: inset -3px -3px 7px #beb9b973,
-    inset 3px 3px 5px rgba(33, 39, 44, 0.288);
+  box-shadow: inset -3px -3px 7px #beb9b973, inset 3px 3px 5px rgba(33, 39, 44, 0.288);
 }
 
 .social-icons li:nth-child(1).fill-color a {
@@ -674,8 +670,7 @@ body {
     transition: background 0.8s;
   }
   .nav-btn:hover {
-    background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
-      center/15000%;
+    background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
   }
   .nav-link:hover {
     transform: scale(1.05);
@@ -707,8 +702,7 @@ body {
 }
 
 .gotopbtn:hover {
-  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%)
-    center/15000%;
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
 }
 
 .gotopbtn:active {
