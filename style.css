@@ -812,3 +812,7 @@ body {
 .darkmode-toggle {
   z-index: 1031;
 }
+.nav-link {
+  display: flex;
+  width: 101px;
+}
