@@ -43,6 +43,9 @@ watch the results in the right.</p>
 <h2 class="code-line" data-line-start=23 data-line-end=24 ><a id="Tech_23"></a>Tech</h2>
 <p class="has-line-data" data-line-start="25" data-line-end="26">Dillinger uses a number of open source projects to work properly:</p>
 <ul>
+<li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - we are mainly using HTML!</li>
+<li class="has-line-data" data-line-start="28" data-line-end="29">[CSS] - for editing purpose</li>
+
 <li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - We are mainly using HTML!</li>
 <li class="has-line-data" data-line-start="28" data-line-end="29">[CSS] -  Mainly for styling and editing purposes.</li>
 </ul>
@@ -62,7 +65,11 @@ Instructions on how to use them in your own application are linked below.</p>
 <h2 class="code-line" data-line-start=63 data-line-end=64 ><a id="Development_63"></a>Development</h2>
 <p class="has-line-data" data-line-start="65" data-line-end="66">Want to contribute? Great!</p>
 <ul>
+
+<li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implement = Success<br>
+=======
 <li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implimentation = Success<br>
+
 Make a change in your file and instantaneously see your updates!</li>
 </ul>
 <p class="has-line-data" data-line-start="69" data-line-end="70">Open your favorite Terminal and run these commands.</p>
