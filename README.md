@@ -1,11 +1,12 @@
 ![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimaqpress.com%2Fwp-content%2Fuploads%2F2021%2F04%2Fonline-learning.jpg&f=1&nofb=1)
-[**Hacktoberfest**](https://hacktoberfest.digitalocean.com/) is a month long event where people are awarded for contributing to open source projects 🙌, and we're joining the party. Hosted by [**DigitalOcean**](https://www.digitalocean.com/) for the 8th year in a row, Hacktoberfest encourages participation in giving back to the open source community by completing pull requests, participating in events, and donating to open source projects.
 
-<b>This repo will be <u> partcipating </u> in the Hacktoberfest event, so raise issues and stay tuned with us for more .</b>
+[**Hacktoberfest**](https://hacktoberfest.digitalocean.com/) is a month long event where people are awarded for contributing to open source projects 🙌, and we're joining the party, hosted by [**DigitalOcean**](https://www.digitalocean.com/) for the 8th year in a row. Hacktoberfest encourages participation in giving back to the open source community by completing pull requests, participating in events, and donating to open source projects.
+
+<b>This repository will be partcipating in the Hacktoberfest event, so raise issues,contribute in this repository and stay tuned with us for more .</b>
 
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Welcome_to_Free_Learning_site_0"></a>Welcome to Free Learning site</h1>
-<h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>I am sahitya roy owner of this project if you want to contribute please feel free to connect with me this project under Hackclub </em></h2>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place students can access all the recourse through this side and i will put this site on my github publicly so that students can contribute and add more and more features…</p>
+<h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>Hello Everyone, I am Sahitya Roy owner of this project if you want to contribute please feel free to connect with me, this project is under Hackclub. </em></h2>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place, students can access all the resources through this site and i will put this site on my github publicly so that everyone can contribute and add more and more features...</p>
 
 <p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
@@ -18,28 +19,35 @@
 <ul>
 <li class="has-line-data" data-line-start="4" data-line-end="5">Type some Markdown on the left</li>
 <li class="has-line-data" data-line-start="5" data-line-end="6">See HTML in the right</li>
-<li class="has-line-data" data-line-start="6" data-line-end="8">✨Magic ✨</li>
-<li class="has-line-data" data-line-start="6" data-line-end="8">First start⭐ this repo and fork so that you can work </li?
+<li class="has-line-data" data-line-start="6" data-line-end="8">Magic ✨✨</li>
+<li class="has-line-data" data-line-start="6" data-line-end="8">First star this repository:star: </li>
+<li class="has-line-data" data-line-start="6" data-line-end="8">Fork it, to contribute:fork_and_knife: </li>
 </ul>
+	
 <h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Features_8"></a>Features</h2>
+	
 <ul>
-<li class="has-line-data" data-line-start="10" data-line-end="11">I add all the top level free resources avilable on internet</li>
+<li class="has-line-data" data-line-start="10" data-line-end="11">I added all the top level free resources available on the internet.</li>
 <li class="has-line-data" data-line-start="11" data-line-end="12">Also i added some paid courses in free of cost.</li>
-<li class="has-line-data" data-line-start="12" data-line-end="13">Add a contributor Avtar part for your work.</li>
+<li class="has-line-data" data-line-start="12" data-line-end="13">Add a contributor Avatar part for your work.</li>
 </ul>
+
 <blockquote>
-<p class="has-line-data" data-line-start="15" data-line-end="18">so lets contribute and be a open source contributor🐱‍💻<br>
-welcome to all beginner 👩‍💻<br>
-So let’s get started</p>
+<p class="has-line-data" data-line-start="15" data-line-end="18">So let's contribute and be a open source contributor🐱‍💻.<br>
+Welcome to all the beginner 👩‍💻.<br>
+So, let’s get started.</p>
 </blockquote>
-<p class="has-line-data" data-line-start="19" data-line-end="22">This text you see here is *actually- written in Markdown! To get a feel<br>
-for Markdown’s syntax, type some text into the left window and<br>
+<p class="has-line-data" data-line-start="19" data-line-end="22">This text you see here is *actually- written in Markdown! To get hands-on feeling <br>
+in Markdown syntax, type some text into the left window and<br>
 watch the results in the right.</p>
 <h2 class="code-line" data-line-start=23 data-line-end=24 ><a id="Tech_23"></a>Tech</h2>
 <p class="has-line-data" data-line-start="25" data-line-end="26">Dillinger uses a number of open source projects to work properly:</p>
 <ul>
 <li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - we are mainly using HTML!</li>
 <li class="has-line-data" data-line-start="28" data-line-end="29">[CSS] - for editing purpose</li>
+
+<li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - We are mainly using HTML!</li>
+<li class="has-line-data" data-line-start="28" data-line-end="29">[CSS] -  Mainly for styling and editing purposes.</li>
 </ul>
 
 <h2 class="code-line" data-line-start=50 data-line-end=51 ><a id="Plugins_50"></a>Plugins</h2>
@@ -57,7 +65,11 @@ Instructions on how to use them in your own application are linked below.</p>
 <h2 class="code-line" data-line-start=63 data-line-end=64 ><a id="Development_63"></a>Development</h2>
 <p class="has-line-data" data-line-start="65" data-line-end="66">Want to contribute? Great!</p>
 <ul>
+
 <li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implement = Success<br>
+=======
+<li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implimentation = Success<br>
+
 Make a change in your file and instantaneously see your updates!</li>
 </ul>
 <p class="has-line-data" data-line-start="69" data-line-end="70">Open your favorite Terminal and run these commands.</p>
