@@ -455,8 +455,7 @@ body {
   border-radius: 50%;
   background: #dde1e7;
   font-size: 27px;
-  box-shadow: inset -3px -3px 7px #beb9b973,
-    inset 3px 3px 5px rgba(33, 39, 44, 0.288);
+  box-shadow: inset -3px -3px 7px #beb9b973, inset 3px 3px 5px rgba(33, 39, 44, 0.288);
 }
 
 .social-icons li:nth-child(1).fill-color a {
@@ -713,10 +712,13 @@ body {
   border: none;
 }
 
+.gotopbtn:hover {
+  background: #1d9660 radial-gradient(circle, transparent 1%, #1d9660 1%) center/15000%;
+}
+  
 .back-to-top:focus {
   outline: none;
 }
-
 
 .fas {
   text-decoration: none;
