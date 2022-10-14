@@ -12,9 +12,6 @@
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
 <p align="left"> <a href="https://www.linkedin.com/in/sahitya-roy/" target="blank">
 
-<p align="center">
-   <img src="https://user-images.githubusercontent.com/72821604/134854638-bf82a21b-06ae-4308-9e44-a4727b52c7d6.jpg"/>
-</p>
 
 <ul>
 <li class="has-line-data" data-line-start="4" data-line-end="5">Type some Markdown on the left</li>
