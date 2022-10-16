@@ -52,6 +52,7 @@ body {
 
 .nav-item {
   padding: 0px 5px;
+  text-align: center;
 }
 
 .nav-btn {
@@ -92,11 +93,14 @@ body {
   margin-bottom: 10px;
 }
 
+p{
+  color: #6c6b6b;
+}
 .header-details h1 {
   font-weight: bold;
   font-size: 48px;
   line-height: 70px;
-  color: #000000;
+  color: #21b573;
   margin-bottom: 19px;
 }
 
