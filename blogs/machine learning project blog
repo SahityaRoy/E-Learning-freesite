@@ -1,0 +1,5 @@
+A common misconception is that predictive analytics and machine learning are the same thing. This is not the case. (Where the two do overlap, however, is predictive modelling – but more on that later.)
+
+At its core, predictive analytics encompasses a variety of statistical techniques (including machine learning, predictive modelling and data mining) and uses statistics (both historical and current) to estimate, or ‘predict’, future outcomes. These outcomes might be behaviours a customer is likely to exhibit or possible changes in the market, for example. Predictive analytics help us to understand possible future occurrences by analysing the past.
+
+Machine learning, on the other hand, is a subfield of computer science that, as per Arthur Samuel’s definition from 1959, gives ‘computers the ability to learn without being explicitly programmed’. Machine learning evolved from the study of pattern recognition and explores the notion that algorithms can learn from and make predictions on data. And, as they begin to become more ‘intelligent’, these algorithms can overcome program instructions to make highly accurate, data-driven decisions.
