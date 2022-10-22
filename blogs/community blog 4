@@ -1,0 +1,181 @@
+PSF Meeting Minutes for April 14, 2008
+Subscribe via RSS
+
+The Python Software Foundation
+Minutes of a Regular Meeting of the Board of Directors
+
+April 14, 2008
+A regular meeting of the Python Software Foundation ("PSF") Board of Directors was held over Internet Relay Chat beginning at 16:00 UTC, 14 April 2008. Steve Holden presided at the meeting. David Goodger prepared these minutes.
+
+Contents
+
+1   Attendance
+2   Minutes of Past Meetings
+3   Status of Past Action Items
+3.1   Carried Forward
+3.2   New from March 10
+3.3   New from March 14
+4   PSF Logo
+5   Treasurer's Report
+6   PyCon 2009 Venue
+7   PyCon Asset Record-Keeping
+8   PSF Awards Program
+9   PyCon FR Sponsorship
+10   2008 Frank Willison Award
+11   PyCon 2008
+12   Sponsor Membership Issues
+13   Adjournment
+1   Attendance
+The following members of the Board of Directors were present at the meeting: Brett Cannon, Stephan Deibel, David Goodger, Raymond Hettinger, Steve Holden, Martin von Löwis, Tim Peters, and James Tauber (arrived at 16:17). Also in attendance was Kurt Kaiser (Treasurer).
+
+2   Minutes of Past Meetings
+The 10 March 2008 Board meeting minutes were approved by a 7-0-0 vote (in favor – opposed – abstentions).
+
+The minutes of the 2008 Members' Meeting (14 March 2008) were approved by a 6-0-1 vote.
+
+The 14 March 2008 Board meeting minutes were approved by a 6-0-1 vote.
+
+3   Status of Past Action Items
+(Pending action items appear like this.)
+
+3.1   Carried Forward
+The following are action items carried forward from the 10 March 2008 meeting, as highlighted in the minutes (Section 3, Status of Past Action Items):
+
+Originally from October 2005, Section 4, Public Support Committee: D. Goodger will pursue web page and installer donation link ideas.
+
+Status: carried forward.
+
+Originally from June 2006, Section 6, PSF Records: The Board agreed to assemble the existing records in one place, have them scanned, and enter them into the PSF data repository. D. Goodger will coordinate this work and maintain the records.
+
+Status: carried forward.
+
+Originally from August 2006, Section 10: T. Peters will ask the advice of Larry Rosen regarding concerns with the contributor agreement.
+
+Status: carried forward.
+
+Originally from December 2006, Section 4, Jython Contributor Agreements: A. Kuchling will write to the Jython contributors and ask them to sign contributor agreement forms.
+
+Status: transferred to D. Goodger, in combination with item 2 above.
+
+Originally from March 2007, Section 18, Bylaw Change Survey: S. Holden will call for a separate discussion of changes to the bylaws.
+
+S. Deibel agreed to help.
+
+Status: carried forward.
+
+Originally from May 2007, Section 7, PyCon Uno (Italy): D. Goodger will produce a PSF logo based on the Python logo.
+
+See PSF Logo, below.
+
+Status: replaced.
+
+Originally from May 2007, Section 7, PyCon Uno (Italy): D. Goodger will look into making PSF banners.
+
+Status: carried forward.
+
+Originally from January 2008, Section 7, Awards Program: K. Kaiser will research the tax implications of an awards program (both domestic & international recipients).
+
+Status: carried forward.
+
+3.2   New from March 10
+These action items originated at the 10 March 2008 Board meeting on IRC.
+
+Section 8, New Sponsor Member Applications: S. Deibel will add the requirement for a rationale to the sponsor member application form.
+
+See the sponsor membership application form.
+
+Status: done.
+
+Section 10, Python Certification: S. Holden will rework the proposal with Van Lindberg and Tennessee Leeuwenburg as a discussion document to be posted to the members' list, as the Board considers the members' views essential.
+
+S. Holden reported that he has spoken with Van, but both need more time.
+
+Status: carried forward.
+
+3.3   New from March 14
+These action items originated at the 14 March 2008 Board meeting at PyCon.
+
+Section 4, Discussion: Regarding a possible PSF-sponsored core sprint at EuroPython, S. Holden will contact Laura Creighton for information.
+
+S. Holden reported that he can't think of any constructive action for EuroPython. He received a reply from Laura Creighton, summary: "there will be a sprint anyway, I think things are getting better, and I don't see what else the PSF could do".
+
+Status: done.
+
+Section 4, Discussion: D. Goodger will inform the new members of their election, and invite them to join the psf-members list.
+
+Status: done.
+
+4   PSF Logo
+D. Goodger reported that we have a candidate logo from Marc-André Lemburg, plus his own variations on the the Python logo (with various "PSF" text layouts). Goodger asked if we want a new logo for the PSF, or is the Python logo sufficient? The Board agreed to put the question to the members for comment.
+
+D. Goodger will send the candidate PSF logos (from Marc-André Lemburg and himself) to the members for comment, noting that the Board intends to choose one at the next meeting.
+
+5   Treasurer's Report
+K. Kaiser reported that the accounts are reconciled through February, and he's working on March. The biggest problem is collections. Roughly $100K is outstanding in accounts receivable.
+
+S. Holden will assist K. Kaiser with accounts receivable reminders.
+
+D. Goodger asked that they coordinate with Van Lindberg, who sent out invoices to PyCon sponsors.
+
+D. Goodger reported that he will be going over the PyCon hotel bill with CTE this week, but it looks fine.
+
+K. Kaiser sent a statement of accounts receivable to the Board mailing list.
+
+6   PyCon 2009 Venue
+D. Goodger reported that there are two options for larger venues for PyCon 2009, as he emailed previously.
+
+RESOLVED, that the PyCon chairman be authorized to choose the venue for PyCon 2009.
+Approved 7-0-1.
+
+7   PyCon Asset Record-Keeping
+D. Goodger will update the assets file in PSF CVS with the details of the laptops and VGA2USB boxes purchased for PyCon 2008.
+
+8   PSF Awards Program
+D. Goodger reported that there is now a python.org page that records the recipients of the PSF Community Awards.
+
+S. Holden will have PSF Community Award certificates designed.
+
+9   PyCon FR Sponsorship
+Tarek Ziadé has requested PSF sponsorship for PyCon FR 2008, a.k.a. "Journées Python" ("Python Days", France). Originally the request was for a gold-level sponsorship (400 Euros), but their financial needs have since been met by sponsors. The request was revised; Tarek asked for the PSF's help with publicity. The Board naturally agreed to this.
+
+S. Holden will publicize PyCon FR 2008 on the PSF blog.
+D. Goodger will publicize PyCon FR 2008 on the PyCon blog.
+D. Goodger suggested sending swag, such as stickers like those produced for PyCon in the US. R. Hettinger suggested sponsoring a speaker from overseas, and the Board agreed.
+
+S. Holden will inform Tarek Ziadé of PyCon FR that they may use the PSF logo on the sponsor list, that the PSF will provide some publicity, and that the PSF may be able to assist by funding the travel for one invited speaker.
+S. Holden will ask the French Python Association to revise their logo, which uses a derivative of the obsolete Python graphic.
+10   2008 Frank Willison Award
+D. Goodger noted that O'Reilly needs about 1 month notice before OSCON. S. Holden suggested that a decision at the June meeting at the latest, but May would give the recipient more time to plan OSCON attendance.
+
+D. Goodger will ask Guido van Rossum for his input on the 2008 Frank Willison Award. Assuming Guido delegates the decision to the Board, David will ask previous recipients and the PSF membership at large for nominations, to be submitted no later than Friday May 9.
+
+11   PyCon 2008
+D. Goodger reported:
+
+I think [PyCon 2008] was a success. There were some issues, but we'll fix them next year. I've been posting my report in sections to the PyCon blog, almost done.
+S. Holden:
+
+I enjoyed it more that any other. The reports have been great.
+12   Sponsor Membership Issues
+S. Holden reported that Industrial Light & Magic have paid their membership fee for this year. There's no real basis for chasing them for back dues while emeritus though.
+
+D. Goodger noted that we'll need a new application from ILM, for a vote at next year's members meeting.
+
+S. Holden will contact ILM to request a new sponsor membership application.
+
+S. Holden will contact AT Battery to inform them of the results of their sponsor membership application (election at members' meeting).
+
+D. Goodger noted that in the past we haven't put pending sponsor's logos on the web page, and asked if we should change that policy. The issue was not discussed.
+
+D. Goodger will update the member information in members.xls (sponsors & nominated members) & sponsor-addrs.txt, in PSF CVS.
+
+D. Goodger noted that the representative of sponsor member Hostway was recently unsubscribed from psf-members. T. Peters reported that this was due to "user unknown" bounces. Perhaps the representative has left the sponsor organization.
+
+D. Goodger will inquire with sponsor Hostway about the unsubscribed PSF representative.
+
+K. Kaiser asked about the OSAF 2007 sponsor invoice. OSAF converted to emeritus status in 2008, but the 2007 sponsor invoice is still outstanding
+
+S. Holden will contact OSAF and inquire about their outstanding 2007 PSF sponsor invoice.
+
+13   Adjournment
+S. Holden adjourned the meeting at 17:00 UTC.
