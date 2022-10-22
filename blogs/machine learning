@@ -1,0 +1,478 @@
+Inferencing the Transformer Model
+by Stefania Cristina on October 20, 2022 in Attention
+Tweet Tweet  Share
+We have seen how to train the Transformer model on a dataset of English and German sentence pairs, as well as how to plot the training and validation loss curves in order to diagnose the model’s learning performance and decide at which epoch to inference the trained model. We are now ready to inference the trained Transformer model for the purpose of translating an input sentence.
+
+In this tutorial, you will discover how to inference the trained Transformer model for neural machine translation. 
+
+After completing this tutorial, you will know:
+
+How to inference the trained Transformer model. 
+How to generate text translations. 
+Let’s get started. 
+
+Inferencing the Transformer Model
+Let’s first start by creating a new instance of the TransformerModel class that we have previously implemented in this tutorial. 
+
+We will feed into it the relevant input arguments as specified in the paper of Vaswani et al. (2017), as well as the relevant information about the dataset in use: 
+
+# Define the model parameters
+h = 8  # Number of self-attention heads
+d_k = 64  # Dimensionality of the linearly projected queries and keys
+d_v = 64  # Dimensionality of the linearly projected values
+d_model = 512  # Dimensionality of model layers' outputs
+d_ff = 2048  # Dimensionality of the inner fully connected layer
+n = 6  # Number of layers in the encoder stack
+ 
+# Define the dataset parameters
+enc_seq_length = 7  # Encoder sequence length
+dec_seq_length = 12  # Decoder sequence length
+enc_vocab_size = 2405  # Encoder vocabulary size
+dec_vocab_size = 3858  # Decoder vocabulary size
+ 
+# Create model
+inferencing_model = TransformerModel(enc_vocab_size, dec_vocab_size, enc_seq_length, dec_seq_length, h, d_k, d_v, d_model, d_ff, n, 0)
+Here note that the last input being fed into the TransformerModel corresponded to the dropout rate for each of the Dropout layers in the Transformer model. These Dropout layers will not be used during model inferencing (we will eventually set the training argument to False), and hence we may safely set the dropout rate to 0.
+
+Furthermore, I had also saved the TransformerModel class into a separate script, which I had named, model.py. Hence, in order to be able to use the TransformerModel class, I need to include, from model import TransformerModel.
+
+Next, we shall create a class, Translate, that inherits from the Module base class in Keras, and assign the initialized inferencing model to the variable, transformer:
+
+class Translate(Module):
+    def __init__(self, inferencing_model, **kwargs):
+        super(Translate, self).__init__(**kwargs)
+        self.transformer = inferencing_model
+        ...
+When we had trained the Transformer model, we had seen that we first needed to tokenize the sequences of text that were to be fed into both the encoder and decoder. We had achieved this by creating a vocabulary of words and replacing each word by its corresponding vocabulary index. 
+
+We need to undergo a similar process during the inferencing stage, before feeding the sequence of text to be translated into the Transformer model. 
+
+For this purpose, we will be including within the class the following load_tokenizer method, which will serve to load the encoder and decoder tokenizers that we would have generated and saved during the training stage:
+
+def load_tokenizer(self, name):
+    with open(name, 'rb') as handle:
+        return load(handle)
+It is important that we tokenize the input text at the inferencing stage using the same tokenizers generated at the training stage of the Transformer model, since these tokenizers would have already been trained on text sequences that are similar to our testing data. 
+
+The next step is to create the class method, call(), that will take care to:
+
+Append start (<START>) and end-of-string (<EOS>) tokens to the input sentence:
+def __call__(self, sentence):
+    sentence[0] = "<START> " + sentence[0] + " <EOS>"
+Load the encoder and decoder tokenizers (in this case, saved in the enc_tokenizer.pkl and dec_tokenizer.pkl pickle files, respectively):
+enc_tokenizer = self.load_tokenizer('enc_tokenizer.pkl')
+dec_tokenizer = self.load_tokenizer('dec_tokenizer.pkl')
+Prepare the input sentence by tokenizing it first, then padding it to the maximum phrase length, and subsequently converting it to a tensor:
+encoder_input = enc_tokenizer.texts_to_sequences(sentence)
+encoder_input = pad_sequences(encoder_input, maxlen=enc_seq_length, padding='post')
+encoder_input = convert_to_tensor(encoder_input, dtype=int64)
+Repeat a similar tokenization and tensor conversion procedure for the <START> and <EOS> tokens at the output:
+output_start = dec_tokenizer.texts_to_sequences(["<START>"])
+output_start = convert_to_tensor(output_start[0], dtype=int64)
+ 
+output_end = dec_tokenizer.texts_to_sequences(["<EOS>"])
+output_end = convert_to_tensor(output_end[0], dtype=int64)
+Prepare the output array that will contain the translated text. Since we do not know the length of the translated sentence in advance, we will initialize the size of the output array to 0, but set its dynamic_size parameter to True so that it may grow past its initial size. We will then set the first value in this output array to the <START> token:
+decoder_output = TensorArray(dtype=int64, size=0, dynamic_size=True)
+decoder_output = decoder_output.write(0, output_start)
+Iterate, up to the decoder sequence length, each time calling the Transformer model to predict an output token. Here, the training input, which is then passed on to each of the Transformer’s Dropout layers, is set to False so that no values are dropped during inference. The prediction with the highest score is then selected and written at the next available index of the output array. The for loop is terminated with a break statement as soon as an <EOS> token is predicted:
+for i in range(dec_seq_length):
+ 
+    prediction = self.transformer(encoder_input, transpose(decoder_output.stack()), training=False)
+ 
+    prediction = prediction[:, -1, :]
+ 
+    predicted_id = argmax(prediction, axis=-1)
+    predicted_id = predicted_id[0][newaxis]
+ 
+    decoder_output = decoder_output.write(i + 1, predicted_id)
+ 
+    if predicted_id == output_end:
+        break
+Decode the predicted tokens into an output list and return it:
+output = transpose(decoder_output.stack())[0]
+output = output.numpy()
+ 
+output_str = []
+ 
+# Decode the predicted tokens into an output list
+for i in range(output.shape[0]):
+ 
+   key = output[i]
+   translation = dec_tokenizer.index_word[key]
+   output_str.append(translation)
+ 
+return output_str
+The complete code listing, so far, is as follows:
+
+from pickle import load
+from tensorflow import Module
+from keras.preprocessing.sequence import pad_sequences
+from tensorflow import convert_to_tensor, int64, TensorArray, argmax, newaxis, transpose
+from model import TransformerModel
+ 
+# Define the model parameters
+h = 8  # Number of self-attention heads
+d_k = 64  # Dimensionality of the linearly projected queries and keys
+d_v = 64  # Dimensionality of the linearly projected values
+d_model = 512  # Dimensionality of model layers' outputs
+d_ff = 2048  # Dimensionality of the inner fully connected layer
+n = 6  # Number of layers in the encoder stack
+ 
+# Define the dataset parameters
+enc_seq_length = 7  # Encoder sequence length
+dec_seq_length = 12  # Decoder sequence length
+enc_vocab_size = 2405  # Encoder vocabulary size
+dec_vocab_size = 3858  # Decoder vocabulary size
+ 
+# Create model
+inferencing_model = TransformerModel(enc_vocab_size, dec_vocab_size, enc_seq_length, dec_seq_length, h, d_k, d_v, d_model, d_ff, n, 0)
+ 
+ 
+class Translate(Module):
+    def __init__(self, inferencing_model, **kwargs):
+        super(Translate, self).__init__(**kwargs)
+        self.transformer = inferencing_model
+ 
+    def load_tokenizer(self, name):
+        with open(name, 'rb') as handle:
+            return load(handle)
+ 
+    def __call__(self, sentence):
+        # Append start and end of string tokens to the input sentence
+        sentence[0] = "<START> " + sentence[0] + " <EOS>"
+ 
+        # Load encoder and decoder tokenizers
+        enc_tokenizer = self.load_tokenizer('enc_tokenizer.pkl')
+        dec_tokenizer = self.load_tokenizer('dec_tokenizer.pkl')
+ 
+        # Prepare the input sentence by tokenizing, padding and converting to tensor
+        encoder_input = enc_tokenizer.texts_to_sequences(sentence)
+        encoder_input = pad_sequences(encoder_input, maxlen=enc_seq_length, padding='post')
+        encoder_input = convert_to_tensor(encoder_input, dtype=int64)
+ 
+        # Prepare the output <START> token by tokenizing, and converting to tensor
+        output_start = dec_tokenizer.texts_to_sequences(["<START>"])
+        output_start = convert_to_tensor(output_start[0], dtype=int64)
+ 
+        # Prepare the output <EOS> token by tokenizing, and converting to tensor
+        output_end = dec_tokenizer.texts_to_sequences(["<EOS>"])
+        output_end = convert_to_tensor(output_end[0], dtype=int64)
+ 
+        # Prepare the output array of dynamic size
+        decoder_output = TensorArray(dtype=int64, size=0, dynamic_size=True)
+        decoder_output = decoder_output.write(0, output_start)
+ 
+        for i in range(dec_seq_length):
+ 
+            # Predict an output token
+            prediction = self.transformer(encoder_input, transpose(decoder_output.stack()), training=False)
+ 
+            prediction = prediction[:, -1, :]
+ 
+            # Select the prediction with the highest score
+            predicted_id = argmax(prediction, axis=-1)
+            predicted_id = predicted_id[0][newaxis]
+ 
+            # Write the selected prediction to the output array at the next available index
+            decoder_output = decoder_output.write(i + 1, predicted_id)
+ 
+            # Break if an <EOS> token is predicted
+            if predicted_id == output_end:
+                break
+ 
+        output = transpose(decoder_output.stack())[0]
+        output = output.numpy()
+ 
+        output_str = []
+ 
+        # Decode the predicted tokens into an output string
+        for i in range(output.shape[0]):
+ 
+            key = output[i]
+            print(dec_tokenizer.index_word[key])
+ 
+        return output_str
+
+Testing Out the Code
+In order to test out the code, let’s have a look at the test_dataset.txt file that we would have saved when preparing the dataset for training. This text file contains a set of English-German sentence pairs that we have reserved for testing, from which we can select a couple of sentences to test.
+
+Let’s start with the first sentence:
+
+# Sentence to translate
+sentence = ['im thirsty']
+The corresponding, ground truth translation in German for this sentence, including the <START> and <EOS> decoder tokens, should be: <START> ich bin durstig <EOS>.
+
+If we have a look at the plotted training and validation loss curves for this model (we are here training for 20 epochs), we can notice that the validation loss curve slows down considerably and starts plateauing at around epoch 16. 
+
+Inferencing the Transformer Model
+by Stefania Cristina on October 20, 2022 in Attention
+Tweet Tweet  Share
+We have seen how to train the Transformer model on a dataset of English and German sentence pairs, as well as how to plot the training and validation loss curves in order to diagnose the model’s learning performance and decide at which epoch to inference the trained model. We are now ready to inference the trained Transformer model for the purpose of translating an input sentence.
+
+In this tutorial, you will discover how to inference the trained Transformer model for neural machine translation. 
+
+After completing this tutorial, you will know:
+
+How to inference the trained Transformer model. 
+How to generate text translations. 
+Let’s get started. 
+
+
+Inferencing the Transformer Model
+Photo by Karsten Würth, some rights reserved.
+
+Tutorial Overview
+This tutorial is divided into three parts; they are:
+
+Recap of the Transformer Architecture
+Inferencing the Transformer Model
+Testing Out the Code
+
+Prerequisites
+For this tutorial, we assume that you are already familiar with:
+
+The theory behind the Transformer model
+An implementation of the Transformer model
+Training the Transformer model
+Plotting the training and validation loss curves for the Transformer model
+Recap of the Transformer Architecture
+Recall having seen that the Transformer architecture follows an encoder-decoder structure: the encoder, on the left-hand side, is tasked with mapping an input sequence to a sequence of continuous representations; the decoder, on the right-hand side, receives the output of the encoder together with the decoder output at the previous time step, to generate an output sequence.
+
+
+The Encoder-Decoder Structure of the Transformer Architecture
+Taken from “Attention Is All You Need“
+
+In generating an output sequence, the Transformer does not rely on recurrence and convolutions.
+
+We have seen how to implement the complete Transformer model, and subsequently train it on a dataset of English and German sentence pairs. We shall now proceed to inference the trained model for neural machine translation. 
+
+
+Inferencing the Transformer Model
+Let’s first start by creating a new instance of the TransformerModel class that we have previously implemented in this tutorial. 
+
+We will feed into it the relevant input arguments as specified in the paper of Vaswani et al. (2017), as well as the relevant information about the dataset in use: 
+
+# Define the model parameters
+h = 8  # Number of self-attention heads
+d_k = 64  # Dimensionality of the linearly projected queries and keys
+d_v = 64  # Dimensionality of the linearly projected values
+d_model = 512  # Dimensionality of model layers' outputs
+d_ff = 2048  # Dimensionality of the inner fully connected layer
+n = 6  # Number of layers in the encoder stack
+ 
+# Define the dataset parameters
+enc_seq_length = 7  # Encoder sequence length
+dec_seq_length = 12  # Decoder sequence length
+enc_vocab_size = 2405  # Encoder vocabulary size
+dec_vocab_size = 3858  # Decoder vocabulary size
+ 
+# Create model
+inferencing_model = TransformerModel(enc_vocab_size, dec_vocab_size, enc_seq_length, dec_seq_length, h, d_k, d_v, d_model, d_ff, n, 0)
+Here note that the last input being fed into the TransformerModel corresponded to the dropout rate for each of the Dropout layers in the Transformer model. These Dropout layers will not be used during model inferencing (we will eventually set the training argument to False), and hence we may safely set the dropout rate to 0.
+
+Furthermore, I had also saved the TransformerModel class into a separate script, which I had named, model.py. Hence, in order to be able to use the TransformerModel class, I need to include, from model import TransformerModel.
+
+Next, we shall create a class, Translate, that inherits from the Module base class in Keras, and assign the initialized inferencing model to the variable, transformer:
+
+class Translate(Module):
+    def __init__(self, inferencing_model, **kwargs):
+        super(Translate, self).__init__(**kwargs)
+        self.transformer = inferencing_model
+        ...
+When we had trained the Transformer model, we had seen that we first needed to tokenize the sequences of text that were to be fed into both the encoder and decoder. We had achieved this by creating a vocabulary of words and replacing each word by its corresponding vocabulary index. 
+
+We need to undergo a similar process during the inferencing stage, before feeding the sequence of text to be translated into the Transformer model. 
+
+For this purpose, we will be including within the class the following load_tokenizer method, which will serve to load the encoder and decoder tokenizers that we would have generated and saved during the training stage:
+
+def load_tokenizer(self, name):
+    with open(name, 'rb') as handle:
+        return load(handle)
+It is important that we tokenize the input text at the inferencing stage using the same tokenizers generated at the training stage of the Transformer model, since these tokenizers would have already been trained on text sequences that are similar to our testing data. 
+
+The next step is to create the class method, call(), that will take care to:
+
+Append start (<START>) and end-of-string (<EOS>) tokens to the input sentence:
+def __call__(self, sentence):
+    sentence[0] = "<START> " + sentence[0] + " <EOS>"
+Load the encoder and decoder tokenizers (in this case, saved in the enc_tokenizer.pkl and dec_tokenizer.pkl pickle files, respectively):
+enc_tokenizer = self.load_tokenizer('enc_tokenizer.pkl')
+dec_tokenizer = self.load_tokenizer('dec_tokenizer.pkl')
+Prepare the input sentence by tokenizing it first, then padding it to the maximum phrase length, and subsequently converting it to a tensor:
+encoder_input = enc_tokenizer.texts_to_sequences(sentence)
+encoder_input = pad_sequences(encoder_input, maxlen=enc_seq_length, padding='post')
+encoder_input = convert_to_tensor(encoder_input, dtype=int64)
+Repeat a similar tokenization and tensor conversion procedure for the <START> and <EOS> tokens at the output:
+output_start = dec_tokenizer.texts_to_sequences(["<START>"])
+output_start = convert_to_tensor(output_start[0], dtype=int64)
+ 
+output_end = dec_tokenizer.texts_to_sequences(["<EOS>"])
+output_end = convert_to_tensor(output_end[0], dtype=int64)
+Prepare the output array that will contain the translated text. Since we do not know the length of the translated sentence in advance, we will initialize the size of the output array to 0, but set its dynamic_size parameter to True so that it may grow past its initial size. We will then set the first value in this output array to the <START> token:
+decoder_output = TensorArray(dtype=int64, size=0, dynamic_size=True)
+decoder_output = decoder_output.write(0, output_start)
+Iterate, up to the decoder sequence length, each time calling the Transformer model to predict an output token. Here, the training input, which is then passed on to each of the Transformer’s Dropout layers, is set to False so that no values are dropped during inference. The prediction with the highest score is then selected and written at the next available index of the output array. The for loop is terminated with a break statement as soon as an <EOS> token is predicted:
+for i in range(dec_seq_length):
+ 
+    prediction = self.transformer(encoder_input, transpose(decoder_output.stack()), training=False)
+ 
+    prediction = prediction[:, -1, :]
+ 
+    predicted_id = argmax(prediction, axis=-1)
+    predicted_id = predicted_id[0][newaxis]
+ 
+    decoder_output = decoder_output.write(i + 1, predicted_id)
+ 
+    if predicted_id == output_end:
+        break
+Decode the predicted tokens into an output list and return it:
+output = transpose(decoder_output.stack())[0]
+output = output.numpy()
+ 
+output_str = []
+ 
+# Decode the predicted tokens into an output list
+for i in range(output.shape[0]):
+ 
+   key = output[i]
+   translation = dec_tokenizer.index_word[key]
+   output_str.append(translation)
+ 
+return output_str
+The complete code listing, so far, is as follows:
+
+from pickle import load
+from tensorflow import Module
+from keras.preprocessing.sequence import pad_sequences
+from tensorflow import convert_to_tensor, int64, TensorArray, argmax, newaxis, transpose
+from model import TransformerModel
+ 
+# Define the model parameters
+h = 8  # Number of self-attention heads
+d_k = 64  # Dimensionality of the linearly projected queries and keys
+d_v = 64  # Dimensionality of the linearly projected values
+d_model = 512  # Dimensionality of model layers' outputs
+d_ff = 2048  # Dimensionality of the inner fully connected layer
+n = 6  # Number of layers in the encoder stack
+ 
+# Define the dataset parameters
+enc_seq_length = 7  # Encoder sequence length
+dec_seq_length = 12  # Decoder sequence length
+enc_vocab_size = 2405  # Encoder vocabulary size
+dec_vocab_size = 3858  # Decoder vocabulary size
+ 
+# Create model
+inferencing_model = TransformerModel(enc_vocab_size, dec_vocab_size, enc_seq_length, dec_seq_length, h, d_k, d_v, d_model, d_ff, n, 0)
+ 
+ 
+class Translate(Module):
+    def __init__(self, inferencing_model, **kwargs):
+        super(Translate, self).__init__(**kwargs)
+        self.transformer = inferencing_model
+ 
+    def load_tokenizer(self, name):
+        with open(name, 'rb') as handle:
+            return load(handle)
+ 
+    def __call__(self, sentence):
+        # Append start and end of string tokens to the input sentence
+        sentence[0] = "<START> " + sentence[0] + " <EOS>"
+ 
+        # Load encoder and decoder tokenizers
+        enc_tokenizer = self.load_tokenizer('enc_tokenizer.pkl')
+        dec_tokenizer = self.load_tokenizer('dec_tokenizer.pkl')
+ 
+        # Prepare the input sentence by tokenizing, padding and converting to tensor
+        encoder_input = enc_tokenizer.texts_to_sequences(sentence)
+        encoder_input = pad_sequences(encoder_input, maxlen=enc_seq_length, padding='post')
+        encoder_input = convert_to_tensor(encoder_input, dtype=int64)
+ 
+        # Prepare the output <START> token by tokenizing, and converting to tensor
+        output_start = dec_tokenizer.texts_to_sequences(["<START>"])
+        output_start = convert_to_tensor(output_start[0], dtype=int64)
+ 
+        # Prepare the output <EOS> token by tokenizing, and converting to tensor
+        output_end = dec_tokenizer.texts_to_sequences(["<EOS>"])
+        output_end = convert_to_tensor(output_end[0], dtype=int64)
+ 
+        # Prepare the output array of dynamic size
+        decoder_output = TensorArray(dtype=int64, size=0, dynamic_size=True)
+        decoder_output = decoder_output.write(0, output_start)
+ 
+        for i in range(dec_seq_length):
+ 
+            # Predict an output token
+            prediction = self.transformer(encoder_input, transpose(decoder_output.stack()), training=False)
+ 
+            prediction = prediction[:, -1, :]
+ 
+            # Select the prediction with the highest score
+            predicted_id = argmax(prediction, axis=-1)
+            predicted_id = predicted_id[0][newaxis]
+ 
+            # Write the selected prediction to the output array at the next available index
+            decoder_output = decoder_output.write(i + 1, predicted_id)
+ 
+            # Break if an <EOS> token is predicted
+            if predicted_id == output_end:
+                break
+ 
+        output = transpose(decoder_output.stack())[0]
+        output = output.numpy()
+ 
+        output_str = []
+ 
+        # Decode the predicted tokens into an output string
+        for i in range(output.shape[0]):
+ 
+            key = output[i]
+            print(dec_tokenizer.index_word[key])
+ 
+        return output_str
+
+Testing Out the Code
+In order to test out the code, let’s have a look at the test_dataset.txt file that we would have saved when preparing the dataset for training. This text file contains a set of English-German sentence pairs that we have reserved for testing, from which we can select a couple of sentences to test.
+
+Let’s start with the first sentence:
+
+# Sentence to translate
+sentence = ['im thirsty']
+The corresponding, ground truth translation in German for this sentence, including the <START> and <EOS> decoder tokens, should be: <START> ich bin durstig <EOS>.
+
+If we have a look at the plotted training and validation loss curves for this model (we are here training for 20 epochs), we can notice that the validation loss curve slows down considerably and starts plateauing at around epoch 16. 
+
+So let’s proceed to load the saved model’s weights at the 16th epoch, and check out the prediction that is generated by the model:
+
+# Load the trained model's weights at the specified epoch
+inferencing_model.load_weights('weights/wghts16.ckpt')
+ 
+# Create a new instance of the 'Translate' class
+translator = Translate(inferencing_model)
+ 
+# Translate the input sentence
+print(translator(sentence))
+Running the lines of code above produces the following translated list of words:
+
+['start', 'ich', 'bin', 'durstig', ‘eos']
+Which is equivalent to the ground truth German sentence that we were expecting (always keep in mind that, since we are training the Transformer model from scratch, you may arrive at different results depending on the random initialisation of the model weights). 
+
+Let’s check out what would have happened if we had, instead, loaded a set of weights corresponding to a much earlier epoch, such as the 4th epoch. In our case, the generated translation is the following:
+
+['start', 'ich', 'bin', 'nicht', 'nicht', 'eos']
+In English, this translates to: I in not not, which is clearly far off from the input English sentence, but which is expected since, at this epoch, the learning process of the Transformer model is still at the very early stages. 
+
+Let’s try again with a second sentence from the test dataset:
+
+# Sentence to translate
+sentence = ['are we done']
+The corresponding, ground truth translation in German for this sentence, including the <START> and <EOS> decoder tokens, should be: <START> sind wir dann durch <EOS>.
+
+We find that the model’s translation for this sentence, using the weights saved at epoch 16, is:
+
+['start', 'ich', 'war', 'fertig', 'eos']
+Which, rather, translates to: I was ready. While this is also not equal to the ground truth, at least it is close to it in meaning. 
+
+What the last test suggests, however, is that the Transformer model might have required many more data samples to train effectively. This is also corroborated by the fact that the validation loss at which the validation loss curve plateaus remains, relatively, high. 
+
+Indeed, Transformer models are notorious for being very data hungry. Vaswani et al. (2017), for example, had trained their English-to-German translation model using a dataset containing around 4.5 million sentence pairs.
