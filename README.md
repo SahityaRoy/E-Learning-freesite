@@ -2,9 +2,8 @@
 <h4 align="center"> It’s a community for the people by the people. The vision of the community is to build an environment where people can learn together and implement together., We Organizes Open Source Programs, Hackathons and 1:1 Mentorships. </h4>
 <h3 align="center"> An Open Source Website for the students built using HTML, CSS, JavaScript and Bootstrap Php </h3>
 
-![image](https://res.cloudinary.com/practicaldev/image/fetch/s--u9O3bUqe--/c_imagga_scale,f_auto,fl_progressive,h_500,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/12t9r8j7n9ynxbdzhs5p.png)
+![image](https://media-exp1.licdn.com/dms/image/D4D16AQGRNP-k3T2bzA/profile-displaybackgroundimage-shrink_350_1400/0/1666725574602?e=1674691200&v=beta&t=4Z9RetNujc9ykhvWBHRtAet5eiXVvOBbZ_LmO8vmfSc)
 
-![](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimaqpress.com%2Fwp-content%2Fuploads%2F2021%2F04%2Fonline-learning.jpg&f=1&nofb=1)
 
 [**Hacktoberfest**](https://hacktoberfest.digitalocean.com/) is a month long event where people are awarded for contributing to open source projects 🙌, and we're joining the party, hosted by [**DigitalOcean**](https://www.digitalocean.com/) for the 8th year in a row. Hacktoberfest encourages participation in giving back to the open source community by completing pull requests, participating in events, and donating to open source projects.
 
