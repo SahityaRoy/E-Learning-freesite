@@ -4,9 +4,6 @@
 
 ![image](https://media-exp1.licdn.com/dms/image/D4D16AQGRNP-k3T2bzA/profile-displaybackgroundimage-shrink_350_1400/0/1666725574602?e=1674691200&v=beta&t=4Z9RetNujc9ykhvWBHRtAet5eiXVvOBbZ_LmO8vmfSc)
 
-
-[**Hacktoberfest**](https://hacktoberfest.digitalocean.com/) is a month long event where people are awarded for contributing to open source projects 🙌, and we're joining the party, hosted by [**DigitalOcean**](https://www.digitalocean.com/) for the 8th year in a row. Hacktoberfest encourages participation in giving back to the open source community by completing pull requests, participating in events, and donating to open source projects.
-
 <b>This repository will be partcipating in the Hacktoberfest event, so raise issues,contribute in this repository and stay tuned with us for more .</b>
 
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Welcome_to_Free_Learning_site_0"></a>Welcome to Free Learning site</h1>
