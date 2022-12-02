@@ -1,4 +1,4 @@
-<h1 align="center">E Learning Community Website </h1>
+<h1 align="center">E-Learning Eduhub Community  </h1>
 <h4 align="center"> It’s a community for the people by the people. The vision of the community is to build an environment where people can learn together and implement together., We Organizes Open Source Programs, Hackathons and 1:1 Mentorships. </h4>
 <h3 align="center"> An Open Source Website for the students built using HTML, CSS, JavaScript and Bootstrap Php </h3>
 
