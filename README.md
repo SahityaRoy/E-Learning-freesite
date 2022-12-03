@@ -8,7 +8,7 @@
 
 <h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Welcome_to_Free_Learning_site_0"></a>Welcome to Free Learning site</h1>
 <h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>Hello Everyone, I am Sahitya Roy owner of this project if you want to contribute please feel free to connect with me, this project is under Hackclub. </em></h2>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place, students can access all the resources through this site and i will put this site on my github publicly so that everyone can contribute and add more and more features...</p>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place, students can access all the resources through this site and i will put this site on my github publicly so that everyone can contribute and add more and more features</p>
 
 <p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
 <p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
