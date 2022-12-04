@@ -56,7 +56,7 @@ Instructions on how to use them in your own application are linked below.</p>
 <thead>
 <tr>
 <th>Plugin</th>
-<th>README</th>
+<th>README.md</th>
 </tr>
 </thead>
 <tbody></tbody>
