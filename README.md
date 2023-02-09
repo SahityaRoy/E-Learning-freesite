@@ -99,7 +99,7 @@ Make a change in your file and instantaneously see your updates!</li>
 <p class="has-line-data" data-line-start="120" data-line-end="121"><strong>Free Software, Hell Yeah!</strong></p>
 	
 	
-<h1 align=center> Project Admin ❤️ </h1>
+<h1 align=center> Project Admin ❤️ (Eduhub) </h1>
 <p align="center">
   <a href="https://github.com/SahityaRoy"><img src="https://avatars.githubusercontent.com/u/72821604?v=4" width=150px height=150px /></a> 
     
