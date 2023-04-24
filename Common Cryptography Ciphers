@@ -1,0 +1,8 @@
+Caesar Cipher:
+When using a Caesar cipher you choose a number to shift the entire alphabet by. If you wanted to shift it by 2, A would become C, B would become D, X would become Z, Z would become B, etc. So "Hello World!" would become "Jgnnq Yqtnf!"
+
+Monoalphabetic Cipher:
+In a Monoalphabetic Cipher you replace each letter with any letter besides the original letter. So A can be replaced by any letter from B-Z. D could be replaced with Q and R could be replaced with E. It is much more difficult to crack because there are plenty of possiblities.
+
+Polygram Substitution Cipher:
+In a Polygram Substation Cipher, instead of replacing the normal alphabet with a scrambled alphabet, the alphabets’ Block is replaced with another block from an alphabet. You could replace HACKTOBER with YKMSFEBQW. Whenever you used HACKTOBER it wold be replaced with YKMSFEBQW, but HACK on its own would be replaced with another set of the block, HACK could replace with PLGH.
