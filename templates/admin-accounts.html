@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff8fb">
+    <meta name="description" content="Quản lý tài khoản Eduhub.">
+    <title>Tài khoản | Eduhub Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/admin-dashboard.css">
+    <script src="assets/js/auth.js" defer></script>
+</head>
+<body class="min-h-screen text-[#29232a]" data-protected-role="admin">
+    <div id="sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-[#261b28]/40 backdrop-blur-[2px] lg:hidden" aria-hidden="true"></div>
+    <aside id="admin-sidebar" class="admin-sidebar fixed inset-y-0 left-0 z-40 flex w-[260px] -translate-x-full flex-col border-r border-[#f0e6ec] bg-white transition-transform duration-300 lg:translate-x-0">
+        <div class="flex h-[82px] shrink-0 items-center gap-3 border-b border-[#f2ebef] px-6">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-[#e94b91] text-white shadow-lg shadow-pink-200/70" aria-hidden="true"><svg viewBox="0 0 24 24" class="h-6 w-6"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h6"/></svg></span>
+            <span class="font-['Manrope'] text-[15px] font-extrabold tracking-[0.04em] text-[#342733]">EDUHUB<span class="ml-1 text-[#e94b91]">.</span><small class="mt-0.5 block text-[9px] font-bold tracking-[0.19em] text-[#a99ca7]">LEARNING SPACE</small></span>
+            <button id="sidebar-close" class="ml-auto grid h-9 w-9 place-items-center rounded-lg text-[#8f818c] hover:bg-[#fbf1f6] lg:hidden" type="button" aria-label="Đóng menu">×</button>
+        </div>
+        <nav class="flex-1 overflow-y-auto px-4 py-6" aria-label="Điều hướng quản trị">
+            <p class="px-3 pb-3 text-[10px] font-bold tracking-[0.18em] text-[#b4a8b1]">WORKSPACE</p>
+            <a class="sidebar-link" href="admin.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Tổng quan</span></a>
+            <a class="sidebar-link" href="admin-courses.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 8 9-5 9 5-9 5-9-5Z"/><path d="M7 10.2v5.3c2.7 2.5 7.3 2.5 10 0v-5.3M21 8v6"/></svg><span>Khóa học</span><span id="sidebar-course-count" class="sidebar-count">0</span></a>
+            <a class="sidebar-link sidebar-link-active" href="admin-accounts.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 8v6m3-3h-6"/></svg><span>Tài khoản</span></a>
+            <p class="px-3 pb-3 pt-8 text-[10px] font-bold tracking-[0.18em] text-[#b4a8b1]">CÔNG CỤ</p>
+            <a class="sidebar-link" href="quiz-admin.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3"/><path d="M8 3h8v4H8zM8 12h8M8 16h5"/></svg><span>Quản lý đề thi</span><span class="nav-external" aria-hidden="true">↗</span></a>
+            <a class="sidebar-link" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z"/></svg><span>Về trang học</span><span class="nav-external" aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="m-4 rounded-2xl border border-[#f6dce9] bg-[#fff7fb] p-4"><div class="flex items-center gap-2 text-xs font-bold text-[#59434f]"><span class="h-2 w-2 rounded-full bg-[#51bd8a]"></span>Hệ thống đang hoạt động</div><p class="mb-0 mt-2 text-[11px] leading-5 text-[#988894]">Quyền truy cập được bảo vệ.</p></div>
+    </aside>
+
+    <div class="min-h-screen lg:pl-[260px]">
+        <header class="sticky top-0 z-20 flex h-[82px] items-center justify-between border-b border-[#f0e6ec] bg-white/90 px-4 backdrop-blur-xl sm:px-7 xl:px-10">
+            <div class="flex min-w-0 items-center gap-3"><button id="sidebar-toggle" class="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[#f1e8ee] text-[#6f5b69] hover:bg-[#fff6fa] lg:hidden" type="button" aria-label="Mở menu" aria-expanded="false"><svg viewBox="0 0 24 24" class="h-5 w-5"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div class="hidden min-w-0 sm:block"><p class="mb-0 text-[11px] font-semibold text-[#a99ca7]">Eduhub <span class="px-1 text-[#dfcbd7]">/</span> Tài khoản</p><p class="mb-0 mt-1 truncate text-sm font-bold text-[#3a2e38]">Quản lý tài khoản</p></div></div>
+            <div class="flex items-center gap-3 sm:gap-5"><span class="hidden h-8 w-px bg-[#f1e8ee] sm:block"></span><div class="flex min-w-0 items-center gap-2.5"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#f8dceb] font-['Manrope'] text-sm font-extrabold text-[#b93670]" data-account-avatar aria-hidden="true">A</span><span class="hidden min-w-0 sm:block"><span class="block max-w-40 truncate text-xs font-bold text-[#382d37]" data-account-name></span><span class="block max-w-40 truncate text-[10px] text-[#a99ca7]" data-account-email></span></span></div><button class="logout-button" id="logout-button" type="button" title="Đăng xuất" aria-label="Đăng xuất"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"/></svg><span class="hidden xl:inline">Thoát</span></button></div>
+        </header>
+
+        <main class="mx-auto w-full max-w-[1480px] px-4 pb-12 pt-8 sm:px-7 sm:pt-10 xl:px-10">
+            <section class="mb-7"><p class="section-kicker">QUYỀN TRUY CẬP</p><h1 class="mb-0 font-['Manrope'] text-[27px] font-extrabold text-[#332831] sm:text-[34px]">Tài khoản</h1><p class="mb-0 mt-2 text-sm text-[#968793]">Theo dõi thành viên và cấp quyền quản trị.</p></section>
+            <section class="mb-8 grid gap-4 sm:grid-cols-2" aria-label="Số liệu tài khoản">
+                <article class="metric-card"><div class="flex items-start justify-between"><span class="metric-label">Học viên</span><span class="metric-icon metric-icon-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 8v6m3-3h-6"/></svg></span></div><strong id="user-count" class="mt-5 block metric-value">0</strong></article>
+                <article class="metric-card"><div class="flex items-start justify-between"><span class="metric-label">Quản trị viên</span><span class="metric-icon metric-icon-pink"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span></div><strong id="admin-count" class="mt-5 block metric-value">0</strong></article>
+            </section>
+
+            <section class="dashboard-panel" aria-labelledby="accounts-heading">
+                <div class="border-b border-[#f3edf1] px-5 py-5 sm:px-7"><p class="section-kicker">THÀNH VIÊN HỆ THỐNG</p><h2 id="accounts-heading" class="section-title">Danh sách tài khoản</h2><p class="section-subtitle">Tài khoản và vai trò hiện tại.</p></div>
+                <div class="table-scroll px-2 py-3 sm:px-5"><table class="user-table admin-table account-table"><thead><tr><th>#</th><th>Họ và tên</th><th>Email</th><th>Vai trò</th></tr></thead><tbody id="users-table-body"></tbody></table></div>
+            </section>
+
+            <section class="dashboard-panel mt-8" aria-labelledby="create-admin-heading">
+                <div class="grid xl:grid-cols-[minmax(0,1fr)_minmax(360px,0.85fr)]">
+                    <div class="p-5 sm:p-7"><p class="section-kicker">QUẢN LÝ QUYỀN</p><h2 id="create-admin-heading" class="section-title">Tạo tài khoản quản trị</h2><p class="section-subtitle">Tài khoản mới sẽ được lưu vào database và có thể đăng nhập ngay.</p><div class="mt-6 rounded-xl border border-[#f4e8ef] bg-[#fffafd] p-4 text-xs leading-5 text-[#8e7d89]">Chỉ cấp quyền quản trị cho người cần truy cập khu vực quản lý. Email phải chưa được đăng ký.</div></div>
+                    <div class="border-t border-[#f3edf1] bg-[#fffafd] px-5 py-6 sm:px-7 xl:border-l xl:border-t-0">
+                        <form class="admin-form grid gap-3" id="admin-create-form">
+                            <div><label class="field-label" for="admin-name">Họ và tên</label><input class="admin-input" id="admin-name" name="name" maxlength="80" autocomplete="name" placeholder="Nguyễn Văn An" required></div>
+                            <div><label class="field-label" for="admin-email">Email</label><input class="admin-input" id="admin-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="email@domain.com" required></div>
+                            <div><label class="field-label" for="admin-password">Mật khẩu</label><input class="admin-input" id="admin-password" name="password" type="password" minlength="8" autocomplete="new-password" placeholder="Ít nhất 8 ký tự" required></div>
+                            <p class="form-message" id="admin-create-message" role="status" aria-live="polite"></p>
+                            <button class="submit-button w-full justify-center" type="submit">Tạo tài khoản quản trị <span aria-hidden="true">→</span></button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <footer class="flex flex-col gap-2 px-1 py-7 text-[11px] text-[#a99ca7] sm:flex-row sm:items-center sm:justify-between"><span>© 2026 Eduhub Admin</span><a class="text-[#c4457d]" href="admin.html">Quay lại tổng quan</a></footer>
+        </main>
+    </div>
+</body>
+</html>

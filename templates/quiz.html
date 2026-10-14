@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Luyện tập và làm bài thi trắc nghiệm lập trình trực tuyến." />
+    <title>Làm bài thi | E-Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/quiz.css" />
+    <script src="assets/js/quiz.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="E-Learning, về trang chủ">
+        <img src="images/logo.svg" alt="E-Learning" />
+        <span>EDUHUB <small>HỌC TẬP MỖI NGÀY</small></span>
+      </a>
+      <nav aria-label="Điều hướng chính">
+        <a href="./index.html#course">Khóa học</a>
+        <a href="./quiz-admin.html">Quản lý đề</a>
+        <a class="header-cta" href="./index.html">Về trang chủ <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <section id="examHome" class="exam-home" aria-labelledby="pageHeading">
+        <div class="hero-row">
+          <div class="hero-copy">
+            <p class="eyebrow"><span></span> KHÔNG GIAN ÔN TẬP</p>
+            <h1 id="pageHeading">Kiến thức vững,<br /><em>thi cử tự tin.</em></h1>
+            <p class="hero-description">Chọn một bộ đề, tập trung giải từng câu và xem lại kết quả ngay sau khi nộp bài.</p>
+          </div>
+          <div class="hero-note" aria-label="Thông tin bài thi">
+            <span class="note-mark" aria-hidden="true">✳</span>
+            <span class="note-caption">MỖI CÂU HỎI</span>
+            <strong>Một bước<br />tiến bộ.</strong>
+            <span class="note-line"></span>
+            <span class="note-small">Tự luyện theo nhịp độ của bạn</span>
+          </div>
+        </div>
+
+        <div class="exam-toolbar">
+          <div><p class="eyebrow">THƯ VIỆN ĐỀ</p><h2>Bắt đầu luyện tập</h2></div>
+          <div id="examFilters" class="filter-tabs" role="group" aria-label="Lọc bộ đề theo chủ đề">
+            <button class="filter-tab active" type="button" data-filter="all" aria-pressed="true">Tất cả</button>
+            <button class="filter-tab" type="button" data-filter="HTML & CSS" aria-pressed="false">HTML &amp; CSS</button>
+            <button class="filter-tab" type="button" data-filter="JavaScript" aria-pressed="false">JavaScript</button>
+            <button class="filter-tab" type="button" data-filter="Lập trình" aria-pressed="false">Lập trình</button>
+          </div>
+        </div>
+        <section id="examList" class="exam-list" aria-label="Danh sách bộ đề"></section>
+
+        <section class="history-section" aria-labelledby="historyHeading">
+          <div class="section-heading-row"><div><p class="eyebrow">HÀNH TRÌNH CỦA BẠN</p><h2 id="historyHeading">Lần làm bài gần đây</h2></div><span id="historyCount" class="history-count">0 lượt thi</span></div>
+          <div id="historyList" class="history-list" aria-live="polite"></div>
+        </section>
+      </section>
+
+      <section id="examSession" class="exam-session is-hidden" aria-labelledby="questionText">
+        <div class="session-topline"><button id="exitExamBtn" class="text-button" type="button">← Thoát bài thi</button><div class="timer" id="examTimer" role="timer" aria-live="off"><span aria-hidden="true">◷</span> <span id="timerValue">00:00</span></div></div>
+        <div class="session-heading"><div><p id="sessionSubject" class="eyebrow">CHỦ ĐỀ</p><h1 id="sessionTitle">Bài thi trắc nghiệm</h1></div><div class="progress-copy"><strong id="questionProgress">Câu 1 / 5</strong><span id="answeredProgress">0 câu đã trả lời</span></div></div>
+        <div class="progress-track" role="progressbar" aria-label="Tiến độ bài thi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progressBar"></span></div>
+        <div class="session-layout">
+          <article class="question-panel">
+            <div class="question-meta"><span id="questionNumber" class="question-number">CÂU 01</span><span class="question-type">Chọn một đáp án</span></div>
+            <h2 id="questionText"></h2>
+            <fieldset id="answerOptions" class="answer-options"><legend class="sr-only">Chọn đáp án của bạn</legend></fieldset>
+            <div class="question-actions"><button id="previousQuestionBtn" class="button button-quiet" type="button">← Câu trước</button><button id="nextQuestionBtn" class="button button-primary" type="button">Câu tiếp theo →</button></div>
+          </article>
+          <aside class="question-rail" aria-label="Danh sách câu hỏi">
+            <div class="rail-heading"><h2>Phiếu trả lời</h2><span id="railAnsweredCount">0/5</span></div>
+            <p>Chọn số câu để di chuyển nhanh.</p>
+            <div id="questionNavigator" class="question-navigator"></div>
+            <div class="rail-legend"><span><i class="legend-current"></i>Đang làm</span><span><i class="legend-done"></i>Đã chọn</span></div>
+            <button id="submitExamBtn" class="button button-submit" type="button">Nộp bài ↗</button>
+          </aside>
+        </div>
+      </section>
+
+      <section id="examResult" class="exam-result is-hidden" aria-labelledby="resultHeading">
+        <div class="result-topline"><p class="eyebrow">KẾT QUẢ LUYỆN TẬP</p><button id="resultHomeBtn" class="text-button" type="button">← Danh sách đề</button></div>
+        <div class="result-summary"><div class="score-ring"><span id="scorePercent">0%</span><small>điểm số</small></div><div class="result-copy"><p id="resultSubject" class="eyebrow">CHỦ ĐỀ</p><h1 id="resultHeading">Bài làm đã hoàn thành</h1><p id="resultMessage"></p><div class="result-stats"><span><strong id="correctCount">0</strong> câu đúng</span><span><strong id="incorrectCount">0</strong> câu chưa đúng</span><span><strong id="resultDuration">00:00</strong> thời gian</span></div></div></div>
+        <div class="review-heading"><div><p class="eyebrow">ÔN LẠI KIẾN THỨC</p><h2>Đáp án và giải thích</h2></div><button id="retryExamBtn" class="button button-primary" type="button">Làm lại đề ↻</button></div>
+        <div id="answerReview" class="answer-review"></div>
+      </section>
+    </main>
+    <footer class="site-footer"><a href="./index.html">E-Learning Eduhub</a><span>Học cùng nhau, tiến xa hơn.</span></footer>
+  </body>
+</html>

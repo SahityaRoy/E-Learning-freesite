@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Quản lý danh sách đề thi trắc nghiệm E-Learning." />
+    <title>Quản lý đề thi | E-Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/quiz-admin.css" />
+    <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/quiz-admin.js" defer></script>
+  </head>
+  <body data-protected-role="admin">
+    <header class="admin-header">
+      <a class="brand" href="./index.html" aria-label="E-Learning, về trang chủ">
+        <img src="images/logo.svg" alt="E-Learning" />
+        <span>EDUHUB <small>KHÔNG GIAN HỌC TẬP</small></span>
+      </a>
+      <nav aria-label="Điều hướng quản lý">
+        <a href="./admin.html">Tổng quan</a>
+        <a href="./admin-courses.html">Khóa học</a>
+        <a href="./admin-accounts.html">Tài khoản</a>
+        <a href="./quiz.html">Trang làm bài</a>
+        <button id="logout-button" type="button">Đăng xuất</button>
+      </nav>
+    </header>
+
+    <main class="admin-shell">
+      <section class="admin-intro">
+        <div>
+          <p class="eyebrow">KHÔNG GIAN GIẢNG VIÊN</p>
+          <h1>Quản lý đề thi</h1>
+          <p class="intro-copy">Tổ chức các bộ đề và thiết lập thời lượng làm bài cho sinh viên.</p>
+        </div>
+        <button id="addExamBtn" class="primary-button" type="button"><span aria-hidden="true">＋</span> Tạo đề thi</button>
+      </section>
+
+      <section class="catalog-panel" aria-labelledby="catalogHeading">
+        <div class="catalog-heading">
+          <div>
+            <p class="eyebrow">THƯ VIỆN ĐỀ</p>
+            <h2 id="catalogHeading">Danh sách đề thi</h2>
+          </div>
+          <span id="examCount" class="exam-count">0 đề thi</span>
+        </div>
+
+        <div class="catalog-tools">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="examSearch" type="search" placeholder="Tìm tên đề hoặc môn học" aria-label="Tìm tên đề hoặc môn học" />
+          </label>
+          <select id="subjectFilter" aria-label="Lọc theo môn học">
+            <option value="all">Tất cả môn học</option>
+            <option value="HTML & CSS">HTML &amp; CSS</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Lập trình">Lập trình</option>
+            <option value="other">Môn học khác</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Tên đề thi</th>
+                <th scope="col">Môn học</th>
+                <th scope="col">Số câu hỏi</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col"><span class="sr-only">Thao tác</span></th>
+              </tr>
+            </thead>
+            <tbody id="examTableBody"></tbody>
+          </table>
+        </div>
+        <p id="catalogFeedback" class="catalog-feedback" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <div id="examDialog" class="dialog-backdrop is-hidden" aria-hidden="true">
+      <section class="exam-dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+        <div class="dialog-heading">
+          <div><p class="eyebrow">THÔNG TIN ĐỀ</p><h2 id="dialogTitle">Tạo đề thi mới</h2></div>
+          <button id="closeDialogBtn" class="close-button" type="button" aria-label="Đóng">×</button>
+        </div>
+        <form id="examForm">
+          <label class="form-field form-field-wide">
+            <span>Tên đề thi</span>
+            <input id="examTitle" name="title" type="text" maxlength="100" placeholder="Ví dụ: Kiểm tra JavaScript giữa kỳ" required />
+          </label>
+          <label class="form-field form-field-wide">
+            <span>Môn học</span>
+            <input id="examSubject" name="subject" type="text" maxlength="60" placeholder="Ví dụ: JavaScript" list="subjectSuggestions" required />
+            <datalist id="subjectSuggestions"><option value="HTML & CSS"></option><option value="JavaScript"></option><option value="Lập trình"></option></datalist>
+          </label>
+          <div class="form-grid">
+            <label class="form-field">
+              <span>Số câu hỏi</span>
+              <input id="examQuestionCount" name="questionCount" type="number" min="1" max="200" required />
+              <small id="questionCountHint" class="field-hint"></small>
+            </label>
+            <label class="form-field">
+              <span>Thời gian (phút)</span>
+              <input id="examDuration" name="duration" type="number" min="1" max="300" required />
+            </label>
+          </div>
+          <div class="dialog-actions">
+            <button id="cancelDialogBtn" class="secondary-button" type="button">Hủy</button>
+            <button class="primary-button" type="submit">Lưu đề thi</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <footer class="admin-footer"><a href="./index.html">E-Learning Eduhub</a><span>Dữ liệu đề thi được lưu trên trình duyệt này.</span></footer>
+  </body>
+</html>
