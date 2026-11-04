@@ -79,6 +79,10 @@ Bộ test dùng database và thư mục upload tạm, không cần xóa database
 | `UPLOAD_FOLDER` | `instance/uploads` | Ảnh khóa học |
 | `BOOK_UPLOAD_FOLDER` | `static/uploads/books` | Ảnh bìa sách |
 | `PORT` | `5000` | Cổng Flask development server |
+| `AUTH_LOGIN_RATE_LIMIT` | `10` | Số lần đăng nhập tối đa trên mỗi IP trong cửa sổ giới hạn |
+| `AUTH_LOGIN_RATE_WINDOW` | `900` | Cửa sổ giới hạn đăng nhập, tính bằng giây |
+| `AUTH_REGISTER_RATE_LIMIT` | `5` | Số lần đăng ký tối đa trên mỗi IP trong cửa sổ giới hạn |
+| `AUTH_REGISTER_RATE_WINDOW` | `3600` | Cửa sổ giới hạn đăng ký, tính bằng giây |
 
 Ứng dụng tự tạo database, bảng và dữ liệu mẫu khi khởi động. Khi triển khai, cần giữ database và thư mục upload trên persistent storage để không mất dữ liệu sau khi restart.
 

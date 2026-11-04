@@ -146,6 +146,16 @@ def initialize_database(app):
             duration_seconds INTEGER NOT NULL,
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
+        CREATE TABLE IF NOT EXISTS auth_rate_limit_events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            action TEXT NOT NULL,
+            client_key TEXT NOT NULL,
+            created_at INTEGER NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_auth_rate_limit_events_client
+            ON auth_rate_limit_events(action, client_key, created_at);
+        CREATE INDEX IF NOT EXISTS idx_auth_rate_limit_events_created_at
+            ON auth_rate_limit_events(created_at);
         CREATE INDEX IF NOT EXISTS idx_quiz_attempts_created_at
             ON quiz_attempts(created_at DESC, id DESC);
         CREATE INDEX IF NOT EXISTS idx_quiz_attempts_exam_id
