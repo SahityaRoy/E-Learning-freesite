@@ -1,5 +1,8 @@
+import hashlib
+import hmac
 import re
 import sqlite3
+import time
 import uuid
 from functools import wraps
 from io import BytesIO
@@ -31,6 +34,7 @@ from models import (
     find_user_by_email,
     get_book_by_id,
     get_course_by_id,
+    get_database,
     get_quiz_statistics,
     get_user_by_id,
     hash_password,
@@ -57,6 +61,59 @@ STATIC_EXTENSIONS = {
 IMAGE_EXTENSIONS = {"PNG": ".png", "JPEG": ".jpg", "GIF": ".gif", "WEBP": ".webp"}
 MAX_UPLOAD_SIZE = 5 * 1024 * 1024
 MAX_IMAGE_PIXELS = 25_000_000
+
+
+def auth_rate_limited(action, limit_config, window_config):
+    """Apply a persistent rolling-window limit keyed by action and client IP."""
+    def decorate(view):
+        @wraps(view)
+        def wrapped(*args, **kwargs):
+            if request.method != "POST":
+                return view(*args, **kwargs)
+            now = int(time.time())
+            window = int(current_app.config[window_config])
+            limit = int(current_app.config[limit_config])
+            client_ip = request.remote_addr or "unknown"
+            client_key = hmac.new(
+                str(current_app.config["SECRET_KEY"]).encode("utf-8"),
+                client_ip.encode("utf-8"),
+                hashlib.sha256,
+            ).hexdigest()
+            database = get_database()
+            database.execute("BEGIN IMMEDIATE")
+            database.execute(
+                "DELETE FROM auth_rate_limit_events WHERE created_at <= ?",
+                (now - max(window, 24 * 60 * 60),),
+            )
+            rows = database.execute(
+                "SELECT created_at FROM auth_rate_limit_events "
+                "WHERE action = ? AND client_key = ? AND created_at > ? "
+                "ORDER BY created_at ASC",
+                (action, client_key, now - window),
+            ).fetchall()
+            if len(rows) >= limit:
+                retry_after = max(1, rows[0]["created_at"] + window - now)
+                database.commit()
+                if request.path == "/login":
+                    flash("Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau.", "error")
+                    response = render_template("admin_login.html"), 429
+                    response = current_app.make_response(response)
+                else:
+                    response = current_app.make_response(
+                        api_error("Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau.", 429)
+                    )
+                response.headers["Retry-After"] = str(retry_after)
+                return response
+
+            database.execute(
+                "INSERT INTO auth_rate_limit_events (action, client_key, created_at) "
+                "VALUES (?, ?, ?)",
+                (action, client_key, now),
+            )
+            database.commit()
+            return view(*args, **kwargs)
+        return wrapped
+    return decorate
 
 
 def login_required(view):
@@ -105,6 +162,7 @@ def admin_page_required(view):
 
 
 @page_routes.route("/login", methods=["GET", "POST"])
+@auth_rate_limited("login", "AUTH_LOGIN_RATE_LIMIT", "AUTH_LOGIN_RATE_WINDOW")
 def login_page():
     if request.method == "GET":
         user_id = session.get("user_id")
@@ -273,6 +331,7 @@ def current_account():
 
 
 @api_routes.post("/api/auth/register")
+@auth_rate_limited("register", "AUTH_REGISTER_RATE_LIMIT", "AUTH_REGISTER_RATE_WINDOW")
 def register():
     data = json_payload()
     name = data.get("name", "")
@@ -302,6 +361,7 @@ def register():
 
 
 @api_routes.post("/api/auth/login")
+@auth_rate_limited("login", "AUTH_LOGIN_RATE_LIMIT", "AUTH_LOGIN_RATE_WINDOW")
 def login():
     data = json_payload()
     email = data.get("email", "")

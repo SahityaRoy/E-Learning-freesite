@@ -583,11 +583,65 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
 
     def test_login_rejects_wrong_password(self):
         self.register_user()
-        response = self.client.post("/api/auth/login", json={
+        anonymous_client = self.app.test_client()
+        response = anonymous_client.post("/api/auth/login", json={
             "email": "student@example.com",
             "password": "wrong-password",
         })
         self.assertEqual(response.status_code, 401)
+        self.assertEqual(anonymous_client.get("/api/auth/me").status_code, 401)
+
+    def test_authentication_and_authorization_access_matrix(self):
+        protected_api = "/api/admin/books/count"
+        protected_page = "/admin/books"
+
+        self.assertEqual(self.client.get("/api/auth/me").status_code, 401)
+        self.assertEqual(self.client.get(protected_api).status_code, 401)
+        redirect_response = self.client.get(protected_page)
+        self.assertEqual(redirect_response.status_code, 302)
+        self.assertEqual(redirect_response.headers["Location"], "/login")
+
+        self.assertEqual(self.register_user().status_code, 201)
+        self.assertEqual(self.client.get("/api/auth/me").status_code, 200)
+        self.assertEqual(self.client.get(protected_api).status_code, 403)
+        self.assertEqual(self.client.get(protected_page).status_code, 403)
+
+        self.assertEqual(self.client.post("/api/auth/logout").status_code, 200)
+        self.assertEqual(self.client.get("/api/auth/me").status_code, 401)
+        self.assertEqual(self.login_admin().status_code, 200)
+        self.assertEqual(self.client.get(protected_api).status_code, 200)
+        self.assertEqual(self.client.get(protected_page).status_code, 200)
+
+    def test_failed_admin_form_login_does_not_authenticate_student(self):
+        self.register_user()
+        anonymous_client = self.app.test_client()
+        response = anonymous_client.post("/login", data={
+            "email": "student@example.com",
+            "password": "StudentPassword123",
+        })
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(anonymous_client.get("/api/auth/me").status_code, 401)
+
+    def test_login_rate_limit_covers_api_and_admin_form(self):
+        self.app.config.update(AUTH_LOGIN_RATE_LIMIT=2, AUTH_LOGIN_RATE_WINDOW=60)
+        failed_login = {"email": "missing@example.com", "password": "wrong-password"}
+        self.assertEqual(self.client.post("/api/auth/login", json=failed_login).status_code, 401)
+        self.assertEqual(self.client.post("/api/auth/login", json=failed_login).status_code, 401)
+
+        blocked = self.client.post("/login", data=failed_login)
+        self.assertEqual(blocked.status_code, 429)
+        self.assertGreaterEqual(int(blocked.headers["Retry-After"]), 1)
+
+    def test_registration_rate_limit_and_login_limit_are_independent(self):
+        self.app.config.update(AUTH_REGISTER_RATE_LIMIT=2, AUTH_REGISTER_RATE_WINDOW=60)
+        self.assertEqual(self.register_user("one@example.com").status_code, 201)
+        self.assertEqual(self.register_user("two@example.com").status_code, 201)
+        blocked = self.register_user("three@example.com")
+        self.assertEqual(blocked.status_code, 429)
+        self.assertGreaterEqual(int(blocked.headers["Retry-After"]), 1)
+
+        self.client.post("/api/auth/logout")
+        self.assertEqual(self.login_admin().status_code, 200)
 
     def test_invalid_json_shapes_return_validation_errors(self):
         self.assertEqual(self.client.post("/api/auth/register", json=["not", "an", "object"]).status_code, 400)

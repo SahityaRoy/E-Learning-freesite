@@ -50,6 +50,10 @@ def create_app(test_config=None):
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() == "true",
         PERMANENT_SESSION_LIFETIME=timedelta(days=30),
+        AUTH_LOGIN_RATE_LIMIT=int(os.environ.get("AUTH_LOGIN_RATE_LIMIT", "10")),
+        AUTH_LOGIN_RATE_WINDOW=int(os.environ.get("AUTH_LOGIN_RATE_WINDOW", str(15 * 60))),
+        AUTH_REGISTER_RATE_LIMIT=int(os.environ.get("AUTH_REGISTER_RATE_LIMIT", "5")),
+        AUTH_REGISTER_RATE_WINDOW=int(os.environ.get("AUTH_REGISTER_RATE_WINDOW", str(60 * 60))),
     )
     if test_config:
         app.config.update(test_config)
