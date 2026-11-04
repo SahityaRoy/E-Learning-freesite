@@ -208,25 +208,40 @@ def public_account(user):
 
 
 def validate_course(data):
-    title = str(data.get("title", "")).strip()
-    description = str(data.get("description", "")).strip()
-    details = str(data.get("details", "")).strip()
-    image_url = str(data.get("image_url", "")).strip()
-    course_url = str(data.get("course_url", "")).strip()
+    fields = ("title", "description", "details", "image_url", "course_url")
+    if any(not isinstance(data.get(field, ""), str) for field in fields):
+        return None, "Các trường khóa học phải có giá trị dạng chuỗi."
+
+    title = data.get("title", "").strip()
+    description = data.get("description", "").strip()
+    details = data.get("details", "").strip()
+    image_url = data.get("image_url", "").strip()
+    course_url = data.get("course_url", "").strip()
     if not title or len(title) > 150:
         return None, "Tên khóa học cần có từ 1 đến 150 ký tự."
     if len(description) > 1200:
         return None, "Mô tả không được vượt quá 1200 ký tự."
     if len(details) > 5000:
         return None, "Nội dung chi tiết không được vượt quá 5000 ký tự."
-    parsed_course_url = urlsplit(course_url)
-    if parsed_course_url.scheme not in {"http", "https"} or not parsed_course_url.netloc:
+    try:
+        parsed_course_url = urlsplit(course_url)
+        _ = parsed_course_url.port
+    except ValueError:
+        return None, "Liên kết khóa học không hợp lệ."
+    if parsed_course_url.scheme not in {"http", "https"} or not parsed_course_url.hostname:
         return None, "Liên kết khóa học phải bắt đầu bằng http:// hoặc https://."
     if image_url:
-        parsed_image_url = urlsplit(image_url)
         is_local_image = image_url.startswith("images/") and ".." not in Path(image_url).parts
         is_uploaded_image = re.fullmatch(r"/uploads/[a-f0-9]{32}\.(?:png|jpg|gif|webp)", image_url) is not None
-        is_external_image = parsed_image_url.scheme in {"http", "https"} and bool(parsed_image_url.netloc)
+        try:
+            parsed_image_url = urlsplit(image_url)
+            _ = parsed_image_url.port
+            is_external_image = (
+                parsed_image_url.scheme in {"http", "https"}
+                and bool(parsed_image_url.hostname)
+            )
+        except ValueError:
+            is_external_image = False
         if not (is_local_image or is_uploaded_image or is_external_image):
             return None, "Ảnh cần là đường dẫn images/ hoặc URL http(s)."
     return {

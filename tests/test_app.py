@@ -63,6 +63,93 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
         })
         self.assertEqual(duplicate.status_code, 409)
 
+    def test_registration_rejects_invalid_input_and_accepts_field_boundaries(self):
+        invalid_payloads = (
+            {},
+            {"email": "valid@example.com", "password": "Password123"},
+            {"name": "Valid", "password": "Password123"},
+            {"name": "Valid", "email": "valid@example.com"},
+            {"name": "", "email": "valid@example.com", "password": "Password123"},
+            {"name": "x" * 81, "email": "valid@example.com", "password": "Password123"},
+            {"name": "Valid", "email": "not-an-email", "password": "Password123"},
+            {"name": "Valid", "email": "x" * 250 + "@a.co", "password": "Password123"},
+            {"name": "Valid", "email": "valid@example.com", "password": "short"},
+            {"name": ["not", "text"], "email": "valid@example.com", "password": "Password123"},
+            {"name": "Valid", "email": None, "password": "Password123"},
+            {"name": "Valid", "email": 5, "password": "Password123"},
+            {"name": "Valid", "email": "valid@example.com", "password": None},
+            {"name": "Valid", "email": "valid@example.com", "password": {"value": "Password123"}},
+        )
+        for payload in invalid_payloads:
+            with self.subTest(payload=payload):
+                response = self.client.post("/api/auth/register", json=payload)
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                self.assertEqual(self.client.get("/api/auth/me").status_code, 401)
+
+        self.login_admin()
+        self.assertEqual(len(self.client.get("/api/admin/users").json), 1)
+
+        accepted = self.client.post("/api/auth/register", json={
+            "name": "x" * 80,
+            "email": "x" * 249 + "@a.co",
+            "password": "12345678",
+        })
+        self.assertEqual(accepted.status_code, 201)
+        self.assertEqual(len(accepted.json["name"]), 80)
+        self.assertEqual(len(accepted.json["email"]), 254)
+        self.assertEqual(accepted.json["role"], "user")
+
+    def test_login_rejects_missing_malformed_and_wrong_type_input(self):
+        invalid_requests = (
+            {"json": {}},
+            {"json": {"email": "root@example.com"}},
+            {"json": {"password": "RootPassword123"}},
+            {"json": {"email": None, "password": "RootPassword123"}},
+            {"json": {"email": "root@example.com", "password": ["not", "text"]}},
+            {"json": {"email": "not-an-email", "password": "RootPassword123"}},
+            {"json": {"email": "", "password": "RootPassword123"}},
+            {"json": {"email": "root@example.com", "password": ""}},
+            {"json": {"email": "x" * 250 + "@example.com", "password": "RootPassword123"}},
+            {"data": "{broken", "content_type": "application/json"},
+        )
+        for request_args in invalid_requests:
+            with self.subTest(request_args=request_args):
+                response = self.client.post("/api/auth/login", **request_args)
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                self.assertEqual(self.client.get("/api/auth/me").status_code, 401)
+
+        wrong_password = self.client.post("/api/auth/login", json={
+            "email": "root@example.com",
+            "password": "WrongPassword123",
+        })
+        self.assertEqual(wrong_password.status_code, 401)
+        self.assertEqual(self.client.get("/api/auth/me").status_code, 401)
+
+    def test_admin_creation_rejects_invalid_input_without_creating_accounts(self):
+        self.login_admin()
+        baseline = self.client.get("/api/admin/users").json
+        invalid_payloads = (
+            {},
+            {"email": "new@example.com", "password": "Password123"},
+            {"name": "Valid", "password": "Password123"},
+            {"name": "Valid", "email": "new@example.com"},
+            {"name": "", "email": "new@example.com", "password": "Password123"},
+            {"name": "x" * 81, "email": "new@example.com", "password": "Password123"},
+            {"name": "Valid", "email": "not-an-email", "password": "Password123"},
+            {"name": "Valid", "email": "new@example.com", "password": "short"},
+            {"name": ["not", "text"], "email": "new@example.com", "password": "Password123"},
+            {"name": "Valid", "email": None, "password": "Password123"},
+            {"name": "Valid", "email": "new@example.com", "password": None},
+        )
+        for payload in invalid_payloads:
+            with self.subTest(payload=payload):
+                response = self.client.post("/api/admin/users", json=payload)
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                self.assertEqual(self.client.get("/api/admin/users").json, baseline)
+
     def test_login_restores_account_name_from_permanent_session(self):
         self.register_user()
         self.client.post("/api/auth/logout")
@@ -481,9 +568,82 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
 
     def test_invalid_json_shapes_return_validation_errors(self):
         self.assertEqual(self.client.post("/api/auth/register", json=["not", "an", "object"]).status_code, 400)
+        self.assertEqual(self.client.post("/api/auth/login", json=["not", "an", "object"]).status_code, 400)
         self.login_admin()
         response = self.client.post("/api/courses", json=["not", "a", "course"])
         self.assertEqual(response.status_code, 400)
+
+    def test_course_validation_enforces_field_types_boundaries_and_no_writes(self):
+        self.login_admin()
+        original_courses = self.client.get("/api/courses").json
+        boundary_payload = {
+            "title": "x" * 150,
+            "description": "d" * 1200,
+            "details": "c" * 5000,
+            "image_url": "",
+            "course_url": "https://example.com/course",
+        }
+        created = self.client.post("/api/courses", json=boundary_payload)
+        self.assertEqual(created.status_code, 201)
+        course_id = created.json["id"]
+        self.assertEqual(len(created.json["title"]), 150)
+        self.assertEqual(len(created.json["description"]), 1200)
+        self.assertEqual(len(created.json["details"]), 5000)
+
+        invalid_payloads = (
+            {},
+            {"description": "Description", "course_url": boundary_payload["course_url"]},
+            {key: value for key, value in boundary_payload.items() if key != "course_url"},
+            {**boundary_payload, "title": ""},
+            {**boundary_payload, "title": "   "},
+            {**boundary_payload, "title": "x" * 151},
+            {**boundary_payload, "description": "d" * 1201},
+            {**boundary_payload, "details": "c" * 5001},
+            {**boundary_payload, "title": ["not", "text"]},
+            {**boundary_payload, "description": None},
+            {**boundary_payload, "details": {"text": "not a string"}},
+            {**boundary_payload, "course_url": None},
+            {**boundary_payload, "course_url": "javascript:alert(1)"},
+            {**boundary_payload, "course_url": "http://[invalid"},
+            {**boundary_payload, "course_url": "https://example.com:bad"},
+            {**boundary_payload, "image_url": ["not", "text"]},
+            {**boundary_payload, "image_url": "https://example.com:bad/image.png"},
+            {**boundary_payload, "image_url": "../private.png"},
+        )
+        expected_courses = [*original_courses, created.json]
+        for payload in invalid_payloads:
+            with self.subTest(operation="create", payload=payload):
+                response = self.client.post("/api/courses", json=payload)
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                self.assertEqual(self.client.get("/api/courses").json, expected_courses)
+
+            with self.subTest(operation="update", payload=payload):
+                response = self.client.put(f"/api/courses/{course_id}", json=payload)
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                self.assertEqual(self.client.get("/api/courses").json, expected_courses)
+
+        self.assertEqual(self.client.delete(f"/api/courses/{course_id}").status_code, 200)
+        self.assertEqual(self.client.get("/api/courses").json, original_courses)
+
+    def test_update_routes_reject_invalid_json_shapes_without_changing_data(self):
+        self.login_admin()
+        courses_before = self.client.get("/api/courses").json
+        course_id = courses_before[0]["id"]
+        invalid_requests = (
+            {"json": ["not", "an", "object"]},
+            {"data": "{broken", "content_type": "application/json"},
+            {"data": "not-json", "content_type": "text/plain"},
+        )
+        for request_args in invalid_requests:
+            with self.subTest(request_args=request_args):
+                response = self.client.put(
+                    f"/api/courses/{course_id}", **request_args
+                )
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                self.assertEqual(self.client.get("/api/courses").json, courses_before)
 
     def test_mvc_templates_keep_existing_page_urls_and_static_assets(self):
         for path in (

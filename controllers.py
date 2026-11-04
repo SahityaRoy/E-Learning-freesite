@@ -275,9 +275,13 @@ def current_account():
 @api_routes.post("/api/auth/register")
 def register():
     data = json_payload()
-    name = str(data.get("name", "")).strip()
-    email = normalize_email(data.get("email", ""))
-    password = str(data.get("password", ""))
+    name = data.get("name", "")
+    email = data.get("email", "")
+    password = data.get("password", "")
+    if not all(isinstance(value, str) for value in (name, email, password)):
+        return api_error("Họ tên, email và mật khẩu phải có giá trị dạng chuỗi.", 400)
+    name = name.strip()
+    email = normalize_email(email)
     if not name or len(name) > 80:
         return api_error("Họ tên cần có từ 1 đến 80 ký tự.", 400)
     if not valid_email(email):
@@ -300,8 +304,13 @@ def register():
 @api_routes.post("/api/auth/login")
 def login():
     data = json_payload()
-    email = normalize_email(data.get("email", ""))
-    password = str(data.get("password", ""))
+    email = data.get("email", "")
+    password = data.get("password", "")
+    if not isinstance(email, str) or not isinstance(password, str):
+        return api_error("Email và mật khẩu phải có giá trị dạng chuỗi.", 400)
+    email = normalize_email(email)
+    if not email or not password or not valid_email(email):
+        return api_error("Email hoặc mật khẩu không hợp lệ.", 400)
     user = find_user_by_email(email)
     if not user or not verify_password(user["password_hash"], password):
         return api_error("Email hoặc mật khẩu không chính xác.", 401)
@@ -437,9 +446,13 @@ def save_quiz_attempt():
 @admin_required
 def create_admin():
     data = json_payload()
-    name = str(data.get("name", "")).strip()
-    email = normalize_email(data.get("email", ""))
-    password = str(data.get("password", ""))
+    name = data.get("name", "")
+    email = data.get("email", "")
+    password = data.get("password", "")
+    if not all(isinstance(value, str) for value in (name, email, password)):
+        return api_error("Họ tên, email và mật khẩu phải có giá trị dạng chuỗi.", 400)
+    name = name.strip()
+    email = normalize_email(email)
     if not name or len(name) > 80:
         return api_error("Họ tên cần có từ 1 đến 80 ký tự.", 400)
     if not valid_email(email):
