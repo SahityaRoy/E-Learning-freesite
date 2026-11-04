@@ -558,6 +558,29 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
         missing_edit = self.client.get("/admin/books/edit/99999")
         self.assertEqual(missing_edit.status_code, 404)
 
+    def test_regression_issue_26_malformed_book_url_returns_validation_error(self):
+        self.login_admin()
+        with self.app.app_context():
+            from models import list_books
+
+            initial_books = len(list_books())
+
+        for document_url in ("https://[invalid", "https://example.com:bad/file.pdf"):
+            with self.subTest(document_url=document_url):
+                response = self.client.post("/admin/books/add", data={
+                    "title": "Regression test book",
+                    "author": "Test author",
+                    "category": "Testing",
+                    "description": "",
+                    "details": "",
+                    "document_url": document_url,
+                })
+
+                self.assertEqual(response.status_code, 400)
+                self.assertIn("Liên kết tài liệu", response.get_data(as_text=True))
+                with self.app.app_context():
+                    self.assertEqual(len(list_books()), initial_books)
+
     def test_login_rejects_wrong_password(self):
         self.register_user()
         response = self.client.post("/api/auth/login", json={

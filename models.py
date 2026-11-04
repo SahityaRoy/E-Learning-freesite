@@ -372,7 +372,6 @@ def validate_book(data):
     description = str(data.get("description", "")).strip()
     details = str(data.get("details", "")).strip()
     document_url = str(data.get("document_url", "")).strip()
-    parsed_document_url = urlsplit(document_url)
 
     if not title or len(title) > 200:
         return None, "Tên sách cần có từ 1 đến 200 ký tự."
@@ -384,7 +383,12 @@ def validate_book(data):
         return None, "Mô tả không được vượt quá 2000 ký tự."
     if len(details) > 5000:
         return None, "Nội dung chi tiết không được vượt quá 5000 ký tự."
-    if parsed_document_url.scheme not in {"http", "https"} or not parsed_document_url.netloc:
+    try:
+        parsed_document_url = urlsplit(document_url)
+        parsed_document_url.port
+    except ValueError:
+        return None, "Liên kết tài liệu không hợp lệ."
+    if parsed_document_url.scheme not in {"http", "https"} or not parsed_document_url.hostname:
         return None, "Liên kết tài liệu phải bắt đầu bằng http:// hoặc https://."
     if cover_image and not re.fullmatch(r"/static/uploads/books/[a-f0-9]{32}\.(?:png|jpg|gif|webp)", cover_image):
         return None, "Ảnh bìa không hợp lệ."
