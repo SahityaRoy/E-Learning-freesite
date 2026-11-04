@@ -22,6 +22,8 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
             "BOOTSTRAP_ADMIN_PASSWORD": "RootPassword123",
             "UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "uploads"),
             "BOOK_UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "books"),
+            "AUTH_LOGIN_RATE_LIMIT": 50,
+            "AUTH_REGISTER_RATE_LIMIT": 50,
         })
         with self.app.app_context():
             from models import get_database
