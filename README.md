@@ -66,7 +66,7 @@ Nếu không cấu hình `ADMIN_EMAIL` và `ADMIN_PASSWORD`, ứng dụng dùng 
 python -m unittest discover -s tests -v
 ```
 
-Bộ test dùng database và thư mục upload tạm, không cần xóa database local. Các kiểm thử bao gồm xác thực, quyền admin, CRUD khóa học/sách, trang chi tiết, upload ảnh, API thống kê quiz, các header/cookie bảo mật và smoke test hiệu năng API. Smoke test hiệu năng đo 10 request trong tiến trình cho danh sách 500 khóa học với ngân sách 3 giây; đây không phải kiểm thử tải hay cam kết SLA production.
+Bộ test dùng database và thư mục upload tạm, không cần xóa database local. Các kiểm thử bao gồm xác thực, quyền admin, CRUD khóa học/sách, trang chi tiết, upload ảnh, API thống kê quiz, các trường hợp dữ liệu sai/giá trị biên, header/cookie bảo mật và smoke test hiệu năng API. Smoke test hiệu năng đo 10 request trong tiến trình cho danh sách 500 khóa học với ngân sách 3 giây; đây không phải kiểm thử tải hay cam kết SLA production.
 
 ## Lưu trữ và cấu hình
 
