@@ -23,8 +23,20 @@ jobs:
           python-version: "3.x"
       - name: Export static site
         run: python scripts/build_static.py
+      - name: Check Azure deployment configuration
+        id: azure_config
+        env:
+          AZURE_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700 }}
+        run: |
+          if [ -n "$AZURE_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Azure deployment skipped because AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700 is not configured."
+          fi
       - name: Build And Deploy
         id: builddeploy
+        if: ${{ steps.azure_config.outputs.configured == 'true' }}
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700 }}
@@ -42,8 +54,20 @@ jobs:
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
+      - name: Check Azure deployment configuration
+        id: azure_config
+        env:
+          AZURE_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700 }}
+        run: |
+          if [ -n "$AZURE_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Azure preview cleanup skipped because AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700 is not configured."
+          fi
       - name: Close Pull Request
         id: closepullrequest
+        if: ${{ steps.azure_config.outputs.configured == 'true' }}
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700 }}

@@ -104,7 +104,7 @@ scripts/build_static.py Export templates/assets cho static hosting
 
 ## Triển khai
 
-`python app.py` chạy Flask development server trên `127.0.0.1`; không dùng server này cho production. Cần một host hỗ trợ Python/WSGI, cấu hình secret và admin riêng, cùng persistent storage cho SQLite và upload. Workflow Azure Static Web Apps hiện có chỉ xuất bản file tĩnh; nó không chạy Flask API, đăng nhập, database hay upload backend.
+`python app.py` chạy Flask development server trên `127.0.0.1`; không dùng server này cho production. Cần một host hỗ trợ Python/WSGI, cấu hình secret và admin riêng, cùng persistent storage cho SQLite và upload. Workflow Azure Static Web Apps chỉ xuất bản file tĩnh; nó không chạy Flask API, đăng nhập, database hay upload backend. Workflow vẫn export và kiểm tra bundle; bước deploy/đóng preview chỉ chạy khi repository có secret `AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700`, nếu thiếu thì GitHub Actions ghi warning và bỏ qua deploy thay vì đánh dấu job thất bại.
 
 ## Tài liệu
 
