@@ -2,10 +2,11 @@ import os
 import re
 import secrets
 from datetime import datetime, timedelta, timezone
+from html import escape
 from pathlib import Path
 
 import click
-from flask import Flask, g
+from flask import Flask, g, jsonify, request, session
 
 from controllers import api_routes, page_routes
 from models import archive_expired_quiz_attempts, initialize_database
@@ -13,6 +14,7 @@ from models import archive_expired_quiz_attempts, initialize_database
 
 BASE_DIR = Path(__file__).resolve().parent
 SCRIPT_TAG_PATTERN = re.compile(r"<script\b(?![^>]*\bnonce\s*=)([^>]*)>", re.IGNORECASE)
+HTML_HEAD_CLOSE_PATTERN = re.compile(r"</head\s*>", re.IGNORECASE)
 
 
 def load_secret_key(instance_directory=None):
@@ -70,6 +72,8 @@ def create_app(test_config=None):
             or os.environ.get("SESSION_COOKIE_SECURE", "").lower() == "true"
         ),
         HSTS_ENABLED=os.environ.get("HSTS_ENABLED", "").lower() == "true",
+        CSRF_ENABLED=True,
+        CSRF_TOKEN_SESSION_KEY="_csrf_token",
         QUIZ_ATTEMPT_RETENTION_DAYS=int(
             os.environ.get("QUIZ_ATTEMPT_RETENTION_DAYS", "365")
         ),
@@ -98,6 +102,25 @@ def create_app(test_config=None):
     @app.before_request
     def create_content_security_nonce():
         g.csp_nonce = secrets.token_urlsafe(16)
+        if request.method in {"GET", "HEAD", "OPTIONS"}:
+            return None
+
+        if not app.config["CSRF_ENABLED"]:
+            return None
+
+        expected_token = session.get(app.config["CSRF_TOKEN_SESSION_KEY"])
+        supplied_token = request.headers.get("X-CSRF-Token")
+        if supplied_token is None:
+            supplied_token = request.form.get("_csrf_token")
+        if (
+            not expected_token
+            or not supplied_token
+            or not secrets.compare_digest(expected_token, supplied_token)
+        ):
+            message = "CSRF token is missing or invalid."
+            if request.path.startswith("/api/"):
+                return jsonify({"error": message}), 400
+            return message, 400
 
     @app.after_request
     def add_security_headers(response):
@@ -106,15 +129,44 @@ def create_app(test_config=None):
         response.headers["X-Frame-Options"] = "DENY"
 
         nonce = g.get("csp_nonce") or secrets.token_urlsafe(16)
-        if response.mimetype == "text/html":
+        is_html = response.mimetype == "text/html"
+        should_issue_csrf_token = (
+            is_html
+            or request.path == "/api/csrf-token"
+            or (
+                request.path.startswith("/api/")
+                and request.method not in {"GET", "HEAD", "OPTIONS"}
+            )
+        )
+        csrf_token = None
+        if should_issue_csrf_token:
+            csrf_token = session.get(app.config["CSRF_TOKEN_SESSION_KEY"])
+            if not csrf_token:
+                csrf_token = secrets.token_urlsafe(32)
+                session[app.config["CSRF_TOKEN_SESSION_KEY"]] = csrf_token
+            response.headers["X-CSRF-Token"] = csrf_token
+            response.vary.add("Cookie")
+
+        if is_html:
             response.direct_passthrough = False
             html = response.get_data(as_text=True)
+            csrf_meta_tag = (
+                f'<meta name="csrf-token" content="{escape(csrf_token, quote=True)}">'
+            )
+            html = HTML_HEAD_CLOSE_PATTERN.sub(
+                lambda match: f"{csrf_meta_tag}\n{match.group(0)}",
+                html,
+                count=1,
+            )
             response.set_data(
                 SCRIPT_TAG_PATTERN.sub(
                     lambda match: f'<script nonce="{nonce}"{match.group(1)}>',
                     html,
                 )
             )
+
+        if request.path == "/api/csrf-token":
+            response.headers["Cache-Control"] = "no-store"
 
         response.headers["Content-Security-Policy"] = "; ".join((
             "default-src 'self'",
@@ -157,6 +209,14 @@ def create_app(test_config=None):
             f"Archived {count} expired quiz attempts into monthly aggregates "
             f"using a {days}-day retention period."
         )
+
+    @app.context_processor
+    def inject_csrf_token():
+        token = session.get(app.config["CSRF_TOKEN_SESSION_KEY"])
+        if not token:
+            token = secrets.token_urlsafe(32)
+            session[app.config["CSRF_TOKEN_SESSION_KEY"]] = token
+        return {"csrf_token": token}
 
     app.register_blueprint(api_routes)
     app.register_blueprint(page_routes)

@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import re
+import secrets
 import sqlite3
 import time
 import uuid
@@ -335,6 +336,16 @@ def remove_book_cover(cover_image):
 @login_required
 def current_account():
     return jsonify(public_account(g.current_user))
+
+
+@api_routes.get("/api/csrf-token")
+def csrf_token():
+    token_key = current_app.config["CSRF_TOKEN_SESSION_KEY"]
+    token = session.get(token_key)
+    if not token:
+        token = secrets.token_urlsafe(32)
+        session[token_key] = token
+    return jsonify({"csrf_token": token})
 
 
 @api_routes.get("/api/auth/me/data")

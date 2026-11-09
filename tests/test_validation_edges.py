@@ -19,6 +19,7 @@ class ValidationEdgeCaseTests(unittest.TestCase):
             "BOOTSTRAP_ADMIN_PASSWORD": "RootPassword123",
             "UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "uploads"),
             "BOOK_UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "books"),
+            "CSRF_ENABLED": False,
         })
         self.client = self.app.test_client()
         with self.app.app_context():

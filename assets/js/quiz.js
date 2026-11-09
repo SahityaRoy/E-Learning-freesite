@@ -165,7 +165,10 @@ async function submitExam(timedOut = false) {
     const response = await fetch('/api/quiz/attempts', {
       method: 'POST',
       credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.content || '',
+      },
       body: JSON.stringify(result),
     });
     if (!response.ok) throw new Error('Không thể đồng bộ kết quả.');

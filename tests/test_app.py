@@ -22,6 +22,7 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
             "BOOTSTRAP_ADMIN_PASSWORD": "RootPassword123",
             "UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "uploads"),
             "BOOK_UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "books"),
+            "CSRF_ENABLED": False,
             "AUTH_LOGIN_RATE_LIMIT": 50,
             "AUTH_REGISTER_RATE_LIMIT": 50,
         })
@@ -453,9 +454,11 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
             client = app.test_client()
             self.assertEqual(app.config["APP_ENV"], "development")
             self.assertFalse(app.config["SESSION_COOKIE_SECURE"])
+            csrf_token = client.get("/login").headers["X-CSRF-Token"]
             response = client.post("/login", data={
                 "email": "admin@eschool.com",
                 "password": "admin123",
+                "_csrf_token": csrf_token,
             })
             self.assertEqual(response.status_code, 302)
             self.assertEqual(response.headers["Location"], "/admin/books")
@@ -528,9 +531,12 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
                 "DATABASE": str(Path(temp_dir) / "production.sqlite3"),
                 "BOOK_UPLOAD_FOLDER": str(Path(temp_dir) / "production-books"),
             })
-            response = app.test_client().post("/login", data={
+            client = app.test_client()
+            csrf_token = client.get("/login").headers["X-CSRF-Token"]
+            response = client.post("/login", data={
                 "email": "admin@example.com",
                 "password": "A-unique-production-password",
+                "_csrf_token": csrf_token,
             })
 
         self.assertEqual(response.status_code, 302)

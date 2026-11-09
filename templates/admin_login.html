@@ -21,6 +21,7 @@
         {% endwith %}
 
         <form method="post" action="{{ url_for('pages.login_page') }}" class="mt-7 space-y-5">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
             <div>
                 <label for="email" class="mb-2 block text-sm font-semibold">Email</label>
                 <input id="email" name="email" type="email" autocomplete="username" required

@@ -271,9 +271,15 @@
       const response = await fetch(endpoint, {
         method: "POST",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content || ""
+        },
         body: JSON.stringify(payload)
       });
+      const refreshedToken = response.headers.get("X-CSRF-Token");
+      const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+      if (refreshedToken && csrfMeta) csrfMeta.content = refreshedToken;
       if (!response.ok) throw new Error("request-failed");
       showStatus(message(mode === "register" ? "registerSuccess" : "loginSuccess"), "success");
       form.reset();
