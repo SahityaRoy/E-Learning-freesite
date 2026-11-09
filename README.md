@@ -47,7 +47,7 @@ py -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Đặt thông tin admin trước lần chạy đầu tiên. Hãy dùng mật khẩu riêng và một secret ngẫu nhiên:
+Khi chạy local, ứng dụng mặc định dùng cấu hình phát triển và có thể tạo admin local `admin@eschool.com` / `admin123` nếu chưa có tài khoản. Chỉ dùng mặc định này trên máy local mới; không dùng khi triển khai thật. Có thể đặt tài khoản local riêng:
 
 ```powershell
 $env:SECRET_KEY = "replace-with-a-long-random-secret"
@@ -58,7 +58,22 @@ python app.py
 
 Mở `http://127.0.0.1:5000`. Trang đăng nhập admin nằm tại `/login`.
 
-Nếu không cấu hình `ADMIN_EMAIL` và `ADMIN_PASSWORD`, ứng dụng dùng mặc định `admin@eschool.com` / `admin123`. Chỉ dùng thông tin mặc định cho máy local mới; không dùng khi triển khai thật. Tài khoản bootstrap chỉ được tạo khi email chưa tồn tại trong database.
+### Biến môi trường và production
+
+Production phải có `APP_ENV=production`, `SECRET_KEY`, `ADMIN_EMAIL` và `ADMIN_PASSWORD` trước khi khởi động. Thiếu `SECRET_KEY` hoặc thông tin admin sẽ làm ứng dụng dừng với `RuntimeError`; production không dùng tài khoản mặc định, không chấp nhận mật khẩu `admin123`, và yêu cầu mật khẩu admin dài ít nhất 12 ký tự. Tài khoản bootstrap chỉ được tạo khi email chưa tồn tại trong database.
+
+Ví dụ nội dung `.env` cho môi trường production (thay các giá trị mẫu bằng secret riêng):
+
+```dotenv
+APP_ENV=production
+SECRET_KEY=generate-a-long-random-secret-and-store-it-safely
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=use-a-unique-strong-password
+```
+
+Ứng dụng đọc biến từ môi trường của tiến trình; `python app.py` không tự nạp tệp `.env`. Hãy dùng secret manager/cấu hình môi trường của nền tảng triển khai hoặc công cụ nạp `.env` đáng tin cậy. Trên PowerShell, có thể thiết lập trực tiếp bằng `$env:APP_ENV = "production"` và `$env:SECRET_KEY = "..."` (tương tự với hai biến admin) trước khi chạy ứng dụng. `SESSION_COOKIE_SECURE` được bật tự động trong production; production cần được phục vụ qua HTTPS.
+
+**Tuyệt đối không đưa `SECRET_KEY`, mật khẩu admin hay bất kỳ secret nào lên Git.** Không commit `.env`; tệp này và thư mục `instance/` đã được loại khỏi Git bằng `.gitignore`. Dùng giá trị ngẫu nhiên, ổn định qua lần restart và lưu secrets riêng tư.
 
 ## Kiểm thử
 
@@ -72,9 +87,11 @@ Bộ test dùng database và thư mục upload tạm, không cần xóa database
 
 | Biến môi trường | Mặc định | Mục đích |
 |---|---|---|
-| `SECRET_KEY` | Tạo/lưu trong `instance/secret_key` | Ký session Flask; cần đặt giá trị ổn định khi triển khai |
-| `ADMIN_EMAIL` | `admin@eschool.com` | Email admin bootstrap ban đầu |
-| `ADMIN_PASSWORD` | `admin123` | Mật khẩu admin bootstrap ban đầu |
+| `APP_ENV` | `development` | Đặt `production` cho triển khai thật; bật cookie `Secure` và yêu cầu secrets |
+| `SECRET_KEY` | Sinh/lưu trong `instance/secret_key` ở local | Ký session Flask; bắt buộc và phải ổn định trong production |
+| `ADMIN_EMAIL` | `admin@eschool.com` ở local | Email admin bootstrap; bắt buộc trong production |
+| `ADMIN_PASSWORD` | `admin123` ở local | Mật khẩu admin bootstrap; bắt buộc, ít nhất 12 ký tự và không được là `admin123` trong production |
+| `SESSION_COOKIE_SECURE` | Tự bật trong production | Có thể đặt `true` để bật cookie `Secure` ngoài production |
 | `DATABASE_PATH` | `instance/elearning.sqlite3` | Đường dẫn database SQLite |
 | `UPLOAD_FOLDER` | `instance/uploads` | Ảnh khóa học |
 | `BOOK_UPLOAD_FOLDER` | `instance/uploads/books` | Ảnh bìa sách |

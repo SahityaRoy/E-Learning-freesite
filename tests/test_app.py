@@ -279,6 +279,8 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
                 "BOOK_UPLOAD_FOLDER": str(Path(temp_dir) / "books"),
             })
             client = app.test_client()
+            self.assertEqual(app.config["APP_ENV"], "development")
+            self.assertFalse(app.config["SESSION_COOKIE_SECURE"])
             response = client.post("/login", data={
                 "email": "admin@eschool.com",
                 "password": "admin123",
@@ -293,6 +295,80 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
                 self.assertEqual(admin["role"], "admin")
                 self.assertNotEqual(admin["password_hash"], "admin123")
                 self.assertTrue(check_password_hash(admin["password_hash"], "admin123"))
+
+    def test_production_requires_secret_from_environment(self):
+        with patch.dict(os.environ, {"APP_ENV": "production", "SECRET_KEY": ""}):
+            with self.assertRaisesRegex(RuntimeError, "SECRET_KEY must be set"):
+                create_app({
+                    "TESTING": True,
+                    "SECRET_KEY": "test-only-secret",
+                })
+
+    def test_production_requires_admin_credentials_and_rejects_default_password(self):
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {
+            "APP_ENV": "production",
+            "SECRET_KEY": "production-only-secret",
+            "ADMIN_EMAIL": "",
+            "ADMIN_PASSWORD": "",
+        }):
+            with self.assertRaisesRegex(RuntimeError, "Set ADMIN_EMAIL and ADMIN_PASSWORD"):
+                create_app({
+                    "TESTING": True,
+                    "DATABASE": str(Path(temp_dir) / "missing-admin.sqlite3"),
+                    "BOOK_UPLOAD_FOLDER": str(Path(temp_dir) / "missing-admin-books"),
+                })
+
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {
+            "APP_ENV": "production",
+            "SECRET_KEY": "production-only-secret",
+            "ADMIN_EMAIL": "admin@example.com",
+            "ADMIN_PASSWORD": "admin123",
+        }):
+            with self.assertRaisesRegex(RuntimeError, "must not use the insecure default"):
+                create_app({
+                    "TESTING": True,
+                    "DATABASE": str(Path(temp_dir) / "weak-admin.sqlite3"),
+                    "BOOK_UPLOAD_FOLDER": str(Path(temp_dir) / "weak-admin-books"),
+                })
+
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {
+            "APP_ENV": "production",
+            "SECRET_KEY": "production-only-secret",
+            "ADMIN_EMAIL": "admin@example.com",
+            "ADMIN_PASSWORD": "short",
+        }):
+            with self.assertRaisesRegex(RuntimeError, "at least 12 characters"):
+                create_app({
+                    "TESTING": True,
+                    "DATABASE": str(Path(temp_dir) / "short-admin.sqlite3"),
+                    "BOOK_UPLOAD_FOLDER": str(Path(temp_dir) / "short-admin-books"),
+                })
+
+    def test_production_uses_secure_session_cookie_with_explicit_secrets(self):
+        with tempfile.TemporaryDirectory() as temp_dir, patch.dict(os.environ, {
+            "APP_ENV": "production",
+            "SECRET_KEY": "production-only-secret",
+            "ADMIN_EMAIL": "admin@example.com",
+            "ADMIN_PASSWORD": "A-unique-production-password",
+        }):
+            app = create_app({
+                "TESTING": True,
+                "DATABASE": str(Path(temp_dir) / "production.sqlite3"),
+                "BOOK_UPLOAD_FOLDER": str(Path(temp_dir) / "production-books"),
+            })
+            response = app.test_client().post("/login", data={
+                "email": "admin@example.com",
+                "password": "A-unique-production-password",
+            })
+
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(app.config["SESSION_COOKIE_SECURE"])
+        self.assertTrue(app.config["SESSION_COOKIE_HTTPONLY"])
+        self.assertEqual(app.config["SESSION_COOKIE_SAMESITE"], "Lax")
+        set_cookie = response.headers["Set-Cookie"]
+        self.assertIn("Secure", set_cookie)
+        self.assertIn("HttpOnly", set_cookie)
+        self.assertIn("SameSite=Lax", set_cookie)
 
     def test_default_books_are_seeded_once_and_only_when_database_is_empty(self):
         database_path = Path(self.temp_dir.name) / "seeded.sqlite3"

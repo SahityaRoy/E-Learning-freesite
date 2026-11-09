@@ -100,6 +100,20 @@ def get_database():
 
 
 def initialize_database(app):
+    admin_email = app.config["BOOTSTRAP_ADMIN_EMAIL"]
+    admin_password = app.config["BOOTSTRAP_ADMIN_PASSWORD"]
+    is_production = str(app.config.get("APP_ENV", "")).lower() == "production"
+    if is_production and (not admin_email or not admin_password):
+        raise RuntimeError(
+            "Set ADMIN_EMAIL and ADMIN_PASSWORD to bootstrap the first admin in production."
+        )
+    if is_production and admin_password == "admin123":
+        raise RuntimeError("ADMIN_PASSWORD must not use the insecure default in production.")
+    if is_production and len(admin_password) < 12:
+        raise RuntimeError("ADMIN_PASSWORD must be at least 12 characters in production.")
+    if bool(admin_email) != bool(admin_password):
+        raise RuntimeError("Set both ADMIN_EMAIL and ADMIN_PASSWORD to bootstrap the first admin.")
+
     database_path = Path(app.config["DATABASE"])
     database_path.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(database_path)
@@ -175,11 +189,6 @@ def initialize_database(app):
         )
     seed_books(connection)
 
-    admin_email = app.config["BOOTSTRAP_ADMIN_EMAIL"]
-    admin_password = app.config["BOOTSTRAP_ADMIN_PASSWORD"]
-    if bool(admin_email) != bool(admin_password):
-        connection.close()
-        raise RuntimeError("Set both ADMIN_EMAIL and ADMIN_PASSWORD to bootstrap the first admin.")
     if admin_email:
         existing = connection.execute(
             "SELECT role FROM users WHERE email = ? COLLATE NOCASE", (admin_email,)

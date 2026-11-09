@@ -15,7 +15,7 @@ SCRIPT_TAG_PATTERN = re.compile(r"<script\b(?![^>]*\bnonce\s*=)([^>]*)>", re.IGN
 
 
 def load_secret_key(instance_directory=None):
-    configured_key = os.environ.get("SECRET_KEY")
+    configured_key = os.environ.get("SECRET_KEY", "").strip()
     if configured_key:
         return configured_key
 
@@ -31,13 +31,23 @@ def load_secret_key(instance_directory=None):
 
 
 def create_app(test_config=None):
-    configured_key = os.environ.get("SECRET_KEY") or (test_config or {}).get("SECRET_KEY")
+    app_environment = str(
+        (test_config or {}).get("APP_ENV", os.environ.get("APP_ENV", "development"))
+    ).strip().lower()
+    environment_key = os.environ.get("SECRET_KEY", "").strip()
+    if app_environment == "production" and not environment_key:
+        raise RuntimeError(
+            "SECRET_KEY must be set in the environment before starting in production."
+        )
+
+    configured_key = environment_key or (test_config or {}).get("SECRET_KEY")
     app = Flask(
         __name__,
         static_folder=None,
         template_folder=str(BASE_DIR / "templates"),
     )
     app.config.from_mapping(
+        APP_ENV=app_environment,
         SECRET_KEY=configured_key or load_secret_key(),
         DATABASE=os.environ.get("DATABASE_PATH", str(BASE_DIR / "instance" / "elearning.sqlite3")),
         UPLOAD_FOLDER=os.environ.get("UPLOAD_FOLDER", str(BASE_DIR / "instance" / "uploads")),
@@ -46,11 +56,18 @@ def create_app(test_config=None):
         ),
         PROJECT_ROOT=str(BASE_DIR),
         MAX_CONTENT_LENGTH=6 * 1024 * 1024,
-        BOOTSTRAP_ADMIN_EMAIL=os.environ.get("ADMIN_EMAIL", "admin@eschool.com").strip().lower(),
-        BOOTSTRAP_ADMIN_PASSWORD=os.environ.get("ADMIN_PASSWORD", "admin123"),
+        BOOTSTRAP_ADMIN_EMAIL=os.environ.get(
+            "ADMIN_EMAIL", "" if app_environment == "production" else "admin@eschool.com"
+        ).strip().lower(),
+        BOOTSTRAP_ADMIN_PASSWORD=os.environ.get(
+            "ADMIN_PASSWORD", "" if app_environment == "production" else "admin123"
+        ),
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE="Lax",
-        SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() == "true",
+        SESSION_COOKIE_SECURE=(
+            app_environment == "production"
+            or os.environ.get("SESSION_COOKIE_SECURE", "").lower() == "true"
+        ),
         HSTS_ENABLED=os.environ.get("HSTS_ENABLED", "").lower() == "true",
         PERMANENT_SESSION_LIFETIME=timedelta(days=30),
         AUTH_LOGIN_RATE_LIMIT=int(os.environ.get("AUTH_LOGIN_RATE_LIMIT", "10")),
