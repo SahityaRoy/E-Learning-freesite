@@ -196,6 +196,57 @@ class NonFunctionalRequirementTests(unittest.TestCase):
             f"10 in-process requests for 500 courses took {elapsed:.3f}s (budget: 3.0s)",
         )
 
+    def test_admin_quiz_report_performance_smoke_with_500_attempts(self):
+        from models import get_database
+
+        with self.app.app_context():
+            database = get_database()
+            database.executemany(
+                "INSERT INTO quiz_attempts "
+                "(exam_id, exam_title, subject, correct_count, total_questions, "
+                "score, duration_seconds) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (
+                    (
+                        f"exam-{index % 100}",
+                        f"Exam {index % 100}",
+                        "Performance",
+                        4,
+                        5,
+                        80,
+                        60,
+                    )
+                    for index in range(500)
+                ),
+            )
+            database.commit()
+
+        login = self.client.post("/api/auth/login", json={
+            "email": "root@example.com",
+            "password": "RootPassword123",
+        })
+        self.assertEqual(login.status_code, 200)
+
+        warmup = self.client.get("/api/admin/quiz/statistics")
+        self.assertEqual(warmup.status_code, 200)
+        self.assertEqual(warmup.json["summary"]["attempts"], 500)
+        self.assertEqual(len(warmup.json["exams"]), 100)
+        self.assertEqual(len(warmup.json["recent"]), 20)
+
+        started = time.perf_counter()
+        for _ in range(10):
+            response = self.client.get("/api/admin/quiz/statistics")
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.json["summary"]["attempts"], 500)
+            self.assertEqual(len(response.json["exams"]), 100)
+        elapsed = time.perf_counter() - started
+
+        self.assertLess(
+            elapsed,
+            3.0,
+            f"10 in-process admin report requests for 500 quiz attempts "
+            f"took {elapsed:.3f}s (budget: 3.0s)",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

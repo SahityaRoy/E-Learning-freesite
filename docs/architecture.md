@@ -148,7 +148,7 @@ Kiểm thử tích hợp trong `tests/test_app.py` tạo database và thư mục
 - trang tĩnh và asset;
 - ghi nhận kết quả quiz, tổng hợp báo cáo và từ chối truy cập không đủ quyền.
 
-`tests/test_nonfunctional.py` kiểm tra CSP nonce, chống framing, HSTS bật/tắt, header trên trang HTML/API/static, thuộc tính cookie session, không lộ mật khẩu/hash, xử lý chuỗi đăng nhập có cú pháp SQL và thời gian phản hồi API khóa học. `tests/test_validation_edges.py` kiểm tra biên độ dài dữ liệu sách, dữ liệu đầu vào quiz, giá trị boolean và các kiểu chuỗi/số thực/null tại các trường số nguyên; request không hợp lệ phải trả lỗi và không làm thay đổi database. Smoke test hiệu năng tạo 500 khóa học rồi đo 10 request trong tiến trình, với ngân sách 3 giây; phép đo không thay thế kiểm thử tải trên môi trường production.
+`tests/test_nonfunctional.py` kiểm tra CSP nonce, chống framing, HSTS bật/tắt, header trên trang HTML/API/static, thuộc tính cookie session, không lộ mật khẩu/hash, xử lý chuỗi đăng nhập có cú pháp SQL và thời gian phản hồi API khóa học/báo cáo quiz admin. Hai smoke test hiệu năng lần lượt tạo 500 khóa học và 500 lượt quiz (100 đề), rồi đo 10 request trong tiến trình với ngân sách 3 giây cho mỗi endpoint; phép đo không thay thế kiểm thử tải trên môi trường production. `tests/test_validation_edges.py` kiểm tra biên độ dài dữ liệu sách, dữ liệu đầu vào quiz, giá trị boolean và các kiểu chuỗi/số thực/null tại các trường số nguyên; request không hợp lệ phải trả lỗi và không làm thay đổi database.
 
 Chạy bằng:
 
