@@ -30,7 +30,7 @@ async function renderQuizAnalytics() {
     const metricItems = [
       ['Tổng lượt thi', summary.attempts, 'Đã nộp trên hệ thống'],
       ['Điểm trung bình', `${summary.average_score}%`, 'Trên thang điểm 100'],
-      ['Học viên tham gia', summary.learners, 'Tài khoản đã đăng nhập'],
+      ['Tài khoản có lượt thi', summary.learners, 'Chỉ dữ liệu chi tiết còn lưu'],
       ['Tỷ lệ câu đúng', `${accuracy}%`, 'Tính trên mọi lượt thi'],
     ];
     metrics.innerHTML = metricItems.map(([label, value, caption]) => `

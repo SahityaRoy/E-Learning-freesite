@@ -254,6 +254,178 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
         self.assertEqual(report.json["recent"][0]["learner"], "Khách")
         self.assertEqual(report.json["recent"][0]["score"], 80)
 
+    def test_account_data_export_contains_only_the_authenticated_users_data(self):
+        self.assertEqual(self.register_user().status_code, 201)
+        self.client.post("/api/quiz/attempts", json={
+            "examId": "javascript-basics",
+            "title": "JavaScript căn bản",
+            "subject": "JavaScript",
+            "correct": 4,
+            "total": 5,
+            "duration": 95,
+        })
+        other_client = self.app.test_client()
+        other_client.post("/api/auth/register", json={
+            "name": "Other Student",
+            "email": "other@example.com",
+            "password": "OtherPassword123",
+        })
+        other_client.post("/api/quiz/attempts", json={
+            "examId": "html-foundations",
+            "title": "Nền tảng HTML & CSS",
+            "subject": "HTML & CSS",
+            "correct": 5,
+            "total": 5,
+            "duration": 60,
+        })
+
+        response = self.client.get("/api/auth/me/data")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json["account"]["email"], "student@example.com")
+        self.assertNotIn("password", response.json["account"])
+        self.assertNotIn("password_hash", response.json["account"])
+        self.assertEqual(len(response.json["quiz_attempts"]), 1)
+        self.assertEqual(
+            set(response.json["quiz_attempts"][0]),
+            {
+                "exam_title", "subject", "correct_count", "total_questions",
+                "score", "duration_seconds", "created_at",
+            },
+        )
+
+    def test_quiz_report_excludes_learner_identity_and_unused_attempt_fields(self):
+        self.assertEqual(self.register_user().status_code, 201)
+        self.client.post("/api/quiz/attempts", json={
+            "examId": "javascript-basics",
+            "title": "JavaScript căn bản",
+            "subject": "JavaScript",
+            "correct": 4,
+            "total": 5,
+            "duration": 95,
+        })
+        self.login_admin()
+
+        report = self.client.get("/api/admin/quiz/statistics")
+
+        self.assertEqual(report.status_code, 200)
+        recent = report.json["recent"][0]
+        self.assertEqual(recent["learner"], "Học viên")
+        self.assertNotIn("Student", str(report.json))
+        self.assertNotIn("student@example.com", str(report.json))
+        self.assertNotIn("duration_seconds", recent)
+        self.assertNotIn("id", recent)
+
+    def test_account_deletion_archives_quiz_results_and_clears_session(self):
+        self.assertEqual(self.register_user().status_code, 201)
+        self.client.post("/api/quiz/attempts", json={
+            "examId": "javascript-basics",
+            "title": "JavaScript căn bản",
+            "subject": "JavaScript",
+            "correct": 4,
+            "total": 5,
+            "duration": 95,
+        })
+
+        deleted = self.client.delete("/api/auth/me")
+
+        self.assertEqual(deleted.status_code, 200)
+        self.assertEqual(deleted.json["archived_attempts"], 1)
+        self.assertEqual(self.client.get("/api/auth/me").status_code, 401)
+        self.login_admin()
+        report = self.client.get("/api/admin/quiz/statistics")
+        self.assertEqual(report.json["summary"]["attempts"], 1)
+        self.assertEqual(report.json["summary"]["average_score"], 80)
+        self.assertEqual(report.json["summary"]["correct_count"], 4)
+        self.assertEqual(report.json["summary"]["total_questions"], 5)
+        self.assertEqual(report.json["exams"][0]["attempts"], 1)
+        self.assertEqual(report.json["exams"][0]["average_score"], 80)
+        self.assertEqual(report.json["exams"][0]["best_score"], 80)
+        self.assertEqual(report.json["recent"], [])
+        with self.app.app_context():
+            from models import get_database
+
+            database = get_database()
+            self.assertIsNone(database.execute(
+                "SELECT id FROM users WHERE email = ?",
+                ("student@example.com",),
+            ).fetchone())
+            self.assertEqual(
+                database.execute("SELECT COUNT(*) FROM quiz_attempts").fetchone()[0],
+                0,
+            )
+            self.assertEqual(
+                database.execute(
+                    "SELECT COUNT(*) FROM quiz_monthly_aggregates"
+                ).fetchone()[0],
+                1,
+            )
+            aggregate_columns = {
+                row["name"] for row in database.execute(
+                    "PRAGMA table_info(quiz_monthly_aggregates)"
+                )
+            }
+            self.assertNotIn("user_id", aggregate_columns)
+            self.assertNotIn("created_at", aggregate_columns)
+            self.assertNotIn("duration_seconds", aggregate_columns)
+
+    def test_expired_quiz_attempts_are_archived_by_the_retention_command(self):
+        self.client.post("/api/quiz/attempts", json={
+            "examId": "javascript-basics",
+            "title": "JavaScript căn bản",
+            "subject": "JavaScript",
+            "correct": 4,
+            "total": 5,
+            "duration": 95,
+        })
+        with self.app.app_context():
+            from models import get_database
+
+            get_database().execute(
+                "UPDATE quiz_attempts SET created_at = ?",
+                ("2000-01-02 12:34:56",),
+            )
+            get_database().commit()
+
+        result = self.app.test_cli_runner().invoke(
+            args=["archive-expired-quiz-attempts"]
+        )
+
+        self.assertEqual(result.exit_code, 0, result.output)
+        self.assertIn("1", result.output)
+        with self.app.app_context():
+            from models import get_database
+
+            database = get_database()
+            self.assertEqual(
+                database.execute("SELECT COUNT(*) FROM quiz_attempts").fetchone()[0],
+                0,
+            )
+            self.assertEqual(
+                database.execute(
+                    "SELECT attempts FROM quiz_monthly_aggregates"
+                ).fetchone()["attempts"],
+                1,
+            )
+
+    def test_account_deletion_protects_the_last_or_bootstrap_admin(self):
+        self.login_admin()
+
+        response = self.client.delete("/api/auth/me")
+
+        self.assertEqual(response.status_code, 409)
+        self.assertEqual(self.client.get("/api/auth/me").status_code, 200)
+
+    def test_privacy_notices_appear_when_account_or_quiz_data_is_collected(self):
+        registration_page = self.client.get("/auth.html?view=register")
+        quiz_page = self.client.get("/quiz.html")
+
+        self.assertEqual(registration_page.status_code, 200)
+        self.assertIn("xóa tài khoản", registration_page.get_data(as_text=True).lower())
+        self.assertEqual(quiz_page.status_code, 200)
+        self.assertIn("365 ngày", quiz_page.get_data(as_text=True))
+        self.assertIn("lượt khách", quiz_page.get_data(as_text=True).lower())
+
     def test_quiz_attempt_validation_and_admin_access(self):
         invalid = self.client.post("/api/quiz/attempts", json={
             "examId": "quiz",

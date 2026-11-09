@@ -114,6 +114,7 @@ Các trường `details` được bổ sung bằng migration `ALTER TABLE` khi k
 | `/books/<id>` | Chi tiết sách | Công khai |
 | `/api/auth/register` | Tạo tài khoản học viên | Công khai |
 | `/api/auth/login`, `/api/auth/logout`, `/api/auth/me` | Session tài khoản | Tùy thao tác |
+| `/api/auth/me/data`, `DELETE /api/auth/me` | Xuất hoặc xóa dữ liệu tài khoản | Chủ tài khoản đã đăng nhập |
 | `/api/courses` | Đọc danh sách khóa học | GET công khai |
 | `POST /api/courses`, `PUT/DELETE /api/courses/<id>` | Quản lý khóa học | Admin |
 | `/admin/books/*` | Thêm/sửa/xóa sách | Admin |
@@ -127,6 +128,8 @@ Các trường `details` được bổ sung bằng migration `ALTER TABLE` khi k
 - Flask đặt CSP cho mọi response; script inline được cấp nonce ngẫu nhiên theo request. `script-src` chỉ cho phép nonce và các CDN script đang dùng, không dùng `unsafe-inline`; handler inline đã được chuyển sang listener trong asset JS. `style-src` còn cho phép inline style vì template có style attribute/style block và Tailwind CDN sinh CSS runtime.
 - `frame-ancestors 'none'` cùng `X-Frame-Options: DENY` ngăn nhúng trang. HSTS chỉ được gửi khi `HSTS_ENABLED=true`; chỉ bật sau khi HTTPS được ép buộc tại host/reverse proxy.
 - CSP cho phép Google Fonts, Font Awesome, Bootstrap, jQuery, jsDelivr và Tailwind CDN đang được tham chiếu trong template. Ảnh HTTPS bên ngoài được cho phép vì nội dung khóa học có thể lưu URL ảnh từ quản trị viên.
+- Dữ liệu chi tiết của lượt quiz được giữ 365 ngày theo mặc định (`QUIZ_ATTEMPT_RETENTION_DAYS`), sau đó được gộp theo tháng/đề và xóa khỏi bảng lượt cá nhân. Báo cáo quản trị chỉ nhận nhãn khách/học viên, không nhận tên hoặc email.
+- Người dùng đăng nhập có API xuất dữ liệu cá nhân và xóa tài khoản; các lượt quiz liên kết được gộp vào số liệu tháng trước khi xóa tài khoản. Hướng dẫn vận hành, ma trận dữ liệu, sao lưu và xử lý yêu cầu nằm trong [docs/privacy-data-lifecycle.md](privacy-data-lifecycle.md).
 - Route quản trị kiểm tra quyền ở server; ẩn nút trên giao diện không phải cơ chế bảo vệ.
 - SQL dùng parameterized queries cho dữ liệu request.
 - Ảnh upload được mở/xác minh bằng Pillow, giới hạn kích thước 5 MB và giới hạn số pixel.

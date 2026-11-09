@@ -146,6 +146,18 @@ def initialize_database(app):
             duration_seconds INTEGER NOT NULL,
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
+        CREATE TABLE IF NOT EXISTS quiz_monthly_aggregates (
+            period_month TEXT NOT NULL,
+            exam_id TEXT NOT NULL,
+            exam_title TEXT NOT NULL,
+            subject TEXT NOT NULL,
+            attempts INTEGER NOT NULL,
+            score_total INTEGER NOT NULL,
+            correct_count INTEGER NOT NULL,
+            total_questions INTEGER NOT NULL,
+            best_score INTEGER NOT NULL,
+            PRIMARY KEY (period_month, exam_id, exam_title, subject)
+        );
         CREATE TABLE IF NOT EXISTS auth_rate_limit_events (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             action TEXT NOT NULL,
@@ -288,6 +300,70 @@ def list_accounts():
     ).fetchall()
 
 
+def count_admin_accounts():
+    return get_database().execute(
+        "SELECT COUNT(*) FROM users WHERE role = 'admin'"
+    ).fetchone()[0]
+
+
+def get_account_data(user_id):
+    database = get_database()
+    account = database.execute(
+        "SELECT id, name, email, role, created_at FROM users WHERE id = ?",
+        (user_id,),
+    ).fetchone()
+    attempts = database.execute(
+        "SELECT exam_title, subject, correct_count, total_questions, score, "
+        "duration_seconds, created_at FROM quiz_attempts "
+        "WHERE user_id = ? ORDER BY created_at DESC, id DESC",
+        (user_id,),
+    ).fetchall()
+    return {"account": dict(account), "quiz_attempts": [dict(row) for row in attempts]}
+
+
+def _archive_quiz_attempts(database, where_clause, parameters):
+    grouped_attempts = database.execute(
+        "SELECT strftime('%Y-%m', created_at) AS period_month, exam_id, exam_title, "
+        "subject, COUNT(*) AS attempts, SUM(score) AS score_total, "
+        "SUM(correct_count) AS correct_count, SUM(total_questions) AS total_questions, "
+        "MAX(score) AS best_score FROM quiz_attempts WHERE "
+        + where_clause
+        + " GROUP BY period_month, exam_id, exam_title, subject",
+        parameters,
+    ).fetchall()
+    for row in grouped_attempts:
+        database.execute(
+            "INSERT INTO quiz_monthly_aggregates "
+            "(period_month, exam_id, exam_title, subject, attempts, score_total, "
+            "correct_count, total_questions, best_score) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(period_month, exam_id, exam_title, subject) DO UPDATE SET "
+            "attempts = attempts + excluded.attempts, "
+            "score_total = score_total + excluded.score_total, "
+            "correct_count = correct_count + excluded.correct_count, "
+            "total_questions = total_questions + excluded.total_questions, "
+            "best_score = MAX(best_score, excluded.best_score)",
+            tuple(row),
+        )
+    return database.execute(
+        "DELETE FROM quiz_attempts WHERE " + where_clause, parameters
+    ).rowcount
+
+
+def archive_expired_quiz_attempts(cutoff):
+    database = get_database()
+    deleted = _archive_quiz_attempts(database, "created_at < ?", (cutoff,))
+    database.commit()
+    return deleted
+
+
+def delete_user_and_archive_attempts(user_id):
+    database = get_database()
+    archived_attempts = _archive_quiz_attempts(database, "user_id = ?", (user_id,))
+    database.execute("DELETE FROM users WHERE id = ?", (user_id,))
+    database.commit()
+    return archived_attempts
+
+
 def create_quiz_attempt(data, user_id=None):
     score = round(data["correct_count"] / data["total_questions"] * 100)
     cursor = get_database().execute(
@@ -311,31 +387,76 @@ def create_quiz_attempt(data, user_id=None):
 
 def get_quiz_statistics():
     database = get_database()
-    summary = database.execute(
-        "SELECT COUNT(*) AS attempts, "
-        "COALESCE(ROUND(AVG(score)), 0) AS average_score, "
+    live_summary = database.execute(
+        "SELECT COUNT(*) AS attempts, COALESCE(SUM(score), 0) AS score_total, "
         "COUNT(DISTINCT user_id) AS learners, "
         "COALESCE(SUM(correct_count), 0) AS correct_count, "
         "COALESCE(SUM(total_questions), 0) AS total_questions "
         "FROM quiz_attempts"
     ).fetchone()
-    exams = database.execute(
+    archived_summary = database.execute(
+        "SELECT COALESCE(SUM(attempts), 0) AS attempts, "
+        "COALESCE(SUM(score_total), 0) AS score_total, "
+        "COALESCE(SUM(correct_count), 0) AS correct_count, "
+        "COALESCE(SUM(total_questions), 0) AS total_questions "
+        "FROM quiz_monthly_aggregates"
+    ).fetchone()
+    attempt_count = live_summary["attempts"] + archived_summary["attempts"]
+    score_total = live_summary["score_total"] + archived_summary["score_total"]
+    summary = {
+        "attempts": attempt_count,
+        "average_score": int(score_total / attempt_count + 0.5) if attempt_count else 0,
+        "learners": live_summary["learners"],
+        "correct_count": live_summary["correct_count"] + archived_summary["correct_count"],
+        "total_questions": live_summary["total_questions"] + archived_summary["total_questions"],
+    }
+
+    exam_rows = database.execute(
         "SELECT exam_id, exam_title, subject, COUNT(*) AS attempts, "
-        "ROUND(AVG(score)) AS average_score, MAX(score) AS best_score "
+        "SUM(score) AS score_total, MAX(score) AS best_score "
         "FROM quiz_attempts GROUP BY exam_id, exam_title, subject "
-        "ORDER BY attempts DESC, exam_title COLLATE NOCASE"
+        "UNION ALL "
+        "SELECT exam_id, exam_title, subject, SUM(attempts) AS attempts, "
+        "SUM(score_total) AS score_total, MAX(best_score) AS best_score "
+        "FROM quiz_monthly_aggregates GROUP BY exam_id, exam_title, subject"
     ).fetchall()
+    exams_by_key = {}
+    for row in exam_rows:
+        key = (row["exam_id"], row["exam_title"], row["subject"])
+        exam = exams_by_key.setdefault(key, {
+            "exam_id": row["exam_id"],
+            "exam_title": row["exam_title"],
+            "subject": row["subject"],
+            "attempts": 0,
+            "score_total": 0,
+            "best_score": 0,
+        })
+        exam["attempts"] += row["attempts"]
+        exam["score_total"] += row["score_total"]
+        exam["best_score"] = max(exam["best_score"], row["best_score"])
+    exams = [
+        {
+            "exam_id": exam["exam_id"],
+            "exam_title": exam["exam_title"],
+            "subject": exam["subject"],
+            "attempts": exam["attempts"],
+            "average_score": int(exam["score_total"] / exam["attempts"] + 0.5),
+            "best_score": exam["best_score"],
+        }
+        for exam in exams_by_key.values()
+    ]
+    exams.sort(key=lambda exam: (-exam["attempts"], exam["exam_title"].casefold()))
     recent = database.execute(
-        "SELECT quiz_attempts.id, quiz_attempts.exam_title, quiz_attempts.subject, "
+        "SELECT quiz_attempts.exam_title, quiz_attempts.subject, "
         "quiz_attempts.correct_count, quiz_attempts.total_questions, quiz_attempts.score, "
-        "quiz_attempts.duration_seconds, quiz_attempts.created_at, "
-        "COALESCE(users.name, 'Khách') AS learner "
-        "FROM quiz_attempts LEFT JOIN users ON users.id = quiz_attempts.user_id "
+        "quiz_attempts.created_at, "
+        "CASE WHEN quiz_attempts.user_id IS NULL THEN 'Khách' ELSE 'Học viên' END AS learner "
+        "FROM quiz_attempts "
         "ORDER BY quiz_attempts.id DESC LIMIT 20"
     ).fetchall()
     return {
-        "summary": dict(summary),
-        "exams": [dict(exam) for exam in exams],
+        "summary": summary,
+        "exams": exams,
         "recent": [dict(attempt) for attempt in recent],
     }
 

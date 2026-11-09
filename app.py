@@ -1,13 +1,14 @@
 import os
 import re
 import secrets
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import click
 from flask import Flask, g
 
 from controllers import api_routes, page_routes
-from models import initialize_database
+from models import archive_expired_quiz_attempts, initialize_database
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -52,6 +53,9 @@ def create_app(test_config=None):
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() == "true",
         HSTS_ENABLED=os.environ.get("HSTS_ENABLED", "").lower() == "true",
+        QUIZ_ATTEMPT_RETENTION_DAYS=int(
+            os.environ.get("QUIZ_ATTEMPT_RETENTION_DAYS", "365")
+        ),
         PERMANENT_SESSION_LIFETIME=timedelta(days=30),
         AUTH_LOGIN_RATE_LIMIT=int(os.environ.get("AUTH_LOGIN_RATE_LIMIT", "10")),
         AUTH_LOGIN_RATE_WINDOW=int(os.environ.get("AUTH_LOGIN_RATE_WINDOW", str(15 * 60))),
@@ -60,6 +64,8 @@ def create_app(test_config=None):
     )
     if test_config:
         app.config.update(test_config)
+    if app.config["QUIZ_ATTEMPT_RETENTION_DAYS"] < 1:
+        raise ValueError("QUIZ_ATTEMPT_RETENTION_DAYS must be a positive integer.")
 
     Path(app.config["BOOK_UPLOAD_FOLDER"]).mkdir(parents=True, exist_ok=True)
 
@@ -121,6 +127,19 @@ def create_app(test_config=None):
         if app.config["HSTS_ENABLED"]:
             response.headers["Strict-Transport-Security"] = "max-age=31536000"
         return response
+
+    @app.cli.command("archive-expired-quiz-attempts")
+    @click.option("--retention-days", type=click.IntRange(min=1), default=None)
+    def archive_expired_quiz_attempts_command(retention_days):
+        days = retention_days or app.config["QUIZ_ATTEMPT_RETENTION_DAYS"]
+        cutoff = (
+            datetime.now(timezone.utc).replace(tzinfo=None) - timedelta(days=days)
+        ).strftime("%Y-%m-%d %H:%M:%S")
+        count = archive_expired_quiz_attempts(cutoff)
+        click.echo(
+            f"Archived {count} expired quiz attempts into monthly aggregates "
+            f"using a {days}-day retention period."
+        )
 
     app.register_blueprint(api_routes)
     app.register_blueprint(page_routes)
