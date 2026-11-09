@@ -58,6 +58,7 @@ a { color: var(--green); }
 .form-eyebrow { margin-bottom: 12px; }
 .form-wrap h2 { margin: 0; font: 800 30px/1.25 "Manrope", sans-serif; letter-spacing: 0; }
 .form-intro { margin: 10px 0 28px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.privacy-notice { margin: 4px 0 8px; padding: 10px 12px; border-left: 2px solid #8eaa9b; background: #f0f5f0; font-size: 12px; }
 form { display: grid; gap: 10px; }
 form[hidden], [hidden] { display: none !important; }
 label { margin-top: 8px; font-size: 13px; font-weight: 700; }

@@ -29,10 +29,13 @@ from models import (
     create_book,
     create_user,
     count_books,
+    count_admin_accounts,
     create_quiz_attempt,
     delete_book,
     delete_course,
+    delete_user_and_archive_attempts,
     find_user_by_email,
+    get_account_data,
     get_book_by_id,
     get_course_by_id,
     get_database,
@@ -332,6 +335,36 @@ def remove_book_cover(cover_image):
 @login_required
 def current_account():
     return jsonify(public_account(g.current_user))
+
+
+@api_routes.get("/api/auth/me/data")
+@login_required
+def current_account_data():
+    return jsonify(get_account_data(g.current_user["id"]))
+
+
+@api_routes.delete("/api/auth/me")
+@login_required
+def delete_current_account():
+    user = g.current_user
+    if user["role"] == "admin":
+        if user["email"] == current_app.config["BOOTSTRAP_ADMIN_EMAIL"]:
+            return api_error(
+                "Hãy đổi cấu hình BOOTSTRAP_ADMIN_EMAIL trước khi xóa tài khoản bootstrap.",
+                409,
+            )
+        if count_admin_accounts() <= 1:
+            return api_error(
+                "Cần có ít nhất một quản trị viên khác trước khi xóa tài khoản này.",
+                409,
+            )
+
+    archived_attempts = delete_user_and_archive_attempts(user["id"])
+    session.clear()
+    return jsonify({
+        "message": "Tài khoản đã được xóa; kết quả quiz đã chuyển thành số liệu tổng hợp.",
+        "archived_attempts": archived_attempts,
+    })
 
 
 @api_routes.post("/api/auth/register")

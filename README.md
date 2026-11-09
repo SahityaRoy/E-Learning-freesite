@@ -101,10 +101,13 @@ Bộ test dùng database và thư mục upload tạm, không cần xóa database
 | `AUTH_REGISTER_RATE_LIMIT` | `5` | Số lần đăng ký tối đa trên mỗi IP trong cửa sổ giới hạn |
 | `AUTH_REGISTER_RATE_WINDOW` | `3600` | Cửa sổ giới hạn đăng ký, tính bằng giây |
 | `HSTS_ENABLED` | `false` | Bật HSTS khi HTTPS đã được ép buộc ở reverse proxy/host |
+| `QUIZ_ATTEMPT_RETENTION_DAYS` | `365` | Số ngày giữ dữ liệu chi tiết của lượt quiz trước khi gộp thống kê tháng |
 
 Ứng dụng tự tạo database, bảng và dữ liệu mẫu khi khởi động. Khi triển khai, cần giữ database và thư mục upload trên persistent storage để không mất dữ liệu sau khi restart. Chỉ đặt `HSTS_ENABLED=true` khi host đã ép buộc HTTPS; không bật trên môi trường HTTP local.
 
 Flask gửi CSP với nonce ngẫu nhiên theo response, chống nhúng trang bằng `frame-ancestors` và `X-Frame-Options`, cùng các header bảo mật khác trên HTML, API và static responses. `script-src` không cho phép `unsafe-inline`; một số inline style và Tailwind CDN hiện vẫn cần `unsafe-inline` trong `style-src`. Khi triển khai bản static export, cần cấu hình các HTTP headers tương ứng tại static host; static export không chạy Flask middleware.
+
+Dữ liệu quiz chi tiết được lưu tối đa 365 ngày (có thể cấu hình) rồi chuyển thành thống kê tháng, không còn từng lượt hay liên kết tài khoản. Chạy tác vụ định kỳ bằng `python -m flask --app app archive-expired-quiz-attempts`. Người dùng đã đăng nhập có thể xuất dữ liệu tại `/api/auth/me/data` và xóa tài khoản cùng dữ liệu quiz liên kết tại `DELETE /api/auth/me`. Xem [chính sách vòng đời dữ liệu và hướng dẫn vận hành](docs/privacy-data-lifecycle.md).
 
 ## Cấu trúc dự án
 
@@ -119,6 +122,7 @@ images/                Ảnh và biểu tượng
 instance/              Database, secret và upload runtime (không commit)
 tests/test_app.py      Kiểm thử tích hợp backend
 docs/architecture.md   Kiến trúc, luồng dữ liệu, bảo mật và giới hạn
+docs/privacy-data-lifecycle.md  Kiểm kê dữ liệu, lưu giữ, truy cập/xóa và sao lưu
 scripts/build_static.py Export templates/assets cho static hosting
 ```
 

@@ -48,6 +48,7 @@
                     <input id="register-email" name="email" type="email" autocomplete="email" placeholder="ban@email.com" required>
                     <label for="register-password">Mật khẩu</label>
                     <input id="register-password" name="password" type="password" autocomplete="new-password" placeholder="Ít nhất 8 ký tự" minlength="8" required>
+                    <p class="form-intro privacy-notice">Eduhub dùng tên và email để quản lý tài khoản; mật khẩu chỉ được lưu dưới dạng mã băm. Bạn có thể xuất dữ liệu tại <code>/api/auth/me/data</code> hoặc yêu cầu xóa bằng cách gọi <code>DELETE /api/auth/me</code>. Khi xóa tài khoản, kết quả quiz liên kết sẽ được gộp thành thống kê tháng không định danh.</p>
                     <p class="form-message" id="register-message" role="status" aria-live="polite"></p>
                     <button class="primary-button" type="submit">Tạo tài khoản <span aria-hidden="true">→</span></button>
                 </form>
