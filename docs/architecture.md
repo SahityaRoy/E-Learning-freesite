@@ -115,6 +115,7 @@ Các trường `details` được bổ sung bằng migration `ALTER TABLE` khi k
 | `/api/auth/register` | Tạo tài khoản học viên | Công khai |
 | `/api/auth/login`, `/api/auth/logout`, `/api/auth/me` | Session tài khoản | Tùy thao tác |
 | `/api/auth/me/data`, `DELETE /api/auth/me` | Xuất hoặc xóa dữ liệu tài khoản | Chủ tài khoản đã đăng nhập |
+| `GET /api/csrf-token` | Cấp token CSRF cho client API | Công khai, chỉ đọc |
 | `/api/courses` | Đọc danh sách khóa học | GET công khai |
 | `POST /api/courses`, `PUT/DELETE /api/courses/<id>` | Quản lý khóa học | Admin |
 | `/admin/books/*` | Thêm/sửa/xóa sách | Admin |
@@ -125,6 +126,7 @@ Các trường `details` được bổ sung bằng migration `ALTER TABLE` khi k
 
 - Password hash được dùng thay vì lưu mật khẩu nguyên văn.
 - Session cookie bật `HttpOnly` và `SameSite=Lax`; `Secure` có thể bật bằng `SESSION_COOKIE_SECURE=true` khi triển khai HTTPS.
+- Mọi request không an toàn (`POST`, `PUT`, `PATCH`, `DELETE`) phải gửi synchronizer token khớp với token trong Flask session. HTML render token trong meta tag `csrf-token` và hidden field `_csrf_token` của form; JavaScript API gửi header `X-CSRF-Token`. API client có thể lấy token bằng `GET /api/csrf-token`; endpoint này chỉ đọc và không miễn trừ các thao tác thay đổi dữ liệu. Token được xoay khi session bị xóa/đăng nhập lại và không được đưa vào URL. CSRF validation chạy độc lập với xác thực và kiểm tra quyền admin; không dùng CORS hoặc `SameSite` làm biện pháp duy nhất.
 - Flask đặt CSP cho mọi response; script inline được cấp nonce ngẫu nhiên theo request. `script-src` chỉ cho phép nonce và các CDN script đang dùng, không dùng `unsafe-inline`; handler inline đã được chuyển sang listener trong asset JS. `style-src` còn cho phép inline style vì template có style attribute/style block và Tailwind CDN sinh CSS runtime.
 - `frame-ancestors 'none'` cùng `X-Frame-Options: DENY` ngăn nhúng trang. HSTS chỉ được gửi khi `HSTS_ENABLED=true`; chỉ bật sau khi HTTPS được ép buộc tại host/reverse proxy.
 - CSP cho phép Google Fonts, Font Awesome, Bootstrap, jQuery, jsDelivr và Tailwind CDN đang được tham chiếu trong template. Ảnh HTTPS bên ngoài được cho phép vì nội dung khóa học có thể lưu URL ảnh từ quản trị viên.

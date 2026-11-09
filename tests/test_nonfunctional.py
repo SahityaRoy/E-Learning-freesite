@@ -20,6 +20,7 @@ class NonFunctionalRequirementTests(unittest.TestCase):
             "BOOK_UPLOAD_FOLDER": str(Path(self.temp_dir.name) / "books"),
             "SESSION_COOKIE_SECURE": True,
             "HSTS_ENABLED": False,
+            "CSRF_ENABLED": False,
         })
         self.client = self.app.test_client()
 

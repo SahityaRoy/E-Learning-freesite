@@ -1,12 +1,22 @@
 async function apiRequest(url, options = {}) {
+    const method = (options.method || "GET").toUpperCase();
+    const headers = {
+        "Content-Type": "application/json",
+        ...options.headers,
+    };
+    if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
+        const token = document.querySelector('meta[name="csrf-token"]')?.content;
+        if (token) headers["X-CSRF-Token"] = token;
+    }
+
     const response = await fetch(url, {
         credentials: "same-origin",
         ...options,
-        headers: {
-            "Content-Type": "application/json",
-            ...options.headers,
-        },
+        headers,
     });
+    const refreshedToken = response.headers.get("X-CSRF-Token");
+    const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+    if (refreshedToken && csrfMeta) csrfMeta.content = refreshedToken;
     const payload = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(payload.error || "Không thể kết nối máy chủ.");
     return payload;
@@ -230,6 +240,9 @@ async function initAdminForms() {
             const response = await fetch("/api/admin/uploads", {
                 method: "POST",
                 credentials: "same-origin",
+                headers: {
+                    "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.content || "",
+                },
                 body: formData,
             });
             const result = await response.json().catch(() => ({}));

@@ -137,6 +137,7 @@
                                         <div class="table-actions">
                                             <a class="text-button table-action-link" href="{{ url_for('pages.edit_book', book_id=book['id']) }}">Sửa</a>
                                             <form method="post" action="{{ url_for('pages.remove_book', book_id=book['id']) }}" data-confirm-delete="Bạn có chắc muốn xóa sách này không?">
+                                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
                                                 <button class="text-button table-action-link" type="submit">Xóa</button>
                                             </form>
                                         </div>

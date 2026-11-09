@@ -86,6 +86,7 @@
                 {% set selected_category = book['category'] if book else '' %}
                 <form class="admin-form grid gap-4" id="book-form" method="post" enctype="multipart/form-data"
                     action="{{ url_for('pages.edit_book', book_id=book['id']) if book and book['id'] is defined and book['id'] else url_for('pages.add_book') }}">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
                     <div class="grid gap-4 md:grid-cols-2">
                         <div>
                             <label class="field-label" for="title">Tên sách</label>
