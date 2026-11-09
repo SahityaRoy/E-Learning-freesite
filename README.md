@@ -133,5 +133,7 @@ scripts/build_static.py Export templates/assets cho static hosting
 ## Tài liệu
 
 - [Kiến trúc và thuyết minh dự án](docs/architecture.md)
+- [Bảo mật và quyền riêng tư](docs/security-privacy.md)
+- [Vòng đời dữ liệu cá nhân](docs/privacy-data-lifecycle.md)
 - [Quy tắc ứng xử](CODE_OF_CONDUCT.md)
 - [Giấy phép](LICENSE)
