@@ -13,6 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/assets/css/admin-dashboard.css">
     <script src="/assets/js/auth.js" defer></script>
+    <script src="/assets/js/admin-books.js" defer></script>
     <style>
         .book-table { min-width: 850px; }
         .book-cover { width: 42px; height: 56px; flex: none; border: 1px solid #f0e6ec; border-radius: 7px; object-fit: cover; }
@@ -135,7 +136,7 @@
                                     <td>
                                         <div class="table-actions">
                                             <a class="text-button table-action-link" href="{{ url_for('pages.edit_book', book_id=book['id']) }}">Sửa</a>
-                                            <form method="post" action="{{ url_for('pages.remove_book', book_id=book['id']) }}" onsubmit="return confirm('Bạn có chắc muốn xóa sách này không?');">
+                                            <form method="post" action="{{ url_for('pages.remove_book', book_id=book['id']) }}" data-confirm-delete="Bạn có chắc muốn xóa sách này không?">
                                                 <button class="text-button table-action-link" type="submit">Xóa</button>
                                             </form>
                                         </div>

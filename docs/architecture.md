@@ -124,6 +124,9 @@ Các trường `details` được bổ sung bằng migration `ALTER TABLE` khi k
 
 - Password hash được dùng thay vì lưu mật khẩu nguyên văn.
 - Session cookie bật `HttpOnly` và `SameSite=Lax`; `Secure` có thể bật bằng `SESSION_COOKIE_SECURE=true` khi triển khai HTTPS.
+- Flask đặt CSP cho mọi response; script inline được cấp nonce ngẫu nhiên theo request. `script-src` chỉ cho phép nonce và các CDN script đang dùng, không dùng `unsafe-inline`; handler inline đã được chuyển sang listener trong asset JS. `style-src` còn cho phép inline style vì template có style attribute/style block và Tailwind CDN sinh CSS runtime.
+- `frame-ancestors 'none'` cùng `X-Frame-Options: DENY` ngăn nhúng trang. HSTS chỉ được gửi khi `HSTS_ENABLED=true`; chỉ bật sau khi HTTPS được ép buộc tại host/reverse proxy.
+- CSP cho phép Google Fonts, Font Awesome, Bootstrap, jQuery, jsDelivr và Tailwind CDN đang được tham chiếu trong template. Ảnh HTTPS bên ngoài được cho phép vì nội dung khóa học có thể lưu URL ảnh từ quản trị viên.
 - Route quản trị kiểm tra quyền ở server; ẩn nút trên giao diện không phải cơ chế bảo vệ.
 - SQL dùng parameterized queries cho dữ liệu request.
 - Ảnh upload được mở/xác minh bằng Pillow, giới hạn kích thước 5 MB và giới hạn số pixel.
@@ -140,7 +143,7 @@ Kiểm thử tích hợp trong `tests/test_app.py` tạo database và thư mục
 - trang tĩnh và asset;
 - ghi nhận kết quả quiz, tổng hợp báo cáo và từ chối truy cập không đủ quyền.
 
-`tests/test_nonfunctional.py` kiểm tra header bảo mật, thuộc tính cookie session, không lộ mật khẩu/hash, xử lý chuỗi đăng nhập có cú pháp SQL và thời gian phản hồi API khóa học. `tests/test_validation_edges.py` kiểm tra biên độ dài dữ liệu sách, dữ liệu đầu vào quiz, kiểu số nguyên nghiêm ngặt và xác nhận request không hợp lệ không làm thay đổi database. Smoke test hiệu năng tạo 500 khóa học rồi đo 10 request trong tiến trình, với ngân sách 3 giây; phép đo không thay thế kiểm thử tải trên môi trường production.
+`tests/test_nonfunctional.py` kiểm tra CSP nonce, chống framing, HSTS bật/tắt, header trên trang HTML/API/static, thuộc tính cookie session, không lộ mật khẩu/hash, xử lý chuỗi đăng nhập có cú pháp SQL và thời gian phản hồi API khóa học. `tests/test_validation_edges.py` kiểm tra biên độ dài dữ liệu sách, dữ liệu đầu vào quiz, kiểu số nguyên nghiêm ngặt và xác nhận request không hợp lệ không làm thay đổi database. Smoke test hiệu năng tạo 500 khóa học rồi đo 10 request trong tiến trình, với ngân sách 3 giây; phép đo không thay thế kiểm thử tải trên môi trường production.
 
 Chạy bằng:
 
@@ -158,4 +161,4 @@ python -m unittest discover -s tests -v
 
 ## 9. Triển khai
 
-Ứng dụng hiện được kiểm thử với Flask development server. Môi trường production cần WSGI server, HTTPS, secret riêng, admin credentials riêng, database và upload storage persistent. Workflow Azure Static Web Apps chỉ đóng gói giao diện tĩnh, không thay thế backend Flask hoặc SQLite.
+Ứng dụng hiện được kiểm thử với Flask development server. Môi trường production cần WSGI server, HTTPS, secret riêng, admin credentials riêng, database và upload storage persistent. Workflow Azure Static Web Apps chỉ đóng gói giao diện tĩnh, không chạy Flask middleware/backend hoặc SQLite; static host cần tự cấu hình HTTP security headers cho bản export.

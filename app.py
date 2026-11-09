@@ -1,4 +1,5 @@
 import os
+import re
 import secrets
 from datetime import timedelta
 from pathlib import Path
@@ -10,6 +11,7 @@ from models import initialize_database
 
 
 BASE_DIR = Path(__file__).resolve().parent
+SCRIPT_TAG_PATTERN = re.compile(r"<script\b(?![^>]*\bnonce\s*=)([^>]*)>", re.IGNORECASE)
 
 
 def load_secret_key(instance_directory=None):
@@ -49,6 +51,7 @@ def create_app(test_config=None):
         SESSION_COOKIE_HTTPONLY=True,
         SESSION_COOKIE_SAMESITE="Lax",
         SESSION_COOKIE_SECURE=os.environ.get("SESSION_COOKIE_SECURE", "").lower() == "true",
+        HSTS_ENABLED=os.environ.get("HSTS_ENABLED", "").lower() == "true",
         PERMANENT_SESSION_LIFETIME=timedelta(days=30),
         AUTH_LOGIN_RATE_LIMIT=int(os.environ.get("AUTH_LOGIN_RATE_LIMIT", "10")),
         AUTH_LOGIN_RATE_WINDOW=int(os.environ.get("AUTH_LOGIN_RATE_WINDOW", str(15 * 60))),
@@ -69,10 +72,54 @@ def create_app(test_config=None):
         if connection is not None:
             connection.close()
 
+    @app.before_request
+    def create_content_security_nonce():
+        g.csp_nonce = secrets.token_urlsafe(16)
+
     @app.after_request
     def add_security_headers(response):
         response.headers.setdefault("X-Content-Type-Options", "nosniff")
         response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        response.headers["X-Frame-Options"] = "DENY"
+
+        nonce = g.get("csp_nonce") or secrets.token_urlsafe(16)
+        if response.mimetype == "text/html":
+            response.direct_passthrough = False
+            html = response.get_data(as_text=True)
+            response.set_data(
+                SCRIPT_TAG_PATTERN.sub(
+                    lambda match: f'<script nonce="{nonce}"{match.group(1)}>',
+                    html,
+                )
+            )
+
+        response.headers["Content-Security-Policy"] = "; ".join((
+            "default-src 'self'",
+            "base-uri 'self'",
+            "object-src 'none'",
+            "frame-ancestors 'none'",
+            "form-action 'self'",
+            (
+                "script-src 'self' "
+                f"'nonce-{nonce}' "
+                "https://ajax.googleapis.com https://cdn.jsdelivr.net "
+                "https://cdn.tailwindcss.com https://code.jquery.com "
+                "https://stackpath.bootstrapcdn.com https://use.fontawesome.com"
+            ),
+            (
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com "
+                "https://cdnjs.cloudflare.com https://stackpath.bootstrapcdn.com "
+                "https://maxcdn.bootstrapcdn.com https://use.fontawesome.com"
+            ),
+            (
+                "font-src 'self' data: https://fonts.gstatic.com "
+                "https://cdnjs.cloudflare.com https://use.fontawesome.com"
+            ),
+            "img-src 'self' data: https:",
+            "connect-src 'self'",
+        ))
+        if app.config["HSTS_ENABLED"]:
+            response.headers["Strict-Transport-Security"] = "max-age=31536000"
         return response
 
     app.register_blueprint(api_routes)
