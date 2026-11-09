@@ -40,7 +40,7 @@ def create_app(test_config=None):
         DATABASE=os.environ.get("DATABASE_PATH", str(BASE_DIR / "instance" / "elearning.sqlite3")),
         UPLOAD_FOLDER=os.environ.get("UPLOAD_FOLDER", str(BASE_DIR / "instance" / "uploads")),
         BOOK_UPLOAD_FOLDER=os.environ.get(
-            "BOOK_UPLOAD_FOLDER", str(BASE_DIR / "static" / "uploads" / "books")
+            "BOOK_UPLOAD_FOLDER", str(BASE_DIR / "instance" / "uploads" / "books")
         ),
         PROJECT_ROOT=str(BASE_DIR),
         MAX_CONTENT_LENGTH=6 * 1024 * 1024,

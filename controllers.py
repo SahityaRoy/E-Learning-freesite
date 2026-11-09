@@ -4,6 +4,7 @@ import re
 import sqlite3
 import time
 import uuid
+import warnings
 from functools import wraps
 from io import BytesIO
 from pathlib import Path
@@ -201,6 +202,45 @@ def admin_books():
     return render_template("admin_books.html", books=list_books(), admin=g.current_user)
 
 
+def validate_image_upload(uploaded_file):
+    image_data = uploaded_file.stream.read(MAX_UPLOAD_SIZE + 1)
+    if len(image_data) > MAX_UPLOAD_SIZE:
+        return None, None, "Ảnh không được vượt quá 5 MB.", 413
+
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", Image.DecompressionBombWarning)
+            with Image.open(BytesIO(image_data)) as image:
+                extension = IMAGE_EXTENSIONS.get(image.format)
+                if extension is None:
+                    return None, None, "Chỉ hỗ trợ ảnh PNG, JPG, GIF hoặc WebP.", 400
+                if image.width * image.height > MAX_IMAGE_PIXELS:
+                    return None, None, "Kích thước ảnh vượt quá giới hạn cho phép.", 400
+                image.verify()
+
+            with Image.open(BytesIO(image_data)) as image:
+                image.load()
+    except (
+        UnidentifiedImageError,
+        OSError,
+        SyntaxError,
+        ValueError,
+        Image.DecompressionBombError,
+        Image.DecompressionBombWarning,
+    ):
+        return None, None, "File tải lên không phải ảnh hợp lệ.", 400
+
+    return image_data, extension, None, None
+
+
+def save_uploaded_image(image_data, extension, folder):
+    filename = f"{uuid.uuid4().hex}{extension}"
+    upload_folder = Path(folder)
+    upload_folder.mkdir(parents=True, exist_ok=True)
+    (upload_folder / filename).write_bytes(image_data)
+    return filename
+
+
 @page_routes.route("/admin/books/add", methods=["GET", "POST"])
 @admin_page_required
 def add_book():
@@ -217,33 +257,13 @@ def add_book():
         flash("Vui lòng chọn ảnh bìa cho sách.", "error")
         return render_template("admin_book_form.html", book=request.form, admin=g.current_user), 400
 
-    image_data = None
-    extension = None
-    if cover_file and cover_file.filename:
-        image_data = cover_file.stream.read(MAX_UPLOAD_SIZE + 1)
-        if len(image_data) > MAX_UPLOAD_SIZE:
-            flash("Ảnh bìa không được vượt quá 5 MB.", "error")
-            return render_template("admin_book_form.html", book=request.form, admin=g.current_user), 413
-        try:
-            with Image.open(BytesIO(image_data)) as image:
-                extension = IMAGE_EXTENSIONS.get(image.format)
-                if extension is None:
-                    flash("Chỉ hỗ trợ ảnh PNG, JPG, GIF hoặc WebP.", "error")
-                    return render_template("admin_book_form.html", book=request.form, admin=g.current_user), 400
-                if image.width * image.height > MAX_IMAGE_PIXELS:
-                    flash("Kích thước ảnh vượt quá giới hạn cho phép.", "error")
-                    return render_template("admin_book_form.html", book=request.form, admin=g.current_user), 400
-                image.verify()
-        except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError):
-            flash("File tải lên không phải ảnh hợp lệ.", "error")
-            return render_template("admin_book_form.html", book=request.form, admin=g.current_user), 400
+    image_data, extension, error, status_code = validate_image_upload(cover_file)
+    if error:
+        flash(error, "error")
+        return render_template("admin_book_form.html", book=request.form, admin=g.current_user), status_code
 
-    if image_data is not None and extension is not None:
-        filename = f"{uuid.uuid4().hex}{extension}"
-        upload_folder = Path(current_app.config["BOOK_UPLOAD_FOLDER"])
-        upload_folder.mkdir(parents=True, exist_ok=True)
-        (upload_folder / filename).write_bytes(image_data)
-        data["cover_image"] = f"/static/uploads/books/{filename}"
+    filename = save_uploaded_image(image_data, extension, current_app.config["BOOK_UPLOAD_FOLDER"])
+    data["cover_image"] = f"/static/uploads/books/{filename}"
 
     create_book(data)
     flash("Đã thêm sách mới.", "success")
@@ -268,30 +288,14 @@ def edit_book(book_id):
     image_data = None
     extension = None
     if cover_file and cover_file.filename:
-        image_data = cover_file.stream.read(MAX_UPLOAD_SIZE + 1)
-        if len(image_data) > MAX_UPLOAD_SIZE:
-            flash("Ảnh bìa không được vượt quá 5 MB.", "error")
-            return render_template("admin_book_form.html", book={**dict(book), **request.form}, admin=g.current_user), 413
-        try:
-            with Image.open(BytesIO(image_data)) as image:
-                extension = IMAGE_EXTENSIONS.get(image.format)
-                if extension is None:
-                    flash("Chỉ hỗ trợ ảnh PNG, JPG, GIF hoặc WebP.", "error")
-                    return render_template("admin_book_form.html", book={**dict(book), **request.form}, admin=g.current_user), 400
-                if image.width * image.height > MAX_IMAGE_PIXELS:
-                    flash("Kích thước ảnh vượt quá giới hạn cho phép.", "error")
-                    return render_template("admin_book_form.html", book={**dict(book), **request.form}, admin=g.current_user), 400
-                image.verify()
-        except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError):
-            flash("File tải lên không phải ảnh hợp lệ.", "error")
-            return render_template("admin_book_form.html", book={**dict(book), **request.form}, admin=g.current_user), 400
+        image_data, extension, error, status_code = validate_image_upload(cover_file)
+        if error:
+            flash(error, "error")
+            return render_template("admin_book_form.html", book={**dict(book), **request.form}, admin=g.current_user), status_code
 
     old_cover = book["cover_image"]
     if image_data is not None and extension is not None:
-        filename = f"{uuid.uuid4().hex}{extension}"
-        upload_folder = Path(current_app.config["BOOK_UPLOAD_FOLDER"])
-        upload_folder.mkdir(parents=True, exist_ok=True)
-        (upload_folder / filename).write_bytes(image_data)
+        filename = save_uploaded_image(image_data, extension, current_app.config["BOOK_UPLOAD_FOLDER"])
         data["cover_image"] = f"/static/uploads/books/{filename}"
     else:
         data["cover_image"] = old_cover
@@ -399,24 +403,11 @@ def upload_course_image():
     if uploaded_file is None or not uploaded_file.filename:
         return api_error("Chọn một file ảnh để tải lên.", 400)
 
-    image_data = uploaded_file.stream.read(MAX_UPLOAD_SIZE + 1)
-    if len(image_data) > MAX_UPLOAD_SIZE:
-        return api_error("Ảnh không được vượt quá 5 MB.", 413)
-    try:
-        with Image.open(BytesIO(image_data)) as image:
-            extension = IMAGE_EXTENSIONS.get(image.format)
-            if extension is None:
-                return api_error("Chỉ hỗ trợ ảnh PNG, JPG, GIF hoặc WebP.", 400)
-            if image.width * image.height > MAX_IMAGE_PIXELS:
-                return api_error("Kích thước ảnh vượt quá giới hạn cho phép.", 400)
-            image.verify()
-    except (UnidentifiedImageError, OSError, ValueError, Image.DecompressionBombError):
-        return api_error("File tải lên không phải ảnh hợp lệ.", 400)
+    image_data, extension, error, status_code = validate_image_upload(uploaded_file)
+    if error:
+        return api_error(error, status_code)
 
-    upload_folder = Path(current_app.config["UPLOAD_FOLDER"])
-    upload_folder.mkdir(parents=True, exist_ok=True)
-    filename = f"{uuid.uuid4().hex}{extension}"
-    (upload_folder / filename).write_bytes(image_data)
+    filename = save_uploaded_image(image_data, extension, current_app.config["UPLOAD_FOLDER"])
     return jsonify({"image_url": f"/uploads/{filename}"}), 201
 
 
@@ -549,8 +540,7 @@ def book_detail_page(book_id):
 
 @page_routes.get("/uploads/<path:filename>")
 def uploaded_image(filename):
-    path = Path(filename)
-    if path.name != filename or path.suffix.lower() not in set(IMAGE_EXTENSIONS.values()):
+    if re.fullmatch(r"[a-f0-9]{32}\.(?:png|jpg|gif|webp)", filename) is None:
         return api_error("Không tìm thấy ảnh.", 404)
     return send_from_directory(current_app.config["UPLOAD_FOLDER"], filename, max_age=3600)
 

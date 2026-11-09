@@ -583,6 +583,69 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
                 with self.app.app_context():
                     self.assertEqual(len(list_books()), initial_books)
 
+    def test_book_cover_uploads_validate_image_content_for_add_and_edit(self):
+        self.login_admin()
+        jpeg = BytesIO()
+        Image.new("RGB", (4, 4), "blue").save(jpeg, format="JPEG")
+        jpeg_data = jpeg.getvalue()
+        book_form = {
+            "title": "Ảnh bìa an toàn",
+            "author": "Nguyễn An",
+            "category": "Python",
+            "description": "Mô tả",
+            "details": "Nội dung",
+            "document_url": "https://example.com/book.pdf",
+        }
+
+        created = self.client.post("/admin/books/add", data={
+            **book_form,
+            "cover_image": (BytesIO(jpeg_data), "../../cover.png"),
+        }, content_type="multipart/form-data")
+        self.assertEqual(created.status_code, 302)
+
+        with self.app.app_context():
+            from models import list_books
+
+            book = list_books()[0]
+            book_id = book["id"]
+            original_cover = book["cover_image"]
+        self.assertRegex(original_cover, r"^/static/uploads/books/[a-f0-9]{32}\.jpg$")
+        with self.client.get(original_cover) as response:
+            self.assertEqual(response.status_code, 200)
+
+        upload_folder = Path(self.temp_dir.name) / "books"
+        original_files = set(upload_folder.iterdir())
+        invalid_add = self.client.post("/admin/books/add", data={
+            **book_form,
+            "title": "Ảnh lỗi",
+            "cover_image": (BytesIO(b"not an image"), "fake.png"),
+        }, content_type="multipart/form-data")
+        self.assertEqual(invalid_add.status_code, 400)
+        self.assertEqual(set(upload_folder.iterdir()), original_files)
+
+        invalid_edit = self.client.post(f"/admin/books/edit/{book_id}", data={
+            **book_form,
+            "cover_image": (BytesIO(b"truncated image"), "cover.jpg"),
+        }, content_type="multipart/form-data")
+        self.assertEqual(invalid_edit.status_code, 400)
+        with self.app.app_context():
+            self.assertEqual(list_books()[0]["cover_image"], original_cover)
+        self.assertEqual(set(upload_folder.iterdir()), original_files)
+
+        updated = self.client.post(f"/admin/books/edit/{book_id}", data={
+            **book_form,
+            "title": "Ảnh bìa đã đổi",
+            "cover_image": (BytesIO(jpeg_data), "cover.png"),
+        }, content_type="multipart/form-data")
+        self.assertEqual(updated.status_code, 302)
+        with self.app.app_context():
+            new_cover = list_books()[0]["cover_image"]
+        self.assertRegex(new_cover, r"^/static/uploads/books/[a-f0-9]{32}\.jpg$")
+        self.assertNotEqual(new_cover, original_cover)
+        with self.client.get(new_cover) as response:
+            self.assertEqual(response.status_code, 200)
+        self.assertFalse((upload_folder / Path(original_cover).name).exists())
+
     def test_login_rejects_wrong_password(self):
         self.register_user()
         anonymous_client = self.app.test_client()
@@ -794,6 +857,38 @@ class AuthenticationAndCourseApiTests(unittest.TestCase):
         self.assertEqual(served_image.status_code, 200)
         self.assertTrue(served_image.content_type.startswith("image/png"))
         served_image.close()
+
+        jpeg = BytesIO()
+        Image.new("RGB", (2, 2), "blue").save(jpeg, format="JPEG")
+        spoofed_extension = self.client.post("/api/admin/uploads", data={
+            "image": (BytesIO(jpeg.getvalue()), "../../photo.png"),
+        })
+        self.assertEqual(spoofed_extension.status_code, 201)
+        self.assertRegex(spoofed_extension.json["image_url"], r"^/uploads/[a-f0-9]{32}\.jpg$")
+        with self.client.get(spoofed_extension.json["image_url"]) as response:
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response.content_type.startswith("image/jpeg"))
+
+        invalid_paths = (
+            "/uploads/not-generated.jpg",
+            "/uploads/" + "a" * 32 + ".txt",
+            "/uploads/" + "a" * 32 + ".jpg/extra",
+        )
+        for path in invalid_paths:
+            with self.subTest(path=path):
+                self.assertEqual(self.client.get(path).status_code, 404)
+
+        truncated = self.client.post("/api/admin/uploads", data={
+            "image": (BytesIO(png_data[:-8]), "truncated.png"),
+        })
+        self.assertEqual(truncated.status_code, 400)
+
+        oversized_dimensions = BytesIO()
+        Image.new("1", (5001, 5000), 0).save(oversized_dimensions, format="PNG")
+        too_many_pixels = self.client.post("/api/admin/uploads", data={
+            "image": (BytesIO(oversized_dimensions.getvalue()), "large-image.png"),
+        })
+        self.assertEqual(too_many_pixels.status_code, 400)
 
         too_large = self.client.post("/api/admin/uploads", data={
             "image": (BytesIO(b"x" * (5 * 1024 * 1024 + 1)), "large.png"),
