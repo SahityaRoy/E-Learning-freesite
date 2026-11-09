@@ -180,6 +180,41 @@ class ValidationEdgeCaseTests(unittest.TestCase):
                     ).fetchone()[0]
                 self.assertEqual(count, initial_attempts)
 
+    def test_quiz_attempts_reject_non_integer_numeric_values_without_writes(self):
+        invalid_attempts = []
+        valid_attempt = {
+            "examId": "python-basics",
+            "title": "Python cơ bản",
+            "subject": "Python",
+            "correct": 1,
+            "total": 5,
+            "duration": 120,
+        }
+        for field in ("correct", "total", "duration"):
+            for value in ("1", 1.0, None):
+                invalid_attempts.append({**valid_attempt, field: value})
+
+        with self.app.app_context():
+            from models import get_database
+
+            database = get_database()
+            initial_attempts = database.execute(
+                "SELECT COUNT(*) FROM quiz_attempts"
+            ).fetchone()[0]
+
+        for attempt in invalid_attempts:
+            with self.subTest(attempt=attempt):
+                response = self.client.post("/api/quiz/attempts", json=attempt)
+                self.assertEqual(response.status_code, 400)
+                self.assertIsInstance(response.json.get("error"), str)
+                with self.app.app_context():
+                    from models import get_database
+
+                    count = get_database().execute(
+                        "SELECT COUNT(*) FROM quiz_attempts"
+                    ).fetchone()[0]
+                self.assertEqual(count, initial_attempts)
+
 
 if __name__ == "__main__":
     unittest.main()
