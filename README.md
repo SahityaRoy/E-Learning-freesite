@@ -1,122 +1,139 @@
-<h1 align="center">E-Learning Eduhub Community  </h1>
-<h4 align="center"> It’s a community for the people by the people. The vision of the community is to build an environment where people can learn together and implement together., We Organizes Open Source Programs, Hackathons and 1:1 Mentorships. </h4>
-<h3 align="center"> An Open Source Website for the students built using HTML, CSS, JavaScript and Bootstrap Php </h3>
+# Eduhub E-Learning
 
-![image](https://media-exp1.licdn.com/dms/image/D4D16AQGRNP-k3T2bzA/profile-displaybackgroundimage-shrink_350_1400/0/1666725574602?e=1674691200&v=beta&t=4Z9RetNujc9ykhvWBHRtAet5eiXVvOBbZ_LmO8vmfSc)
+Eduhub là website học lập trình với thư viện khóa học, sách/tài liệu, bài quiz và khu vực quản trị. Dự án dùng Flask để phục vụ trang HTML, API và dữ liệu SQLite; giao diện được xây dựng bằng HTML, CSS và JavaScript.
 
-<b>This repository will be partcipating in the Hacktoberfest event, so raise issues,contribute in this repository and stay tuned with us for more .</b>
+## Mục tiêu
 
-<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Welcome_to_Free_Learning_site_0"></a>Welcome to Free Learning site</h1>
-<h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_I_am_sahitya_roy_owner_of_this_project_if_you_want_to_contribute_please_feel_free_to_connect_with_m__1"></a><em>Hello Everyone, I am Sahitya Roy owner of this project if you want to contribute please feel free to connect with me, this project is under Hackclub. </em></h2>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Free resources in one place, students can access all the resources through this site and i will put this site on my github publicly so that everyone can contribute and add more and more features</p>
+- Gom tài nguyên học lập trình vào một website dễ khám phá.
+- Cho học viên xem nội dung khóa học, sách và tài liệu trước khi mở liên kết học.
+- Cho quản trị viên quản lý khóa học, sách, tài khoản và theo dõi kết quả quiz.
+- Làm việc trên màn hình máy tính và điện thoại.
 
-<p align="left"> <a href="https://twitter.com/sahityaroy07" target="blank"><img src="https://img.shields.io/twitter/follow/sahityaroy07?logo=twitter&style=for-the-badge" alt="sahityaroy07" /></a> </p>
-<p><a href="https://www.buymeacoffee.com/sahityaroy"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="7584926589" /></a></p><br><br>
-<p align="left"> <a href="https://www.linkedin.com/in/sahitya-roy/" target="blank">
+## Chức năng
 
+### Dành cho học viên
 
-<ul>
-<li class="has-line-data" data-line-start="4" data-line-end="5">Type some Markdown on the left</li>
-<li class="has-line-data" data-line-start="5" data-line-end="6">See HTML in the right</li>
-<li class="has-line-data" data-line-start="6" data-line-end="8">Magic ✨✨</li>
-<li class="has-line-data" data-line-start="6" data-line-end="8">First star this repository:star: </li>
-<li class="has-line-data" data-line-start="6" data-line-end="8">Fork it, to contribute:fork_and_knife: </li>
-</ul>
-	
-<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Features_8"></a>Features</h2>
-	
-<ul>
-<li class="has-line-data" data-line-start="10" data-line-end="11">I added all the top level free resources available on the internet.</li>
-<li class="has-line-data" data-line-start="11" data-line-end="12">Also i added some paid courses in free of cost.</li>
-<li class="has-line-data" data-line-start="12" data-line-end="13">Add a contributor Avatar part for your work.</li>
-</ul>
+- Tìm kiếm khóa học, sách và quiz từ thanh tìm kiếm trên đầu trang; tìm kiếm hỗ trợ từ khóa tiếng Việt có hoặc không có dấu.
+- Duyệt khóa học và sách theo dạng lưới. Trang chủ hiển thị bốn mục đầu tiên; nút **Xem thêm** mở toàn bộ danh sách.
+- Mở trang chi tiết khóa học hoặc sách để xem mô tả, nội dung, tác giả/danh mục và sau đó mới mở liên kết video hoặc tài liệu.
+- Lọc và tìm sách theo tên, tác giả và danh mục.
+- Đăng ký tài khoản học viên, đăng nhập và đăng xuất.
+- Làm các bộ quiz lập trình, xem điểm, đáp án và phần giải thích; kết quả được gửi về server để tổng hợp.
 
-<blockquote>
-<p class="has-line-data" data-line-start="15" data-line-end="18">So let's contribute and be a open source contributor🐱‍💻.<br>
-Welcome to all the beginner 👩‍💻.<br>
-So, let’s get started.</p>
-</blockquote>
-<p class="has-line-data" data-line-start="19" data-line-end="22">This text you see here is *actually- written in Markdown! To get hands-on feeling <br>
-in Markdown syntax, type some text into the left window and<br>
-watch the results in the right.</p>
-<h2 class="code-line" data-line-start=23 data-line-end=24 ><a id="Tech_23"></a>Tech</h2>
-<p class="has-line-data" data-line-start="25" data-line-end="26">Dillinger uses a number of open source projects to work properly:</p>
-<ul>
-<li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - we are mainly using HTML!</li>
-<li class="has-line-data" data-line-start="28" data-line-end="29">[CSS] - for editing purpose</li>
+### Dành cho quản trị viên
 
-<li class="has-line-data" data-line-start="27" data-line-end="28">[HTML] - We are mainly using HTML!</li>
-<li class="has-line-data" data-line-start="28" data-line-end="29">[CSS] -  Mainly for styling and editing purposes.</li>
-</ul>
+- Quản lý khóa học: tên, mô tả, nội dung chi tiết, ảnh và liên kết video.
+- Quản lý sách: tên, tác giả, danh mục, mô tả, nội dung chi tiết, ảnh bìa và liên kết tài liệu.
+- Quản lý tài khoản và tạo thêm tài khoản admin.
+- Xem thống kê quiz: tổng lượt làm, điểm trung bình, học viên đã đăng nhập tham gia, tỷ lệ câu đúng, kết quả theo đề và các lượt gần đây.
+- Các trang quản trị và API quản trị yêu cầu đăng nhập bằng tài khoản admin.
 
-<h2 class="code-line" data-line-start=50 data-line-end=51 ><a id="Plugins_50"></a>Plugins</h2>
-<p class="has-line-data" data-line-start="52" data-line-end="54">Dillinger is currently extended with the following plugins.<br>
-Instructions on how to use them in your own application are linked below.</p>
-<table class="table table-striped table-bordered">
-<thead>
-<tr>
-<th>Plugin</th>
-<th>README.md</th>
-</tr>
-</thead>
-<tbody></tbody>
+## Công nghệ
 
-<h2 class="code-line" data-line-start=63 data-line-end=64 ><a id="Development_63"></a>Development</h2>
-<p class="has-line-data" data-line-start="65" data-line-end="66">Want to contribute? Great!</p>
-<ul>
+- Python 3.10 trở lên
+- Flask 3.x
+- SQLite
+- Pillow để xác thực ảnh tải lên
+- HTML, CSS, JavaScript và Jinja templates
+- `unittest` cho kiểm thử backend
 
-<li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implement = Success<br>
-=======
-<li class="has-line-data" data-line-start="66" data-line-end="69">Idea + Implimentation = Success<br>
+## Chạy local trên Windows
 
-Make a change in your file and instantaneously see your updates!</li>
-</ul>
-<p class="has-line-data" data-line-start="69" data-line-end="70">Open your favorite Terminal and run these commands.</p>
-<p class="has-line-data" data-line-start="71" data-line-end="72">First Tab:</p>
-<pre><code class="has-line-data" data-line-start="74" data-line-end="76" class="language-sh">git init
-</code></pre>
-<p class="has-line-data" data-line-start="77" data-line-end="78">Second Tab:</p>
-<pre><code class="has-line-data" data-line-start="80" data-line-end="82" class="language-sh">git pull [url of this project]
-</code></pre>
-<p class="has-line-data" data-line-start="83" data-line-end="84">(optional) Third:</p>
-<pre><code class="has-line-data" data-line-start="86" data-line-end="88" class="language-sh">git branch [branch name]
-</code></pre>
-<h4 class="code-line" data-line-start=89 data-line-end=90 ><a id="After_changing_the_file_89"></a>After changing the file</h4>
-<p class="has-line-data" data-line-start="91" data-line-end="92">Adding all file :</p>
-<pre><code class="has-line-data" data-line-start="94" data-line-end="96" class="language-sh">git add .
-</code></pre>
-<p class="has-line-data" data-line-start="97" data-line-end="98">now its time to take this project into stagging area:</p>
-<pre><code class="has-line-data" data-line-start="100" data-line-end="102" class="language-sh">git commit -m<span class="hljs-string">" comment "</span><span class="hljs-string">"
-</span></code></pre>
-<h2 class="code-line" data-line-start=103 data-line-end=104 ><a id="now_push_this_files_103"></a>now push this files</h2>
-<p class="has-line-data" data-line-start="104" data-line-end="105">build the image.</p>
-<pre><code class="has-line-data" data-line-start="107" data-line-end="109" class="language-sh">git push origin main --force
-</code></pre>
-<pre><code class="has-line-data" data-line-start="113" data-line-end="115" class="language-sh">git status
-</code></pre>
-<h2 class="code-line" data-line-start=116 data-line-end=117 ><a id="License_116"></a>License</h2>
-<p class="has-line-data" data-line-start="118" data-line-end="119">@Copyright SahityaRoy 2021-2024</p>
-<p class="has-line-data" data-line-start="120" data-line-end="121"><strong>Free Software, Hell Yeah!</strong></p>
-	
-	
-<h1 align=center> Project Admin ❤️ (Eduhub) </h1>
-<p align="center">
-  <a href="https://github.com/SahityaRoy"><img src="https://avatars.githubusercontent.com/u/72821604?v=4" width=150px height=150px /></a> 
-    
-<p align="center">
-  <a target="_blank"href="https://www.linkedin.com/in/sahitya-roy/"><img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a target="_blank"href="https://twitter.com/SahityaRoy07"><img src="https://img.shields.io/badge/twitter-%231DA1F2.svg?&style=for-the-badge&logo=twitter&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="mailto:sahitya.roy@uem.edu.in?subject=Hello%20Harsh,%20From%20Github"><img src="https://img.shields.io/badge/gmail-%23D14836.svg?&style=for-the-badge&logo=gmail&logoColor=white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://SahityaRoy.hashnode.dev/"><img src="https://img.shields.io/badge/hashnode-%27D1203.svg?&style=for-the-badge&logo=hashnode&logoColor=blue" /></a>&nbsp;&nbsp;&nbsp;&nbsp;
-</p>
-	
-	
-<h1 align=center> OUR VALUABLE CONTRIBUTORS✨ </h1>
-<p align="center">
-  
-	
-<a href="https://github.com/SahityaRoy/E-Learning-freesite/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=SahityaRoy/E-Learning-freesite" />
-</a>
+Mở PowerShell tại thư mục dự án:
 
-<h1 align=center>Happy Coding 👨‍💻 </h1>
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+Khi chạy local, ứng dụng mặc định dùng cấu hình phát triển và có thể tạo admin local `admin@eschool.com` / `admin123` nếu chưa có tài khoản. Chỉ dùng mặc định này trên máy local mới; không dùng khi triển khai thật. Có thể đặt tài khoản local riêng:
+
+```powershell
+$env:SECRET_KEY = "replace-with-a-long-random-secret"
+$env:ADMIN_EMAIL = "admin@example.com"
+$env:ADMIN_PASSWORD = "replace-with-a-strong-password"
+python app.py
+```
+
+Mở `http://127.0.0.1:5000`. Trang đăng nhập admin nằm tại `/login`.
+
+### Biến môi trường và production
+
+Production phải có `APP_ENV=production`, `SECRET_KEY`, `ADMIN_EMAIL` và `ADMIN_PASSWORD` trước khi khởi động. Thiếu `SECRET_KEY` hoặc thông tin admin sẽ làm ứng dụng dừng với `RuntimeError`; production không dùng tài khoản mặc định, không chấp nhận mật khẩu `admin123`, và yêu cầu mật khẩu admin dài ít nhất 12 ký tự. Tài khoản bootstrap chỉ được tạo khi email chưa tồn tại trong database.
+
+Ví dụ nội dung `.env` cho môi trường production (thay các giá trị mẫu bằng secret riêng):
+
+```dotenv
+APP_ENV=production
+SECRET_KEY=generate-a-long-random-secret-and-store-it-safely
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=use-a-unique-strong-password
+```
+
+Ứng dụng đọc biến từ môi trường của tiến trình; `python app.py` không tự nạp tệp `.env`. Hãy dùng secret manager/cấu hình môi trường của nền tảng triển khai hoặc công cụ nạp `.env` đáng tin cậy. Trên PowerShell, có thể thiết lập trực tiếp bằng `$env:APP_ENV = "production"` và `$env:SECRET_KEY = "..."` (tương tự với hai biến admin) trước khi chạy ứng dụng. `SESSION_COOKIE_SECURE` được bật tự động trong production; production cần được phục vụ qua HTTPS.
+
+**Tuyệt đối không đưa `SECRET_KEY`, mật khẩu admin hay bất kỳ secret nào lên Git.** Không commit `.env`; tệp này và thư mục `instance/` đã được loại khỏi Git bằng `.gitignore`. Dùng giá trị ngẫu nhiên, ổn định qua lần restart và lưu secrets riêng tư.
+
+## Kiểm thử
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+Bộ test dùng database và thư mục upload tạm, không cần xóa database local. Các kiểm thử bao gồm xác thực, quyền admin, CRUD khóa học/sách, trang chi tiết, upload ảnh, API thống kê quiz, các trường hợp dữ liệu sai/giá trị biên, header/cookie bảo mật và smoke test hiệu năng API. Smoke test hiệu năng đo 10 request trong tiến trình cho danh sách 500 khóa học với ngân sách 3 giây; đây không phải kiểm thử tải hay cam kết SLA production.
+
+## Lưu trữ và cấu hình
+
+| Biến môi trường | Mặc định | Mục đích |
+|---|---|---|
+| `APP_ENV` | `development` | Đặt `production` cho triển khai thật; bật cookie `Secure` và yêu cầu secrets |
+| `SECRET_KEY` | Sinh/lưu trong `instance/secret_key` ở local | Ký session Flask; bắt buộc và phải ổn định trong production |
+| `ADMIN_EMAIL` | `admin@eschool.com` ở local | Email admin bootstrap; bắt buộc trong production |
+| `ADMIN_PASSWORD` | `admin123` ở local | Mật khẩu admin bootstrap; bắt buộc, ít nhất 12 ký tự và không được là `admin123` trong production |
+| `SESSION_COOKIE_SECURE` | Tự bật trong production | Có thể đặt `true` để bật cookie `Secure` ngoài production |
+| `DATABASE_PATH` | `instance/elearning.sqlite3` | Đường dẫn database SQLite |
+| `UPLOAD_FOLDER` | `instance/uploads` | Ảnh khóa học |
+| `BOOK_UPLOAD_FOLDER` | `instance/uploads/books` | Ảnh bìa sách |
+| `PORT` | `5000` | Cổng Flask development server |
+| `AUTH_LOGIN_RATE_LIMIT` | `10` | Số lần đăng nhập tối đa trên mỗi IP trong cửa sổ giới hạn |
+| `AUTH_LOGIN_RATE_WINDOW` | `900` | Cửa sổ giới hạn đăng nhập, tính bằng giây |
+| `AUTH_REGISTER_RATE_LIMIT` | `5` | Số lần đăng ký tối đa trên mỗi IP trong cửa sổ giới hạn |
+| `AUTH_REGISTER_RATE_WINDOW` | `3600` | Cửa sổ giới hạn đăng ký, tính bằng giây |
+| `HSTS_ENABLED` | `false` | Bật HSTS khi HTTPS đã được ép buộc ở reverse proxy/host |
+| `QUIZ_ATTEMPT_RETENTION_DAYS` | `365` | Số ngày giữ dữ liệu chi tiết của lượt quiz trước khi gộp thống kê tháng |
+
+Ứng dụng tự tạo database, bảng và dữ liệu mẫu khi khởi động. Khi triển khai, cần giữ database và thư mục upload trên persistent storage để không mất dữ liệu sau khi restart. Chỉ đặt `HSTS_ENABLED=true` khi host đã ép buộc HTTPS; không bật trên môi trường HTTP local.
+
+Flask gửi CSP với nonce ngẫu nhiên theo response, chống nhúng trang bằng `frame-ancestors` và `X-Frame-Options`, cùng các header bảo mật khác trên HTML, API và static responses. `script-src` không cho phép `unsafe-inline`; một số inline style và Tailwind CDN hiện vẫn cần `unsafe-inline` trong `style-src`. Mọi request thay đổi trạng thái phải gửi CSRF token gắn với session qua `X-CSRF-Token` (JSON API) hoặc trường form `_csrf_token`; token được cung cấp trong meta tag `csrf-token` và `GET /api/csrf-token`. Không đặt token trong URL. Khi triển khai bản static export, cần cấu hình các HTTP headers tương ứng tại static host; static export không chạy Flask middleware.
+
+Dữ liệu quiz chi tiết được lưu tối đa 365 ngày (có thể cấu hình) rồi chuyển thành thống kê tháng, không còn từng lượt hay liên kết tài khoản. Chạy tác vụ định kỳ bằng `python -m flask --app app archive-expired-quiz-attempts`. Người dùng đã đăng nhập có thể xuất dữ liệu tại `/api/auth/me/data` và xóa tài khoản cùng dữ liệu quiz liên kết tại `DELETE /api/auth/me`. Xem [chính sách vòng đời dữ liệu và hướng dẫn vận hành](docs/privacy-data-lifecycle.md).
+
+## Cấu trúc dự án
+
+```text
+app.py                 Flask app factory và cấu hình
+controllers.py         Page routes, API, xác thực và quyền truy cập
+models.py              SQLite schema, truy vấn và validation
+templates/             Trang Jinja và giao diện HTML
+assets/css/            Stylesheets
+assets/js/             Giao diện tương tác và tìm kiếm
+images/                Ảnh và biểu tượng
+instance/              Database, secret và upload runtime (không commit)
+tests/test_app.py      Kiểm thử tích hợp backend
+docs/architecture.md   Kiến trúc, luồng dữ liệu, bảo mật và giới hạn
+docs/privacy-data-lifecycle.md  Kiểm kê dữ liệu, lưu giữ, truy cập/xóa và sao lưu
+scripts/build_static.py Export templates/assets cho static hosting
+```
+
+## Triển khai
+
+`python app.py` chạy Flask development server trên `127.0.0.1`; không dùng server này cho production. Cần một host hỗ trợ Python/WSGI, cấu hình secret và admin riêng, cùng persistent storage cho SQLite và upload. Workflow Azure Static Web Apps chỉ xuất bản file tĩnh; nó không chạy Flask API, đăng nhập, database hay upload backend. Workflow vẫn export và kiểm tra bundle; bước deploy/đóng preview chỉ chạy khi repository có secret `AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_PLANT_05620E700`, nếu thiếu thì GitHub Actions ghi warning và bỏ qua deploy thay vì đánh dấu job thất bại.
+
+## Tài liệu
+
+- [Kiến trúc và thuyết minh dự án](docs/architecture.md)
+- [Bảo mật và quyền riêng tư](docs/security-privacy.md)
+- [Vòng đời dữ liệu cá nhân](docs/privacy-data-lifecycle.md)
+- [Quy tắc ứng xử](CODE_OF_CONDUCT.md)
+- [Giấy phép](LICENSE)

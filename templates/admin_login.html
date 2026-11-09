@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng nhập quản trị | Eduhub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="grid min-h-screen place-items-center bg-slate-100 px-4 text-slate-800">
+    <main class="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl shadow-slate-200/70 sm:p-10">
+        <a href="{{ url_for('pages.homepage') }}" class="text-sm font-semibold text-emerald-700">← Về trang chủ</a>
+        <p class="mb-2 mt-8 text-xs font-bold uppercase tracking-[0.2em] text-emerald-700">Eduhub Admin</p>
+        <h1 class="text-3xl font-extrabold tracking-tight">Đăng nhập quản trị</h1>
+        <p class="mt-2 text-sm leading-6 text-slate-500">Đăng nhập bằng tài khoản admin để quản lý thư viện sách.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="mt-5 rounded-xl px-4 py-3 text-sm {{ 'bg-rose-50 text-rose-700' if category == 'error' else 'bg-emerald-50 text-emerald-700' }}"
+                    role="alert">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('pages.login_page') }}" class="mt-7 space-y-5">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+            <div>
+                <label for="email" class="mb-2 block text-sm font-semibold">Email</label>
+                <input id="email" name="email" type="email" autocomplete="username" required
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100">
+            </div>
+            <div>
+                <label for="password" class="mb-2 block text-sm font-semibold">Mật khẩu</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required
+                    class="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100">
+            </div>
+            <button type="submit"
+                class="w-full rounded-xl bg-emerald-600 px-5 py-3 font-bold text-white transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200">
+                Đăng nhập
+            </button>
+        </form>
+    </main>
+</body>
+</html>

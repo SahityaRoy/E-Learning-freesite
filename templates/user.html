@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Không gian học tập | E-Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <script src="assets/js/auth.js" defer></script>
+</head>
+<body class="dashboard" data-protected-role="user">
+    <header class="dashboard-header">
+        <a class="brand" href="index.html"><img src="images/logo.svg" alt=""><span>EDUHUB</span></a>
+        <div class="header-actions">
+            <div class="header-account">
+                <span class="account-avatar" data-account-avatar aria-hidden="true">U</span>
+                <span class="account-info"><span class="account-name" data-account-name></span><span class="header-email" data-account-email></span></span>
+            </div>
+            <button class="text-button" id="logout-button" type="button">Đăng xuất</button>
+        </div>
+    </header>
+    <main class="dashboard-main">
+        <p class="eyebrow">KHÔNG GIAN HỌC TẬP</p>
+        <h1>Xin chào, <span data-account-name></span></h1>
+        <p class="dashboard-lead">Tiếp tục khám phá tài nguyên và khóa học miễn phí trên Eduhub.</p>
+        <div class="dashboard-grid">
+            <a class="dashboard-item" href="index.html#course"><h2>Khám phá khóa học</h2><p>Xem danh sách khóa học và chọn nội dung bạn muốn học tiếp.</p></a>
+            <a class="dashboard-item" href="blog.html"><h2>Đọc bài viết</h2><p>Cập nhật kiến thức lập trình và công nghệ từ cộng đồng.</p></a>
+            <a class="dashboard-item" href="https://github.com/EbookFoundation/free-programming-books" target="_blank" rel="noreferrer"><h2>Thư viện sách</h2><p>Truy cập bộ sưu tập sách lập trình miễn phí.</p></a>
+            <a class="dashboard-item" href="index.html"><h2>Về trang chủ</h2><p>Quay lại Eduhub để tiếp tục khám phá.</p></a>
+        </div>
+    </main>
+</body>
+</html>

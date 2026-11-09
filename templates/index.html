@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>E-Learning - Học lập trình miễn phí</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/site-header.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href='images/favicon.png' type="image/png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+
+    <!-- ** -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">
+        </div>
+    </div>
+
+
+
+    <!--
+    ===================
+        NAVIGATION
+    ===================
+    -->
+    <header class="site-header">
+        <div class="site-header__inner">
+            <a class="site-brand" href="/" aria-label="Eduhub, trang chủ">
+                <img src="images/logo.svg" alt="">
+                <span>EDUHUB<small>HỌC LẬP TRÌNH MỖI NGÀY</small></span>
+            </a>
+
+            <div class="site-header__discovery">
+                <button class="category-trigger" id="category-toggle" type="button" aria-expanded="false" aria-controls="category-menu">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+                    <span data-i18n="nav.categories">Danh mục</span>
+                    <span class="category-chevron" aria-hidden="true">⌄</span>
+                </button>
+                <form class="site-search" id="site-search-form" role="search" autocomplete="off">
+                    <button class="site-search__submit" type="submit" aria-label="Tìm kiếm" data-i18n-aria-label="search.submit">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+                    </button>
+                    <input id="site-search-input" type="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="site-search-results" aria-label="Tìm khóa học, sách và quiz" data-i18n-aria-label="search.label" data-i18n-placeholder="search.placeholder" placeholder="Tìm khóa học, sách, bài tập...">
+                    <div class="site-search__results" id="site-search-results" role="listbox" aria-label="Kết quả tìm kiếm" hidden></div>
+                </form>
+            </div>
+
+            <div class="site-header__actions">
+                <a class="register-link" id="header-register" href="auth.html?view=register" data-i18n="nav.signup">Đăng ký</a>
+                <a class="login-link" id="home-account-link" href="auth.html">
+                    <span id="home-account-avatar" class="home-account-avatar" aria-hidden="true" hidden></span>
+                    <span id="home-account-label" data-i18n="nav.login">Đăng nhập</span>
+                </a>
+                <button id="langToggle" class="lang-toggle" type="button" aria-label="Switch to English">EN</button>
+            </div>
+        </div>
+
+        <section class="category-menu" id="category-menu" aria-label="Danh mục học tập" hidden>
+            <div class="category-menu__rail">
+                <p class="menu-kicker">KHÁM PHÁ EDUHUB</p>
+                <a href="#course"><span>01</span><span data-i18n="nav.courses">Khóa học</span><b aria-hidden="true">›</b></a>
+                <a href="#books"><span>02</span><span data-i18n="nav.books">Sách</span><b aria-hidden="true">›</b></a>
+                <a href="quiz.html"><span>03</span><span data-i18n="nav.quiz">Quiz</span><b aria-hidden="true">›</b></a>
+                <a href="./blog.html"><span>04</span><span data-i18n="nav.articles">Bài viết</span><b aria-hidden="true">›</b></a>
+            </div>
+            <div class="category-menu__content">
+                <div class="menu-heading"><div><p class="menu-kicker">BẮT ĐẦU TỪ ĐÂU?</p><h2 data-i18n="menu.heading">Chọn cách học phù hợp</h2></div><a href="#course" data-i18n="menu.allCourses">Xem tất cả <span aria-hidden="true">↗</span></a></div>
+                <div class="menu-link-grid">
+                    <a href="#course"><small>01 / VIDEO</small><strong data-i18n="menu.recorded">Khóa học quay sẵn</strong><span data-i18n="menu.recordedText">Học theo nhịp độ của riêng bạn.</span></a>
+                    <a href="#start-learning"><small>02 / LIVE</small><strong data-i18n="menu.zoom">Khóa học qua Zoom</strong><span data-i18n="menu.zoomText">Bắt đầu với lộ trình học có hướng dẫn.</span></a>
+                    <a href="#books"><small>03 / ĐỌC</small><strong data-i18n="nav.books">Sách</strong><span data-i18n="menu.booksText">Tài liệu được tuyển chọn cho lập trình viên.</span></a>
+                    <a href="quiz.html"><small>04 / LUYỆN TẬP</small><strong data-i18n="nav.quiz">Quiz</strong><span data-i18n="menu.quizText">Thử sức với các bộ câu hỏi lập trình.</span></a>
+                </div>
+            </div>
+        </section>
+    </header>
+    <!--
+    ==============
+        HOME
+    ==============
+    -->
+    <section class="header-section home-hero">
+        <div id="course-carousel" class="course-carousel" role="region" aria-roledescription="carousel"
+            aria-label="Khóa học nổi bật" data-i18n-aria-label="carousel.label">
+            <div class="course-carousel__slides">
+                <article class="course-slide course-slide--java is-active" role="group"
+                    aria-roledescription="slide" aria-label="1 / 3" aria-hidden="false">
+                    <div class="course-slide__content">
+                        <span class="course-slide__eyebrow" data-i18n="carousel.javaEyebrow">LẬP TRÌNH JAVA</span>
+                        <h1 data-i18n="carousel.javaTitle">Chinh phục Java từ những bước đầu tiên</h1>
+                        <p data-i18n="carousel.javaText">Học tư duy hướng đối tượng và xây dựng nền tảng vững chắc cho ứng dụng thực tế.</p>
+                        <a class="course-slide__cta" href="#course">
+                            <span data-i18n="carousel.cta">Khám phá ngay</span>
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <img class="course-slide__image banner-bg"
+                        src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&amp;fit=crop&amp;q=80&amp;w=1920"
+                        srcset="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&amp;fit=crop&amp;q=80&amp;w=1920 1920w, https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&amp;fit=crop&amp;q=80&amp;w=2560 2560w"
+                        sizes="100vw" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
+                </article>
+                <article class="course-slide course-slide--python" role="group"
+                    aria-roledescription="slide" aria-label="2 / 3" aria-hidden="true">
+                    <div class="course-slide__content">
+                        <span class="course-slide__eyebrow" data-i18n="carousel.pythonEyebrow">LẬP TRÌNH PYTHON</span>
+                        <h2 data-i18n="carousel.pythonTitle">Khám phá Python qua những dự án thực tế</h2>
+                        <p data-i18n="carousel.pythonText">Học Python với các bài thực hành trực quan, từ nền tảng đến ứng dụng thực tế.</p>
+                        <a class="course-slide__cta" href="#course">
+                            <span data-i18n="carousel.cta">Khám phá ngay</span>
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <img class="course-slide__image banner-bg"
+                        src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&amp;fit=crop&amp;q=80&amp;w=1920"
+                        srcset="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&amp;fit=crop&amp;q=80&amp;w=1920 1920w, https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&amp;fit=crop&amp;q=80&amp;w=2560 2560w"
+                        sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+                </article>
+                <article class="course-slide course-slide--cpp" role="group"
+                    aria-roledescription="slide" aria-label="3 / 3" aria-hidden="true">
+                    <div class="course-slide__content">
+                        <span class="course-slide__eyebrow" data-i18n="carousel.cppEyebrow">LẬP TRÌNH C++</span>
+                        <h2 data-i18n="carousel.cppTitle">Bắt đầu hành trình lập trình của bạn</h2>
+                        <p data-i18n="carousel.cppText">Nắm vững nền tảng C++ qua những bài học dễ hiểu và thực hành từng bước.</p>
+                        <a class="course-slide__cta" href="#course">
+                            <span data-i18n="carousel.cta">Khám phá ngay</span>
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <img class="course-slide__image banner-bg"
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;q=80&amp;w=1920"
+                        srcset="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;q=80&amp;w=1920 1920w, https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;q=80&amp;w=2560 2560w"
+                        sizes="100vw" alt="" aria-hidden="true" loading="lazy">
+                </article>
+            </div>
+            <button class="course-carousel__arrow course-carousel__arrow--prev" type="button"
+                aria-label="Trang trước" data-i18n-aria-label="carousel.previous">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="m15 18-6-6 6-6"></path>
+                </svg>
+            </button>
+            <button class="course-carousel__arrow course-carousel__arrow--next" type="button"
+                aria-label="Trang tiếp theo" data-i18n-aria-label="carousel.next">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </button>
+            <div class="course-carousel__indicators" role="group" aria-label="Chọn khóa học"
+                data-i18n-aria-label="carousel.indicators">
+                <button class="course-carousel__indicator is-active" type="button" aria-label="Đến khóa học Java"
+                    aria-pressed="true" data-slide-to="0" data-i18n-aria-label="carousel.goToJava"></button>
+                <button class="course-carousel__indicator" type="button" aria-label="Đến khóa học Python"
+                    aria-pressed="false" data-slide-to="1" data-i18n-aria-label="carousel.goToPython"></button>
+                <button class="course-carousel__indicator" type="button" aria-label="Đến khóa học C++"
+                    aria-pressed="false" data-slide-to="2" data-i18n-aria-label="carousel.goToCpp"></button>
+            </div>
+        </div>
+    </section>
+    <section class="books-section sec-padding" id="books">
+        <div class="container">
+            <div class="books-heading">
+                <p class="books-eyebrow" data-i18n="books.eyebrow">GÓC SÁCH LẬP TRÌNH</p>
+                <h2 class="text-center title-text" data-i18n="books.title">Sách hay cho hành trình lập trình</h2>
+                <p class="books-intro" data-i18n="books.subtitle">Tìm cuốn sách phù hợp và bắt đầu học theo cách của bạn.</p>
+            </div>
+            <div class="books-toolbar">
+                <label class="sr-only" for="book-search" data-i18n="books.searchLabel">Tìm sách theo tên hoặc tác giả</label>
+                <input id="book-search" class="book-search" type="search"
+                    placeholder="Tìm theo tên sách hoặc tác giả..." autocomplete="off">
+                <div class="book-filters" role="group" aria-label="Lọc sách theo danh mục">
+                    <button class="book-filter is-active" type="button" data-book-filter="all"
+                        aria-pressed="true" data-i18n="books.filterAll">Tất cả</button>
+                    <button class="book-filter" type="button" data-book-filter="python"
+                        aria-pressed="false" data-i18n="books.filterPython">Python</button>
+                    <button class="book-filter" type="button" data-book-filter="java"
+                        aria-pressed="false" data-i18n="books.filterJava">Java</button>
+                    <button class="book-filter" type="button" data-book-filter="web"
+                        aria-pressed="false" data-i18n="books.filterWeb">Web</button>
+                    <button class="book-filter" type="button" data-book-filter="cs"
+                        aria-pressed="false" data-i18n="books.filterCs">Khoa học máy tính</button>
+                </div>
+            </div>
+            <p class="book-results" id="book-results" aria-live="polite" {% if not books %}hidden{% endif %}></p>
+            <div class="book-grid" id="book-grid">
+                {% for book in books %}
+                    {% set category = book["category"]|lower %}
+                    {% if "python" in category %}
+                        {% set filter_category = "python" %}
+                    {% elif "java" in category %}
+                        {% set filter_category = "java" %}
+                    {% elif "web" in category %}
+                        {% set filter_category = "web" %}
+                    {% else %}
+                        {% set filter_category = "cs" %}
+                    {% endif %}
+                    <article class="book-card" data-category="{{ filter_category }}"
+                        data-title="{{ book['title'] }}" data-author="{{ book['author'] }}">
+                        {% if book["cover_image"].startswith('/static/uploads/books/') %}
+                            <img class="book-cover-image" src="{{ book['cover_image'] }}"
+                                alt="Bìa sách {{ book['title'] }}" loading="lazy">
+                        {% else %}
+                            <div class="book-cover cover-clean-code" role="img" aria-label="Chưa có ảnh bìa sách">
+                                <span class="cover-kicker">{{ book["category"] }}</span>
+                                <span class="cover-title">{{ book["title"] }}</span>
+                                <span class="cover-author">{{ book["author"] }}</span>
+                            </div>
+                        {% endif %}
+                        <div class="book-info">
+                            <span class="book-category">{{ book["category"] }}</span>
+                            <h3>{{ book["title"] }}</h3>
+                            <p class="book-author">Tác giả: {{ book["author"] }}</p>
+                            {% if book["description"] %}
+                                <p class="book-description">{{ book["description"][:80] }}{% if book["description"]|length > 80 %}...{% endif %}</p>
+                            {% endif %}
+                            <a class="book-action" href="{{ url_for('pages.book_detail_page', book_id=book['id']) }}">Chi tiết sách <span aria-hidden="true">→</span></a>
+                        </div>
+                    </article>
+                {% else %}
+                    <p class="books-library-empty">Chưa có cuốn sách nào trong thư viện.</p>
+                {% endfor %}
+            </div>
+            <button class="library-more-button" id="books-show-more" type="button" aria-controls="book-grid" aria-expanded="false" hidden>Xem thêm sách</button>
+            <p class="book-empty" id="book-empty" hidden>Không tìm thấy sách phù hợp. Hãy thử từ khóa hoặc danh mục khác.</p>
+        </div>
+    </section>
+    <!--
+    ==============
+        Cards
+    ==============
+    -->
+    <section class="cards-section sec-padding">
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="cards-inner">
+                        <img src="images/icon/book.png" alt="" class="img-fluid">
+                        <h5>10+ chủ đề</h5>
+                        <p>Công nghệ cho mọi người</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="cards-inner">
+                        <img src="images/icon/students-icon-2.png" alt="" class="img-fluid">
+                        <h5>750+ học viên</h5>
+                        <p>Học lập trình</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="cards-inner">
+                        <img src="images/icon/paper.png" alt="" class="img-fluid">
+                        <h5>9K+ lượt kiểm tra</h5>
+                        <p>Học mọi điều bạn muốn</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 col-sm-6">
+                    <div class="cards-inner">
+                        <img src="images/icon/student-icon.png" alt="" class="img-fluid">
+                        <h5>760+ học viên</h5>
+                        <p>Học mọi điều bạn muốn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--
+    ==============
+        Course
+    ==============
+    -->
+    <section class="course-section sec-padding" id="course">
+        <div class="container">
+            <h2 class="text-center title-text" data-i18n="courses.title">Các khóa học trực tuyến</h2>
+            <div class="card-deck">
+                <div class="card">
+                    <img src="images/picture/card-1.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title" data-i18n="course.cppTitle">C++ từ cơ bản đến nâng cao</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text" data-i18n="course.cppText">Bắt đầu học lập trình C++</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/picture/card-2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">JAVA</h5>
+                        <!-- <p class="card-text">Kickstart your journey in java</p> -->
+                        <p class="card-text">Khởi đầu hành trình Java của bạn</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=WOUpjal8ee4&list=PLsyeobzWxl7oZ-fxDYkOToURHhMuWD1BK">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+                                <!--<h6>Start 20  April, 2021</h6>-->
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/picture/card-3.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Lập trình C</h5>
+                        <!-- <p class="card-text">Kickstart you coding journey</p> -->
+                        <p class="card-text">Khởi đầu hành trình lập trình với C</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=MoqYPc43ssk&list=PLXthElPLs7ZaGXGI-_ToQ670nr1RAtjRB">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="library-more-button" id="courses-show-more" type="button" aria-controls="course-catalog" aria-expanded="false" hidden>Xem thêm khóa học</button>
+        </div>
+    </section>
+
+    <section class="course-section sec-padding" id="course">
+        <div class="container">
+            <div class="card-deck">
+                <div class="card">
+                    <img src="images/picture/card-4.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">Lập trình Python</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Bắt đầu học lập trình Python</p>
+                        <a class="nav-link nav-btn" href="https://www.youtube.com/watch?v=kqtD5dpn9C8">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-5.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">Nền tảng Django</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Nắm vững kỹ năng Django</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=UmljXZIypDc&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-6.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">HTML</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Học HTML để tạo những trang web ấn tượng</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=dD2EISBDjWM&list=PLr6-GrHUlVf_ZNmuQSXdS197Oyr1L9sPB">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="course-section sec-padding" id="course">
+        <div class="container">
+            <div class="card-deck">
+                <div class="card">
+                    <img src="images/picture/card-7.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">CSS</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Thiết kế trang web ấn tượng với CSS</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=qKoajPPWpmo&list=PLr6-GrHUlVf8JIgLcu3sHigvQjTw_aC9C">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-8.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">Javascript</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Khởi đầu hành trình lập trình JavaScript</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=2md4HQNRqJA&list=PLRAV69dS1uWSxUIk5o3vQY2-_VKsOpXLD">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-9.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">React JS</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Tìm hiểu thư viện giao diện mạnh mẽ cho web</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=QFaFIcGhPoM&list=PLC3y8-rFHvwgg3vaYJgHGnModB54rxOk3">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="course-section sec-padding" id="course">
+        <div class="container">
+            <div class="card-deck">
+
+
+                <div class="card">
+                    <img src="images/picture/card-11.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">Kotlin</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Khởi đầu hành trình lập trình Kotlin</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=VEqhzCFmEQI&list=PLlxmoA0rQ-LwgK1JsnMsakYNACYGa1cjR">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-10.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">Angular</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Tìm hiểu nền tảng phát triển của Google</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=0eWrpsCLMJQ&list=PLC3y8-rFHvwhBRAgFinJR8KHIrCdTkZcZ">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <img src="images/picture/card-12.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">C++ From Basic To advance</h5> -->
+                        <h5 class="card-title">SQL</h5>
+                        <!-- <p class="card-text">Geeting started with CPP</p> -->
+                        <p class="card-text">Bắt đầu tìm hiểu về cơ sở dữ liệu</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=7GVFYt6_ZFM&list=PL08903FB7ACA1C2FB">Học ngay</a>
+                        <!--<button class="buy-btn" herf "https://www.youtube.com/watch?v=z9bZufPHFLU&list=PLfqMhTWNBTe0b2nM6JHVCnAkhQRGiZMSJ"></button>Enroll</button> -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!--        new / latest courses -->
+    <section class="course-section sec-padding" id="course">
+        <div class="container">
+            <div class="card-deck">
+
+                <div class="card">
+                    <img src="images/picture/card-14.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Flutter</h5>
+                        <p class="card-text">Khởi đầu hành trình lập trình Flutter</p>
+                        <a class="nav-link nav-btn" href="https://www.youtube.com/watch?v=VPvVD8t02U8">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/picture/card-13.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PyTorch</h5>
+                        <p class="card-text">Khám phá học máy với PyTorch</p>
+                        <a class="nav-link nav-btn" href="https://www.youtube.com/watch?v=V_xro1bcAuA">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-15.jfif" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PHP</h5>
+                        <p class="card-text">Tạo website tương tác với PHP</p>
+                        <a class="nav-link nav-btn"
+                            href="https://www.youtube.com/watch?v=7GVFYt6_ZFM&list=PL08903FB7ACA1C2FB">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="course-section sec-padding" id="course">
+        <div class="container">
+            <div class="card-deck">
+                <div class="card">
+                    <img src="images/picture/card-16.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nest.Js</h5>
+                        <p class="card-text">Tạo REST API</p>
+                        <a class="nav-link nav-btn" href="https://www.youtube.com/watch?v=GHTA143_b-s">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-17.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Tailwind CSS</h5>
+                        <p class="card-text">Thiết kế web tương thích với Tailwind CSS</p>
+                        <a class="nav-link nav-btn" href="https://www.youtube.com/watch?v=lZp4salRFFc">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="images/picture/card-18.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Bootstrap</h5>
+                        <p class="card-text">Tạo website tương tác với Bootstrap</p>
+                        <a class="nav-link nav-btn" href="https://www.youtube.com/watch?v=-qfEOE4vtxE">Học ngay</a>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <div class="date d-flex">
+                                <img src="images/icon/calendar.png" alt="">
+
+                            </div>
+                            <div class="date d-flex">
+                                <img src="images/icon/people.png" alt="">
+                                <!-- <h6>Avilable</h6> -->
+                                <h6>Sẵn sàng</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--
+    ==============
+        Video
+    ==============
+    -->
+    <section class="video-section sec-padding" id="start-learning">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 d-flex align-items-center">
+                    <div class="video-details">
+                        <!-- <h2>Helping people grow their careers, every day!</h2> -->
+                        <h2>Giúp mọi người phát triển sự nghiệp mỗi ngày!</h2>
+                        <!-- <p>If you want to start yout career in programming then this is for you can learn programming free of cost so stay tuned with us and if you have any quary then register yorself.</p> -->
+                        <p>Nếu bạn muốn bắt đầu sự nghiệp lập trình, đây là nơi dành cho bạn. Bạn có thể học lập trình
+                            hoàn toàn miễn phí. Hãy đồng hành cùng chúng tôi và đăng ký nếu bạn có câu hỏi.
+                        </p>
+                        <a class="nav-link nav-btn get-btn" href="https://www.youtube.com/channel/UCqXTIC8hmyigUtYGVykQsug">
+                            Bắt đầu học</a>
+                    </div>
+                </div>
+                <div class="col-md-6 ml-auto">
+                    <div class="video-image">
+                        <img src="images/picture/stuednt-video.jpg" alt="" class="img-fluid">
+                        <a href="https://www.youtube.com/watch?v=k_elulhUSbQ&t=4s" target="_blank">
+                            <div class="video-icon">
+                                <img src="images/icon/play.png" alt="">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--
+    ==============
+        Testimonial
+    ==============
+    -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-center m-auto">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel -->
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="img-box"><img src="images/icons8-person-male-skin-type-4-80.png" alt=""></div>
+                            <p class="testimonial">"Một lập trình viên giỏi không chỉ cần lập trình tốt mà còn phải
+                                luôn cập nhật những xu hướng mới trong ngành. Chỉ học viết mã thôi sẽ không giúp bạn
+                                tạo được lợi thế lớn so với những người khác."</p>
+                            <p class="overview"><b>-Sahitya Roy</b>, Chủ website</p>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="img-box"><img src="images/businesswoman.png" alt=""></div>
+                            <p class="testimonial">"Phần lớn lập trình viên giỏi lập trình không phải vì mong được trả
+                                công hay được công chúng tung hô, mà vì lập trình mang lại niềm vui."</p>
+                            <p class="overview"><b>-Priya Chandak</b>, Chủ website</p>
+                        </div>
+                        <!-- <div class="item carousel-item">
+                            <div class="img-box"><img src="https://i.ibb.co/Trv7hDv/img3.jpg" alt=""></div>
+                            <p class="testimonial">Phasellus vitae suscipit justo. Mauris pharetra feugiat ante id lacinia. Etiam faucibus mauris id tempor egestas. Duis luctus turpis at accumsan tincidunt. Phasellus risus risus, volutpat vel tellus ac, tincidunt fringilla massa. Etiam hendrerit dolor eget rutrum.</p>
+                            <p class="overview"><b>Hellen Wright</b>, Athelete</p>
+                        </div> -->
+                    </div>
+                    <!-- Carousel Controls -->
+                    <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    ==============
+        Subscribe
+    ==============
+    -->
+    <section class="subscribe-section" id="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-9 mx-auto">
+                    <div class="subscribe-inner text-center">
+                        <h2>Bạn muốn trở thành giảng viên?</h2>
+                        <a href="https://forms.gle/KNK269sXL7eEBtBe8" class="get-btn">Tham gia cùng chúng tôi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--
+    ==============
+        Footer
+    ==============
+    -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 ml-auto">
+                    <div class="footer-logo">
+                        <img src="./images/logo.svg">
+                    </div>
+                    <div class="footer-p">
+                        <h3>Về chúng tôi</h3>
+                        <p>Mọi người ở mọi lứa tuổi trên khắp thế giới đang cải thiện cuộc sống cùng chúng tôi.</p>
+                    </div>
+                </div>
+                <div class="col-lg-5 ml-auto">
+                    <div class="footer-inner d-flex justify-content-between">
+                        <div class="footer-list-item">
+                            <ul class="list-unstyled">
+                                <h3>Khóa học nổi bật</h3>
+                                <li><a href="https://drive.google.com/drive/folders/1KRM9CsEGBeV9Es7GI43IISwooOG9rDx1">Học
+                                        máy</a></li>
+                                <li><a
+                                        href="https://www.youtube.com/watch?v=TeZdo8mx0gc&list=PLu0W_9lII9agiCUZYRsvtGTXdxkzPyItg&index=2">Thiết
+                                        kế web</a></li>
+                                <li><a
+                                        href="https://drive.google.com/drive/u/0/folders/1a_4t8cBo2fTvSPdnXBazP6_16OuvrKFq">Java
+                                        nâng cao</a></li>
+                                <li><a
+                                        href="https://classroom.udacity.com/courses/ud851/lessons/93affc67-3f0b-4f9b-b3a4-a7a26f241a86/concepts/0eb4fac2-9d1b-477d-bafb-1743f715d4a5">Phát
+                                        triển Android</a></li>
+                            </ul>
+                            <h3 class="white-text">Kết nối với chúng tôi</h3>
+                            <ul class="social-icons">
+                                <li class="fill-back"><a href="https://twitter.com/SahityaRoy07" target="_blank"><span
+                                            class="fab fa-twitter"></span></a></li>
+                                <li class="fill-back"><a href="https://github.com/SahityaRoy" target="_blank"><span
+                                            class="fab fa-github"></span></a></li>
+                                <li class="fill-back"><a href="https://www.instagram.com/sahitya_roy_"
+                                        target="_blank"><span class="fab fa-instagram"></a></li>
+                                <li class="fill-back"><a href="https://wa.me/qr/I4X3KF5ZBERSA1" target="_blank"><span
+                                            class="fab fa-whatsapp"></a></li>
+                                <li class="fill-back"><a href="https://www.linkedin.com/in/sahitya-roy-244b941a2/"
+                                        target="_blank"><span class="fab fa-linkedin"></a></li>
+                                <li class="fill-back"><a href="https://www.youtube.com/channel/UCqXTIC8hmyigUtYGVykQsug"
+                                        target="_blank"><span class="fab fa-youtube"></a></li>
+                                <!-- <li><a class="grey-text text-lighten-3" href="index2.html" target="_blank">Contributor</a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--- <div class="footer-list-item">
+                            <ul class="list-unstyled">
+                                <li>Terms</li>
+                                <li><a href="#">Graphic Design</a></li>
+                                <li><a href="#">Web Design</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Marketing</a></li>
+                                <li><a href="#">Engineering</a></li>
+                            </ul>
+                        </div>
+                    -->
+                <div class="col-lg-3 ml-auto">
+                    <div class="footer-list-item">
+                        <ul class="list-unstyled">
+                            <h3>Liên kết thêm</h3>
+                            <li><a href="index2.html">Cộng tác viên</a></li>
+                            <li><a href="https://github.com/EbookFoundation/free-programming-books">Sách</a></li>
+                            <li><a href="https://sahityaroy.hashnode.dev/">Bài viết</a></li>
+                            <li><a href="https://forms.gle/XRqaRiaLdNxh7Ykk6">Đăng ký</a></li>
+                            <li><a href="https://www.buymeacoffee.com/sahityaroy">Ủng hộ chúng tôi</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright text-center">
+            <h5>Bản quyền © 2021 <span>SahityaRoy</span></h5>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="dang-nhap" tabindex="-1" role="dialog" aria-labelledby="dangNhapLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dangNhapLabel">Đăng nhập</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email-dang-nhap">Địa chỉ email</label>
+                            <input type="email" class="form-control" id="email-dang-nhap" placeholder="Nhập email của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="mat-khau-dang-nhap">Mật khẩu</label>
+                            <input type="password" class="form-control" id="mat-khau-dang-nhap" placeholder="Nhập mật khẩu">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="get-btn">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" title="Lên đầu trang"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="assets/js/auth.js" defer></script>
+    <script src="assets/js/site-search.js" defer></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/courses.js"></script>
+    <script>
+        $('.social-icons li').click(function () {
+            $(this).toggleClass("shadow").siblings();
+            $(this).toggleClass("fill-color").siblings();
+            $(this).toggleClass("fill-back").siblings();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+        function addDarkmodeWidget() {
+
+            new Darkmode({
+                bottom: '687px',
+                time: '0.5s',
+                label: '🌓'
+            }).showWidget();
+
+        }
+
+        window.addEventListener('load', addDarkmodeWidget);
+    </script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("navbarNav");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(window).load(function () { // makes sure the whole site is loaded
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
+            $('body').delay(50).css({
+                'overflow': 'visible'
+            });
+        })
+    </script>
+</body>
+
+
+</html>

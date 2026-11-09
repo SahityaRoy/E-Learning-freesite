@@ -1,0 +1,155 @@
+.study-timer {
+  position: fixed;
+  top: 86px;
+  right: max(12px, calc((100vw - 1240px) / 2));
+  z-index: 1028;
+  display: flex;
+  min-height: 56px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid #d7e7dc;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(31, 66, 45, 0.12);
+  color: #24483a;
+  font-family: "Poppins", sans-serif;
+}
+
+.study-timer-icon {
+  flex: 0 0 auto;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.study-timer-readout {
+  display: grid;
+  gap: 1px;
+  min-width: 92px;
+}
+
+.study-timer-label {
+  color: #52685b;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.study-timer-value {
+  color: #203b2d;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.study-timer-toggle {
+  min-height: 34px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 5px;
+  background: #21b573;
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.study-timer-toggle:hover {
+  background: #1d9660;
+}
+
+.study-timer-toggle:focus-visible {
+  outline: 3px solid #84d8ad;
+  outline-offset: 2px;
+}
+
+.study-timer-action,
+.study-timer-show {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #d7e7dc;
+  border-radius: 5px;
+  background: #fff;
+  color: #315a43;
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.study-timer-action:hover,
+.study-timer-show:hover {
+  background: #eef8f1;
+}
+
+.study-timer-action:focus-visible,
+.study-timer-show:focus-visible {
+  outline: 3px solid #84d8ad;
+  outline-offset: 2px;
+}
+
+.study-timer-show[hidden] {
+  display: none;
+}
+
+.study-timer.is-hidden {
+  min-height: 0;
+  padding: 5px;
+}
+
+.study-timer.is-hidden > :not(.study-timer-show) {
+  display: none;
+}
+
+.study-timer-show {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: #fff;
+  font-size: 18px;
+}
+
+.study-timer.is-paused .study-timer-value {
+  color: #65756b;
+}
+
+@media (max-width: 575px) {
+  .study-timer {
+    top: 82px;
+    right: 10px;
+    min-height: 48px;
+    gap: 7px;
+    padding: 6px 8px;
+  }
+
+  .study-timer-readout {
+    min-width: 78px;
+  }
+
+  .study-timer-label {
+    font-size: 10px;
+  }
+
+  .study-timer-value {
+    font-size: 15px;
+  }
+
+  .study-timer-toggle {
+    min-height: 31px;
+    padding: 0 8px;
+    font-size: 11px;
+  }
+
+  .study-timer-action {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+}

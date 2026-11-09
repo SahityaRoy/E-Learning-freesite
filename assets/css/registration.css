@@ -1,0 +1,363 @@
+.registration-modal[hidden],
+.registration-modal [hidden] {
+  display: none !important;
+}
+
+.registration-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1055;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.registration-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(19, 39, 28, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.registration-panel {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 460px);
+  max-height: min(92vh, 820px);
+  overflow-y: auto;
+  padding: 34px 36px 26px;
+  border: 1px solid #deebe1;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgba(15, 37, 24, 0.25);
+  color: #23382b;
+}
+
+.registration-close {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: #597063;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.registration-close:hover {
+  background: #f0f6f2;
+}
+
+.registration-eyebrow {
+  margin: 0 0 8px;
+  color: #218251;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.registration-panel h2 {
+  margin: 0;
+  color: #1e3528;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.registration-intro {
+  margin: 8px 0 20px;
+  color: #64766b;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.registration-socials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.registration-social {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid #dbe6de;
+  border-radius: 5px;
+  background: #fff;
+  color: #344b3d;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.registration-social:hover {
+  border-color: #8eb99c;
+  background: #f7fbf8;
+}
+
+.registration-social .fa-google {
+  color: #4285f4;
+}
+
+.registration-social .fa-facebook-f {
+  color: #1877f2;
+}
+
+.registration-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  color: #87958c;
+  font-size: 11px;
+}
+
+.registration-divider::before,
+.registration-divider::after {
+  height: 1px;
+  flex: 1;
+  background: #e7ede8;
+  content: "";
+}
+
+.registration-field {
+  margin: 0 0 13px;
+}
+
+.registration-field > label {
+  display: block;
+  margin-bottom: 5px;
+  color: #31483a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.registration-field input {
+  display: block;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #d4e0d7;
+  border-radius: 5px;
+  background: #fff;
+  color: #22372a;
+  font: inherit;
+  font-size: 13px;
+}
+
+.registration-field input::placeholder {
+  color: #9aa79f;
+}
+
+.registration-field input:focus {
+  border-color: #27935a;
+  outline: 3px solid rgba(39, 147, 90, 0.14);
+}
+
+.registration-field input[aria-invalid="true"],
+.registration-terms input[aria-invalid="true"] {
+  border-color: #d44747;
+}
+
+.registration-password-wrap {
+  position: relative;
+}
+
+.registration-password-wrap input {
+  padding-right: 44px;
+}
+
+.password-visibility {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #6a7b70;
+  cursor: pointer;
+}
+
+.password-visibility:hover {
+  background: #f0f6f2;
+}
+
+.password-strength {
+  display: grid;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.password-strength-track {
+  display: block;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #e8eee9;
+}
+
+.password-strength-track > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: #c74b4b;
+  transition: width 160ms ease, background-color 160ms ease;
+}
+
+.password-strength-label {
+  color: #718077;
+  font-size: 10px;
+}
+
+.password-strength[data-strength="1"] .password-strength-track > span {
+  width: 25%;
+  background: #cb4b4b;
+}
+
+.password-strength[data-strength="2"] .password-strength-track > span {
+  width: 50%;
+  background: #d68a2f;
+}
+
+.password-strength[data-strength="3"] .password-strength-track > span {
+  width: 75%;
+  background: #74a548;
+}
+
+.password-strength[data-strength="4"] .password-strength-track > span {
+  width: 100%;
+  background: #218251;
+}
+
+.registration-error {
+  display: block;
+  min-height: 0;
+  color: #c73636;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.registration-error:not(:empty) {
+  margin-top: 4px;
+}
+
+.registration-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 2px 0 0;
+  color: #52655a;
+  font-size: 11px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.registration-terms input {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  accent-color: #218251;
+}
+
+.registration-terms-error {
+  margin-bottom: 5px;
+}
+
+.registration-submit {
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #218251;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.registration-submit:hover:not(:disabled) {
+  background: #176b40;
+}
+
+.registration-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.registration-status {
+  margin: 10px 0 0;
+  color: #52655a;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.registration-status.is-error {
+  color: #bd3535;
+}
+
+.registration-status.is-success {
+  color: #1c7a49;
+}
+
+.registration-switch {
+  margin: 18px 0 0;
+  color: #64766b;
+  font-size: 12px;
+  text-align: center;
+}
+
+.registration-switch button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #218251;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.registration-modal :focus-visible {
+  outline: 3px solid #81c99e;
+  outline-offset: 2px;
+}
+
+body.registration-open {
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .registration-modal {
+    padding: 10px;
+  }
+
+  .registration-panel {
+    max-height: 95vh;
+    padding: 30px 22px 22px;
+  }
+
+  .registration-panel h2 {
+    font-size: 24px;
+  }
+
+  .registration-socials {
+    grid-template-columns: 1fr;
+  }
+}

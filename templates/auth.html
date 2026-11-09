@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập | E-Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <script src="assets/js/auth.js" defer></script>
+</head>
+<body>
+    <main class="auth-layout">
+        <section class="welcome-panel" aria-label="E-Learning">
+            <a class="brand" href="index.html">
+                <img src="images/logo.svg" alt="E-Learning">
+                <span>EDUHUB</span>
+            </a>
+            <div class="welcome-copy">
+                <p class="eyebrow">HỌC TẬP THEO CÁCH CỦA BẠN</p>
+                <h1>Mỗi ngày<br>tiến thêm<br><span>một bước.</span></h1>
+                <p>Đăng nhập để tiếp tục hành trình khám phá kiến thức và các khóa học miễn phí.</p>
+            </div>
+            <div class="welcome-mark" aria-hidden="true"><span>e</span></div>
+            <a class="back-link" href="index.html">← Quay lại trang chủ</a>
+        </section>
+
+        <section class="form-panel">
+            <div class="form-wrap">
+                <p class="eyebrow form-eyebrow">TÀI KHOẢN EDUHUB</p>
+                <h2 id="form-title">Chào mừng trở lại</h2>
+                <p class="form-intro" id="form-intro">Đăng nhập để vào không gian học tập của bạn.</p>
+
+                <form id="login-form" novalidate>
+                    <label for="login-email">Email</label>
+                    <input id="login-email" name="email" type="email" autocomplete="username" placeholder="ban@email.com" required>
+                    <label for="login-password">Mật khẩu</label>
+                    <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Nhập mật khẩu" required>
+                    <p class="form-message" id="login-message" role="status" aria-live="polite"></p>
+                    <button class="primary-button" type="submit">Đăng nhập <span aria-hidden="true">→</span></button>
+                </form>
+
+                <form id="register-form" hidden>
+                    <label for="register-name">Họ và tên</label>
+                    <input id="register-name" name="name" type="text" autocomplete="name" placeholder="Tên của bạn" maxlength="80" required>
+                    <label for="register-email">Email</label>
+                    <input id="register-email" name="email" type="email" autocomplete="email" placeholder="ban@email.com" required>
+                    <label for="register-password">Mật khẩu</label>
+                    <input id="register-password" name="password" type="password" autocomplete="new-password" placeholder="Ít nhất 8 ký tự" minlength="8" required>
+                    <p class="form-intro privacy-notice">Eduhub dùng tên và email để quản lý tài khoản; mật khẩu chỉ được lưu dưới dạng mã băm. Bạn có thể xuất dữ liệu tại <code>/api/auth/me/data</code> hoặc yêu cầu xóa bằng cách gọi <code>DELETE /api/auth/me</code>. Khi xóa tài khoản, kết quả quiz liên kết sẽ được gộp thành thống kê tháng không định danh.</p>
+                    <p class="form-message" id="register-message" role="status" aria-live="polite"></p>
+                    <button class="primary-button" type="submit">Tạo tài khoản <span aria-hidden="true">→</span></button>
+                </form>
+
+                <p class="form-footer" id="login-footer">Chưa có tài khoản? <a href="auth.html?view=register">Đăng ký miễn phí</a></p>
+                <p class="form-footer" id="register-footer" hidden>Đã có tài khoản? <a href="auth.html">Đăng nhập</a></p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

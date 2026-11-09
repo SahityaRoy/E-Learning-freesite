@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ course.description or course.title }}">
+  <title>{{ course.title }} | Eduhub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/course-detail-page.css">
+</head>
+<body>
+  <header class="course-header">
+    <a class="brand" href="/#course" aria-label="Eduhub, danh sách khóa học"><span class="brand-mark">E</span><span>EDUHUB<small>HỌC LẬP TRÌNH MỖI NGÀY</small></span></a>
+    <a class="header-link" href="/#course">Tất cả khóa học <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="course-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">KHÓA HỌC LẬP TRÌNH · TỪ CƠ BẢN ĐẾN THỰC HÀNH</p>
+        <h1>{{ course.title }}</h1>
+        <p class="hero-description">{{ course.description or 'Khám phá nội dung, nắm vững kiến thức nền tảng và học theo nhịp độ của riêng bạn.' }}</p>
+        <div class="hero-meta"><span><i aria-hidden="true">01</i> Học qua video</span><span><i aria-hidden="true">02</i> Tự thực hành</span></div>
+        <div class="hero-actions">
+          <a class="primary-action" href="{{ course.course_url }}" target="_blank" rel="noopener noreferrer">Xem khóa học trên YouTube <span aria-hidden="true">↗</span></a>
+          <a class="secondary-action" href="#course-details">Xem nội dung chi tiết <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src="{{ course.image_url if course.image_url and (course.image_url.startswith('http') or course.image_url.startswith('/')) else '/' ~ (course.image_url or 'images/picture/card-1.png') }}" alt="{{ course.title }}" fetchpriority="high">
+        <figcaption><span class="media-mark" aria-hidden="true">↗</span><span><strong>Học theo lộ trình của bạn</strong><small>Mở video bài học khi bạn sẵn sàng</small></span></figcaption>
+      </figure>
+    </section>
+
+    <section class="learning-path" aria-label="Phương pháp học">
+      <div class="path-intro"><p class="eyebrow">CÁCH BẠN HỌC</p><h2>Học từng bước.<br><em>Làm được sản phẩm.</em></h2></div>
+      <article><span>01</span><h3>Hiểu nền tảng</h3><p>Đi qua các khái niệm cốt lõi trước khi bắt tay vào viết mã.</p></article>
+      <article><span>02</span><h3>Tự thực hành</h3><p>Dừng video, thử làm và kiểm tra lại cách giải của bạn.</p></article>
+      <article><span>03</span><h3>Tiếp tục tiến bộ</h3><p>Xem lại bài học và mở rộng kiến thức theo tốc độ phù hợp.</p></article>
+    </section>
+
+    <section class="details-section" id="course-details" aria-labelledby="details-heading">
+      <div class="details-heading"><p class="eyebrow">LỘ TRÌNH HỌC TẬP</p><h2 id="details-heading">Khám phá khóa học</h2><p>Nội dung được quản trị viên cập nhật để bạn biết rõ mình sẽ học gì trước khi bắt đầu.</p></div>
+      <div class="details-copy">{{ course.details or course.description or 'Nội dung chi tiết đang được cập nhật.' }}</div>
+      <a class="details-video-link" href="{{ course.course_url }}" target="_blank" rel="noopener noreferrer">Bắt đầu học trên YouTube <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="course-footer"><a href="/#course">← Quay lại danh sách khóa học</a><span>Eduhub · Học cùng nhau, tiến xa hơn</span></footer>
+</body>
+</html>

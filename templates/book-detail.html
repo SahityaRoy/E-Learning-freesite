@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ book['description'] or book['title'] }}">
+  <title>{{ book['title'] }} | Eduhub Books</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/book-detail.css">
+</head>
+<body>
+  <header class="book-header">
+    <a class="brand" href="/#books" aria-label="Eduhub, quay lại thư viện sách"><span class="brand-mark">E</span><span>EDUHUB<small>GÓC SÁCH LẬP TRÌNH</small></span></a>
+    <a class="header-link" href="/#books">Thư viện sách <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Điều hướng"><a href="/#books">Thư viện</a><span aria-hidden="true">/</span><span>{{ book['category'] }}</span></nav>
+    <section class="book-hero">
+      <div class="book-copy">
+        <p class="eyebrow">ĐỌC ĐỂ HIỂU · THỰC HÀNH ĐỂ NHỚ</p>
+        <span class="category-label">{{ book['category'] }}</span>
+        <h1>{{ book['title'] }}</h1>
+        <p class="book-author">Tác giả <strong>{{ book['author'] }}</strong></p>
+        <p class="book-description">{{ book['description'] or 'Một tài liệu được tuyển chọn cho hành trình học lập trình của bạn.' }}</p>
+        <div class="book-actions">
+          <a class="primary-action" href="{{ book['document_url'] }}" target="_blank" rel="noopener noreferrer">Đọc / Tải tài liệu <span aria-hidden="true">↗</span></a>
+          <a class="secondary-action" href="#book-details">Khám phá nội dung <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="link-note">Tài liệu sẽ mở trong tab mới.</p>
+      </div>
+      <figure class="book-art">
+        {% if book['cover_image'].startswith('/static/uploads/books/') %}
+          <img src="{{ book['cover_image'] }}" alt="Bìa sách {{ book['title'] }}" fetchpriority="high">
+        {% else %}
+          <div class="cover-placeholder"><span>{{ book['category'] }}</span><strong>{{ book['title'] }}</strong><small>{{ book['author'] }}</small></div>
+        {% endif %}
+        <figcaption><span class="art-index">EDUHUB<br>READING<br>ROOM</span><span>01 <i></i> TUYỂN CHỌN CHO BẠN</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="reading-path" aria-label="Gợi ý cách đọc">
+      <div class="path-title"><p class="eyebrow">CÁCH BẠN ĐỌC</p><h2>Đọc có mục tiêu.<br><em>Học có chiều sâu.</em></h2></div>
+      <article><span>01</span><h3>Nắm ý chính</h3><p>Bắt đầu với khái niệm cốt lõi và ghi lại điều bạn muốn hiểu rõ hơn.</p></article>
+      <article><span>02</span><h3>Thử ngay</h3><p>Áp dụng kiến thức vào ví dụ nhỏ thay vì chỉ đọc lướt qua.</p></article>
+      <article><span>03</span><h3>Quay lại tra cứu</h3><p>Dùng tài liệu như người bạn đồng hành khi xây dựng dự án.</p></article>
+    </section>
+
+    <section class="details-section" id="book-details" aria-labelledby="details-heading">
+      <div class="details-heading"><p class="eyebrow">BÊN TRONG CUỐN SÁCH</p><h2 id="details-heading">Tổng quan nội dung</h2><p>Thông tin được cập nhật bởi đội ngũ Eduhub.</p></div>
+      <div class="details-copy">{{ book['details'] or book['description'] or 'Nội dung chi tiết đang được cập nhật.' }}</div>
+      <a class="details-link" href="{{ book['document_url'] }}" target="_blank" rel="noopener noreferrer">Mở tài liệu <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="book-footer"><a href="/#books">← Quay lại thư viện sách</a><span>Eduhub · Tri thức mở lối tương lai</span></footer>
+</body>
+</html>
